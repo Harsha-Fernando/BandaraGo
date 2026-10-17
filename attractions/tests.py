@@ -130,6 +130,10 @@ class DetailTests(TestCase):
         self.assertContains(response, 'Hours not verified')
         self.assertContains(response, 'js/leaflet/leaflet.js')
 
+    def test_detail_sends_referrer_policy_required_for_osm_tiles(self):
+        response = self.client.get(self.place.get_absolute_url())
+        self.assertEqual(response.headers['Referrer-Policy'], 'strict-origin-when-cross-origin')
+
     def test_unpublished_and_missing_detail_are_404(self):
         self.assertEqual(self.client.get('/attractions/draft/').status_code, 404)
         self.assertEqual(self.client.get('/attractions/missing/').status_code, 404)

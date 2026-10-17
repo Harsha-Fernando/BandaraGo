@@ -6,23 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Discover attractions near Bandaragama, Sri Lanka, and arrange your own one-day visit.">
   <title>{% block title %}BandaraGo · A little closer to discovery{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
   {% block extra_head %}{% endblock %}
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="visually-hidden-focusable skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <div class="page-width flex flex-wrap items-center justify-between gap-5 py-5">
-      <a href="{% url 'home' %}" class="brand" aria-label="BandaraGo home"><span class="brand-mark" aria-hidden="true">B<span>↗</span></span>Bandara<span class="text-emerald-700">Go</span></a>
-      <nav aria-label="Main navigation" class="flex flex-wrap items-center gap-6 text-sm font-semibold">
-        <a href="{% url 'attractions:list' %}">Explore places</a>
-        <a class="rounded-lg bg-emerald-900 px-4 py-3 text-white" href="{% url 'planner:detail' %}">My day plan ↗</a>
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-3 py-3">
+      <a href="{% url 'home' %}" class="brand" aria-label="BandaraGo home"><span class="brand-mark" aria-hidden="true">B↗</span><span>Bandara<span class="brand-accent">Go</span></span></a>
+      <nav aria-label="Main navigation" class="d-flex flex-wrap align-items-center gap-3 gap-sm-4 small fw-semibold">
+        <a class="nav-link" href="{% url 'attractions:list' %}">Explore places</a>
+        <a class="nav-link d-none d-sm-block" href="{% url 'help' %}">Visitor help</a>
+        <a class="btn btn-primary" href="{% url 'planner:detail' %}">My day plan <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
   </header>
-  {% if messages %}<div class="page-width pt-5" aria-live="polite">{% for message in messages %}<p class="notice">{{ message }}</p>{% endfor %}</div>{% endif %}
+  {% if messages %}<div class="container pt-4" aria-live="polite">{% for message in messages %}<p class="alert alert-success">{{ message }}</p>{% endfor %}</div>{% endif %}
   <main id="main">{% block content %}{% endblock %}</main>
-  <footer class="site-footer"><div class="page-width flex flex-wrap justify-between gap-5 py-8 text-sm"><p><strong>BandaraGo</strong> · Discover a day close to home.</p><p><a class="text-link mr-5" href="{% url 'help' %}">Visitor help</a>Bandaragama, Sri Lanka <span aria-hidden="true">↗</span></p></div></footer>
+  <footer class="site-footer"><div class="container d-flex flex-wrap justify-content-between gap-3 py-4 small"><p class="mb-0"><strong>BandaraGo</strong> · Discover a day close to home.</p><p class="mb-0"><a class="me-4" href="{% url 'help' %}">Visitor help</a>Bandaragama, Sri Lanka ↗</p></div></footer>
   <script defer src="{% static 'js/site.js' %}"></script>
   {% block extra_js %}{% endblock %}
 </body>
