@@ -7,7 +7,7 @@
   <meta name="description" content="Discover attractions near Bandaragama, Sri Lanka, and arrange your own one-day visit.">
   <title>{% block title %}BandaraGo · A little closer to discovery{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -25,6 +25,7 @@
   {% if messages %}<div class="container pt-4" aria-live="polite">{% for message in messages %}<p class="alert alert-success">{{ message }}</p>{% endfor %}</div>{% endif %}
   <main id="main">{% block content %}{% endblock %}</main>
   <footer class="site-footer"><div class="container d-flex flex-wrap justify-content-between gap-3 py-4 small"><p class="mb-0"><strong>BandaraGo</strong> · Discover a day close to home.</p><p class="mb-0"><a class="me-4" href="{% url 'help' %}">Visitor help</a>Bandaragama, Sri Lanka ↗</p></div></footer>
+  <script defer src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
   <script defer src="{% static 'js/site.js' %}"></script>
   {% block extra_js %}{% endblock %}
 </body>
