@@ -6,7 +6,7 @@
   <a class="text-link text-sm" href="{% url 'attractions:list' %}">← Back to places</a>
   <div class="mt-8 flex flex-wrap items-end justify-between gap-6">
     <div><div class="mb-3 flex flex-wrap gap-3">{% for category in place.categories.all %}<a class="category-label underline" href="{% url 'attractions:list' %}?category={{ category.slug }}">{{ category.name }}</a>{% endfor %}</div><h1 class="text-4xl sm:text-5xl">{{ place.name }}</h1><p class="mt-4 text-stone-600">{{ place.short_description }}</p></div>
-    {% block plan_action %}{% endblock %}
+    <form method="post" action="{% url 'planner:add' place.pk %}">{% csrf_token %}<button class="button">+ Add to my day</button></form>
   </div>
   <div class="mt-9 grid gap-4 sm:grid-cols-2">
     {% for photo in place.images.all %}<img class="h-72 w-full rounded-2xl object-cover {% if forloop.first %}sm:col-span-2 sm:h-[440px]{% endif %}" src="{{ photo.image.url }}" alt="{{ photo.alt_text|default:place.name }}" width="1200" height="800" {% if not forloop.first %}loading="lazy"{% endif %}>{% empty %}<div class="photo-empty rounded-2xl sm:col-span-2">Photographs are unavailable.</div>{% endfor %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Your one-day plan · BandaraGo{% endblock %}
+{% block content %}
+<div class="page-width py-12 sm:py-16">
+  <p class="eyebrow">A DAY, YOUR WAY</p><h1 class="mt-4 text-4xl sm:text-5xl">Your little getaway</h1>
+  <p class="mt-5 max-w-2xl leading-relaxed text-stone-600">A few favourite places, in the order you choose. Move stops up or down to make this day your own.</p>
+  {% if places %}
+  <div class="mt-8 flex flex-wrap items-center justify-between gap-4"><p class="text-sm">{{ places|length }} stop{{ places|length|pluralize }} in your day</p><a class="text-link text-sm" href="{% url 'planner:confirm_clear' %}">Clear entire plan</a></div>
+  <ol class="mt-6 space-y-4">
+    {% for place in places %}<li class="panel flex flex-wrap items-center gap-5">
+      <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-lg font-bold text-emerald-900">{{ forloop.counter }}</span>
+      <div class="min-w-0 flex-1"><h2 class="text-xl"><a class="hover:text-emerald-700" href="{{ place.get_absolute_url }}">{{ place.name }}</a></h2><p class="mt-2 flex flex-wrap gap-2">{% for category in place.categories.all %}<span class="category-label">{{ category.name }}</span>{% endfor %}</p><p class="mt-2 text-sm text-stone-600">{{ place.distance_km|floatformat:1 }} km from Bandaragama</p></div>
+      <div class="flex flex-wrap items-center gap-2">
+        <form method="post" action="{% url 'planner:reorder' place.pk %}">{% csrf_token %}<input type="hidden" name="direction" value="up"><button class="button button-secondary disabled:cursor-default disabled:opacity-40" {% if forloop.first %}disabled{% endif %} aria-label="Move {{ place.name }} up">↑</button></form>
+        <form method="post" action="{% url 'planner:reorder' place.pk %}">{% csrf_token %}<input type="hidden" name="direction" value="down"><button class="button button-secondary disabled:cursor-default disabled:opacity-40" {% if forloop.last %}disabled{% endif %} aria-label="Move {{ place.name }} down">↓</button></form>
+        <a class="button button-secondary" href="{% url 'planner:confirm_remove' place.pk %}">Remove<span class="sr-only"> {{ place.name }}</span></a>
+      </div>
+    </li>{% endfor %}
+  </ol>
+  <div class="mt-8 rounded-xl bg-emerald-50 p-5 text-sm leading-relaxed text-emerald-950">Your order is saved in this browser session. Distances are measured from Bandaragama, not between stops. Check opening hours, journey times, and access before setting out.</div>
+  <a class="button mt-6" href="{% url 'attractions:list' %}">Explore more places ↗</a>
+  {% else %}<div class="empty-state mt-10"><span class="text-4xl" aria-hidden="true">↗</span><h2 class="mt-4 text-3xl">Every good day starts somewhere</h2><p class="mt-4 text-stone-600">Explore a place and choose “Add to my day” to start your plan.</p><a class="button mt-6" href="{% url 'attractions:list' %}">Find your first stop</a></div>{% endif %}
+</div>
+{% endblock %}

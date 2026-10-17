@@ -6,6 +6,7 @@ from attractions import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('planner/', include('planner.urls')),
     path('', views.place_list, name='home'),
     path('attractions/', include('attractions.urls')),
 ]
