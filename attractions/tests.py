@@ -112,3 +112,24 @@ class DiscoveryTests(TestCase):
             for place in places:
                 list(place.categories.all())
                 place.cover_image
+
+
+class DetailTests(DiscoveryTests):
+    def test_detail_uses_database_coordinates(self):
+        response = self.client.get(self.place.get_absolute_url())
+        self.assertContains(response, '6.714444')
+        self.assertContains(response, '79.986667')
+        self.assertContains(response, 'map-data')
+        self.assertContains(response, 'Hours not verified')
+        self.assertContains(response, 'js/leaflet/leaflet.js')
+
+    def test_unpublished_and_missing_detail_are_404(self):
+        self.assertEqual(self.client.get('/attractions/draft/').status_code, 404)
+        self.assertEqual(self.client.get('/attractions/missing/').status_code, 404)
+
+    def test_map_data_is_safe_for_script_injection(self):
+        self.place.name = '</script><script>alert(1)</script>'
+        self.place.save()
+        response = self.client.get(self.place.get_absolute_url())
+        self.assertNotContains(response, '</script><script>alert(1)</script>')
+        self.assertContains(response, '\\u003C/script\\u003E')
