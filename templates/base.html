@@ -16,7 +16,7 @@
       <a href="{% url 'home' %}" class="brand" aria-label="BandaraGo home"><span class="brand-mark" aria-hidden="true">B<span>↗</span></span>Bandara<span class="text-emerald-700">Go</span></a>
       <nav aria-label="Main navigation" class="flex flex-wrap items-center gap-6 text-sm font-semibold">
         <a href="{% url 'attractions:list' %}">Explore places</a>
-        {% block planner_nav %}{% endblock %}
+        <a class="rounded-lg bg-emerald-900 px-4 py-3 text-white" href="{% url 'planner:detail' %}">My day plan ↗</a>
       </nav>
     </div>
   </header>
