@@ -62,6 +62,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'
+# OSM requires a Referer on browser tile requests; Django's same-origin default omits it.
+SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
 if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
