@@ -22,7 +22,8 @@
   </header>
   {% if messages %}<div class="page-width pt-5" aria-live="polite">{% for message in messages %}<p class="notice">{{ message }}</p>{% endfor %}</div>{% endif %}
   <main id="main">{% block content %}{% endblock %}</main>
-  <footer class="site-footer"><div class="page-width flex flex-wrap justify-between gap-5 py-8 text-sm"><p><strong>BandaraGo</strong> · Discover a day close to home.</p><p>Bandaragama, Sri Lanka <span aria-hidden="true">↗</span></p></div></footer>
+  <footer class="site-footer"><div class="page-width flex flex-wrap justify-between gap-5 py-8 text-sm"><p><strong>BandaraGo</strong> · Discover a day close to home.</p><p><a class="text-link mr-5" href="{% url 'help' %}">Visitor help</a>Bandaragama, Sri Lanka <span aria-hidden="true">↗</span></p></div></footer>
+  <script defer src="{% static 'js/site.js' %}"></script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>

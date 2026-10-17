@@ -1,4 +1,5 @@
-from django.contrib import admin
+from django.contrib import admin, messages
+from django.core.exceptions import ValidationError
 from .forms import PlaceAdminForm, PlaceImageForm, PlaceImageFormSet
 from .models import Category, Place, PlaceImage
 
@@ -33,6 +34,23 @@ class PlaceAdmin(admin.ModelAdmin):
     readonly_fields = ['distance_display']
     inlines = [PlaceImageInline]
     save_on_top = True
+    actions = ['publish_selected']
+
+    @admin.action(description='Publish selected complete attractions', permissions=['change'])
+    def publish_selected(self, request, queryset):
+        published = 0
+        for place in queryset:
+            place.is_published = True
+            try:
+                place.validate_publication()
+                place.save()
+            except ValidationError as error:
+                self.message_user(request, f'{place.name}: {error.messages[0]}', level=messages.ERROR)
+            else:
+                self.log_change(request, place, 'Published after completeness validation.')
+                published += 1
+        self.message_user(request, f'{published} attraction(s) published.')
+
 
     @admin.display(description='Distance from Bandaragama')
     def distance_display(self, obj):

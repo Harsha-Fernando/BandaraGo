@@ -1,5 +1,4 @@
 from io import StringIO
-from decimal import Decimal
 
 from django.core.exceptions import ValidationError
 from django.core.management import call_command
@@ -114,7 +113,15 @@ class DiscoveryTests(TestCase):
                 place.cover_image
 
 
-class DetailTests(DiscoveryTests):
+class DetailTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        category = Category.objects.create(name='Nature', slug='nature')
+        cls.place = make_place(is_published=True)
+        cls.place.categories.add(category)
+        PlaceImage.objects.create(place=cls.place, image='test.png')
+        make_place(slug='draft')
+
     def test_detail_uses_database_coordinates(self):
         response = self.client.get(self.place.get_absolute_url())
         self.assertContains(response, '6.714444')
@@ -168,6 +175,14 @@ class AdminTests(TestCase):
         from django.core.files.uploadedfile import SimpleUploadedFile
         buffer = BytesIO(); Image.new('RGB', (8, 8), 'green').save(buffer, format='PNG')
         return SimpleUploadedFile(name, buffer.getvalue(), content_type='image/png')
+
+    def test_admin_login_rejects_invalid_password(self):
+        response = self.client.post('/admin/login/?next=/admin/', {'username': 'test-admin', 'password': 'wrong', 'next': '/admin/'})
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse('_auth_user_id' in self.client.session)
+        response = self.client.post('/admin/login/?next=/admin/', {'username': 'test-admin', 'password': 'Test-password-827!', 'next': '/admin/'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(int(self.client.session['_auth_user_id']), self.admin_user.pk)
 
     def test_permissions_and_login(self):
         url = '/admin/attractions/place/add/'
@@ -236,6 +251,20 @@ class AdminTests(TestCase):
         self.client.post('/admin/attractions/category/', {'action': 'delete_selected', '_selected_action': [self.category.pk], 'post': 'yes'})
         self.assertTrue(Category.objects.filter(pk=self.category.pk).exists())
 
+    def test_bulk_publish_skips_incomplete_and_denies_limited_staff(self):
+        ready = make_place(slug='ready')
+        ready.categories.add(self.category)
+        PlaceImage.objects.create(place=ready, image='test.png')
+        incomplete = make_place(slug='incomplete')
+        data = {'action': 'publish_selected', '_selected_action': [ready.pk, incomplete.pk]}
+        self.client.force_login(self.staff)
+        self.assertEqual(self.client.post('/admin/attractions/place/', data).status_code, 403)
+        self.client.force_login(self.admin_user)
+        self.assertEqual(self.client.post('/admin/attractions/place/', data).status_code, 302)
+        ready.refresh_from_db(); incomplete.refresh_from_db()
+        self.assertTrue(ready.is_published)
+        self.assertFalse(incomplete.is_published)
+
     def test_invalid_upload_and_radius_are_rejected(self):
         from django.core.files.uploadedfile import SimpleUploadedFile
         self.client.force_login(self.admin_user)
@@ -244,3 +273,26 @@ class AdminTests(TestCase):
         self.assertContains(response, 'within 25 km')
         self.assertContains(response, 'Upload a valid image')
         self.assertFalse(Place.objects.exists())
+
+
+class ContentImportTests(TestCase):
+    def test_reference_dataset_import_is_draft_idempotent_and_within_radius(self):
+        call_command('import_verified_places', stdout=StringIO())
+        call_command('import_verified_places', stdout=StringIO())
+        self.assertEqual(Place.objects.count(), 10)
+        self.assertFalse(Place.objects.published().exists())
+        for place in Place.objects.all():
+            self.assertLessEqual(place.distance_km, 25)
+            self.assertGreater(place.categories.count(), 0)
+            self.assertIn('https://commons.wikimedia.org/', place.visitor_information)
+            self.assertIn('creativecommons.org', place.visitor_information)
+
+
+class ErrorPageTests(TestCase):
+    def test_help_and_production_404(self):
+        from django.test import override_settings
+        self.assertContains(self.client.get('/help/'), 'Build your day')
+        with override_settings(DEBUG=False, SECURE_SSL_REDIRECT=False):
+            response = self.client.get('/not-a-real-page/')
+            self.assertContains(response, 'This stop is unavailable', status_code=404)
+            self.assertNotContains(response, 'Traceback', status_code=404)

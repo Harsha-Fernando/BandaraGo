@@ -1,0 +1,250 @@
+[
+  {
+    "name": "Richmond Castle",
+    "slug": "richmond-castle",
+    "latitude": "6.601500",
+    "longitude": "79.975300",
+    "categories": [
+      "heritage",
+      "cultural"
+    ],
+    "short_description": "An Edwardian mansion beside the Kalu Ganga near Kalutara.",
+    "description": "Richmond Castle is a historic two-storey mansion at Palatota, near Kalutara. It is managed by the Public Trustee of Sri Lanka. The house offers a look at the architecture of an early twentieth-century country residence.",
+    "address": "Palatota, Kalutara",
+    "source_url": "https://en.wikipedia.org/wiki/Richmond_Castle,_Kalutara",
+    "coordinate_source": "https://en.wikipedia.org/wiki/Richmond_Castle,_Kalutara",
+    "verified_on": "2026-10-17",
+    "visitor_information": "Confirm current access, opening hours, and any admission charges before travelling.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Richmond_Castle_front.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Richmond_Castle_front.jpg",
+      "author": "DevilHunter99",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "alt_text": "Richmond Castle front"
+    }
+  },
+  {
+    "name": "Kalutara Bodhiya",
+    "slug": "kalutara-bodhiya",
+    "latitude": "6.586944",
+    "longitude": "79.960278",
+    "categories": [
+      "religious",
+      "cultural"
+    ],
+    "short_description": "A revered Bodhi tree and Buddhist temple beside the Kalu River.",
+    "description": "Kalutara Bodhiya is a Buddhist religious site on the Colombo–Galle road near the Kalu River. The sacred Bodhi tree, temple, and nearby white stupa form a prominent religious landmark in Kalutara.",
+    "address": "Kalutara",
+    "source_url": "https://en.wikipedia.org/wiki/Kalutara_Bodhiya",
+    "coordinate_source": "https://en.wikipedia.org/wiki/Kalutara_Bodhiya",
+    "verified_on": "2026-10-17",
+    "visitor_information": "Confirm current access, opening hours, and any admission charges before travelling.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Kalautara_Bodhiya_1.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Kalautara_Bodhiya_1.jpg",
+      "author": "SWR2.9",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "alt_text": "Kalutara Bodhiya is an old Bodhi tree which is identified as one of the 32 saplings of Jaya Sri Maha Bodhi which was planted during the reign of king Devanampiyatissa in the 2nd century BC at Anuradhapura, Sri Lanka."
+    }
+  },
+  {
+    "name": "Bolgoda Lake",
+    "slug": "bolgoda-lake",
+    "latitude": "6.771111",
+    "longitude": "79.907500",
+    "categories": [
+      "nature"
+    ],
+    "short_description": "A broad freshwater lake system across Colombo and Kalutara districts.",
+    "description": "Bolgoda comprises northern and southern lake areas connected by waterways. It forms part of an environmental protection area and drains towards the sea at Panadura. The marker represents a point on the lake, not a public entrance.",
+    "address": "Bolgoda Lake",
+    "source_url": "https://en.wikipedia.org/wiki/Bolgoda_Lake",
+    "coordinate_source": "https://en.wikipedia.org/wiki/Bolgoda_Lake",
+    "verified_on": "2026-10-17",
+    "visitor_information": "This is a lake-area marker, not an entrance. Confirm a lawful public access point locally and respect private property.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Bolgoda_lake.JPG",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Bolgoda_lake.JPG",
+      "author": "Chamal N",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "alt_text": "Bolgoda Lake in Sri Lanka."
+    }
+  },
+  {
+    "name": "Thudugala Ella",
+    "slug": "thudugala-ella",
+    "latitude": "6.570700",
+    "longitude": "80.058430",
+    "categories": [
+      "nature"
+    ],
+    "short_description": "A waterfall in Thudugala village in the Kalutara district.",
+    "description": "Thudugala Ella is a waterfall in Thudugala village, within the Dodangoda Divisional Secretariat. The waterfall and its wooded surroundings offer a nature-focused stop in the Kalutara district.",
+    "address": "Thudugala, Dodangoda",
+    "source_url": "https://en.wikipedia.org/wiki/Thudugala_Ella",
+    "coordinate_source": "https://mapcarta.com/N2213043745",
+    "verified_on": "2026-10-17",
+    "visitor_information": "Check local weather and access conditions. Follow posted guidance; this listing does not establish that swimming or bathing is safe.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/94/Another_view_of_the_waterfall.JPG",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Another_view_of_the_waterfall.JPG",
+      "author": "Chananand",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "alt_text": "A view of the Thudugala Ella waterfall in Thudugala, Dodangoda, Sri Lanka."
+    }
+  },
+  {
+    "name": "Bellanwila Rajamaha Viharaya",
+    "slug": "bellanwila-viharaya",
+    "latitude": "6.845556",
+    "longitude": "79.890000",
+    "categories": [
+      "religious",
+      "cultural"
+    ],
+    "short_description": "A Buddhist temple known for its sacred Bodhi tree.",
+    "description": "Bellanwila Rajamaha Viharaya is a Buddhist temple at Bellanwila, near Boralesgamuwa. The temple is known for its Bodhi tree and its religious and cultural traditions. It remains an active place of worship.",
+    "address": "Bellanwila, Boralesgamuwa",
+    "source_url": "https://www.bellanwila.org/",
+    "coordinate_source": "https://en.wikipedia.org/wiki/Bellanwila_Rajamaha_Viharaya",
+    "verified_on": "2026-10-17",
+    "visitor_information": "Confirm current access, opening hours, and any admission charges before travelling.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Bellanwila_Vihara.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Bellanwila_Vihara.jpg",
+      "author": "Shehanw",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "alt_text": "Bellanwila Vihara is a famous Buddhist temple in Colombo, Sri Lanka."
+    }
+  },
+  {
+    "name": "Dehiwala Zoological Gardens",
+    "slug": "dehiwala-zoo",
+    "latitude": "6.856806",
+    "longitude": "79.872889",
+    "categories": [
+      "leisure"
+    ],
+    "short_description": "A zoological garden with animal exhibits and educational displays.",
+    "description": "The National Zoological Gardens at Dehiwala is operated by the Department of National Zoological Gardens. Visitors can see a collection of mammals, birds, reptiles, and other animals. Check the official website for current visitor arrangements.",
+    "address": "120 Anagarika Dharmapala Mawatha, Dehiwala",
+    "source_url": "https://nationalzoo.gov.lk/dehiwala-zoo/",
+    "coordinate_source": "https://en.wikipedia.org/wiki/National_Zoological_Gardens_of_Sri_Lanka",
+    "verified_on": "2026-10-17",
+    "visitor_information": "Confirm current access, opening hours, and any admission charges before travelling.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/A_rare_click.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:A_rare_click.jpg",
+      "author": "Joash Jeshurun Jeevaranjan",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "alt_text": "Giraffes in cross shot is a rare click to get eventually."
+    },
+    "opening_hours_note": "Official pages show differing closing times. Confirm directly before travelling."
+  },
+  {
+    "name": "Panadura Beach",
+    "slug": "panadura-beach",
+    "latitude": "6.711720",
+    "longitude": "79.901680",
+    "categories": [
+      "nature",
+      "leisure"
+    ],
+    "short_description": "A sandy stretch of coast close to Panadura town.",
+    "description": "Panadura Beach lies on Sri Lanka’s western coast, beside Panadura town. The mapped beach offers a coastal stop for a short visit; the marker shows the beach area rather than a surveyed entrance.",
+    "address": "Panadura",
+    "source_url": "https://mapcarta.com/W265974857",
+    "coordinate_source": "https://mapcarta.com/W265974857",
+    "verified_on": "2026-10-17",
+    "visitor_information": "Check local weather and access conditions. Follow posted guidance; this listing does not establish that swimming or bathing is safe.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Beach_sunset1.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Beach_sunset1.jpg",
+      "author": "Superatp",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "alt_text": "Beach sunset in Panadura, Sri Lanka."
+    }
+  },
+  {
+    "name": "Mount Lavinia Beach",
+    "slug": "mount-lavinia-beach",
+    "latitude": "6.840060",
+    "longitude": "79.862620",
+    "categories": [
+      "nature",
+      "leisure"
+    ],
+    "short_description": "A coastal escape in the Mount Lavinia area.",
+    "description": "Mount Lavinia Beach is a western-coast beach in the Dehiwala–Mount Lavinia area. It is a popular coastal destination south of Colombo. The marker represents the beach area; use an established public access point.",
+    "address": "Mount Lavinia",
+    "source_url": "https://www.geonames.org/search.html?country=LK&q=mount+lavinia",
+    "coordinate_source": "https://www.geonames.org/search.html?country=LK&q=mount+lavinia",
+    "verified_on": "2026-10-17",
+    "visitor_information": "Check local weather and access conditions. Follow posted guidance; this listing does not establish that swimming or bathing is safe.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Mount_Lavinia_Beach.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Mount_Lavinia_Beach.jpg",
+      "author": "Rilwan19760430",
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "alt_text": "Mount Lavinia Beach"
+    }
+  },
+  {
+    "name": "Sri Lanka Air Force Museum",
+    "slug": "air-force-museum",
+    "latitude": "6.824200",
+    "longitude": "79.891700",
+    "categories": [
+      "heritage",
+      "cultural"
+    ],
+    "short_description": "Aviation history and aircraft displays at Ratmalana.",
+    "description": "The Sri Lanka Air Force Museum is located at SLAF Ratmalana. It presents the history of the Sri Lanka Air Force and its predecessor, the Royal Ceylon Air Force. Confirm current public access requirements before visiting.",
+    "address": "SLAF Ratmalana",
+    "source_url": "https://en.wikipedia.org/wiki/Sri_Lanka_Air_Force_Museum",
+    "coordinate_source": "https://en.wikipedia.org/wiki/Sri_Lanka_Air_Force_Museum",
+    "verified_on": "2026-10-17",
+    "visitor_information": "Confirm current access, opening hours, and any admission charges before travelling.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Sri_Lanka_Air_Force_Museum_%2816508970775%29.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Sri_Lanka_Air_Force_Museum_(16508970775).jpg",
+      "author": "Amila Tennakoon",
+      "license": "CC BY 2.0",
+      "license_url": "https://creativecommons.org/licenses/by/2.0",
+      "alt_text": "The SLAF museum"
+    }
+  },
+  {
+    "name": "Diyatha Uyana",
+    "slug": "diyatha-uyana",
+    "latitude": "6.904500",
+    "longitude": "79.909800",
+    "categories": [
+      "leisure",
+      "nature"
+    ],
+    "short_description": "A waterside park at Polduwa junction in Battaramulla.",
+    "description": "Diyatha Uyana is a park beside the Diyawanna Oya at Polduwa junction, Battaramulla. The park is one of the public amenities managed by the Sri Lanka Land Development Corporation.",
+    "address": "Polduwa junction, Battaramulla",
+    "source_url": "https://www.landdevelopment.lk/general-managers-message/",
+    "coordinate_source": "https://en.wikipedia.org/wiki/Diyatha_Uyana",
+    "verified_on": "2026-10-17",
+    "visitor_information": "Confirm current access and any temporary restrictions locally before travelling.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Fountain_at_Diyatha_Uyana.JPG",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Fountain_at_Diyatha_Uyana.JPG",
+      "author": "Hansa Nanayakkara",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "alt_text": "Fountain at Diyatha Uyana"
+    }
+  }
+]
