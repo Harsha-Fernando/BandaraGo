@@ -6,27 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Discover attractions near Bandaragama, Sri Lanka, and arrange your own one-day visit.">
   <title>{% block title %}BandaraGo · Explore close to home{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% block extra_head %}{% endblock %}
 </head>
-<body>
-  <a class="visually-hidden-focusable skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="{% url 'home' %}" class="brand" aria-label="BandaraGo home"><span class="brand-mark">{% include 'icon.html' with name='bank' %}</span><span>BandaraGo</span></a>
-      <nav aria-label="Main navigation" class="header-nav">
-        <a class="nav-link" href="{% url 'attractions:list' %}">Explore places</a>
-        <a class="nav-link" href="{% url 'help' %}">Visitor help</a>
-        <a class="nav-link plan-link" href="{% url 'planner:detail' %}">My day plan <span class="plan-count" aria-label="{{ plan_count }} selected places">{{ plan_count }}</span></a>
-        <a class="icon-link" href="{% url 'attractions:list' %}#explore-filter" aria-label="Find attractions by category">{% include 'icon.html' with name='search' %}</a>
-      </nav>
-    </div>
+<body class="d-flex flex-column min-vh-100">
+  <a class="visually-hidden-focusable bg-white p-3" href="#main">Skip to content</a>
+  <header class="border-bottom bg-light">
+    <nav class="navbar navbar-expand-md" aria-label="Main navigation">
+      <div class="container">
+        <a href="{% url 'home' %}" class="navbar-brand">{% include 'icon.html' with name='bank' %} BandaraGo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navigation" aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="main-navigation">
+          <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="{% url 'attractions:list' %}">Explore places</a>
+            <a class="nav-link" href="{% url 'help' %}">Visitor help</a>
+            <a class="nav-link" href="{% url 'planner:detail' %}">My day plan <span class="badge text-bg-primary" aria-label="{{ plan_count }} selected places">{{ plan_count }}</span></a>
+          </div>
+        </div>
+      </div>
+    </nav>
   </header>
-  {% if messages %}<div class="container pt-3" aria-live="polite">{% for message in messages %}<p class="alert alert-success d-flex align-items-center gap-2">{% include 'icon.html' with name='check2' %}{{ message }}</p>{% endfor %}</div>{% endif %}
-  <main id="main">{% block content %}{% endblock %}</main>
-  <footer class="site-footer"><div class="container footer-inner"><p class="mb-0"><a class="footer-brand" href="{% url 'home' %}">BandaraGo</a><span>A local tourism platform for Bandaragama</span></p><nav aria-label="Footer navigation"><a href="{% url 'attractions:list' %}">Explore places</a><a href="{% url 'help' %}">Visitor help</a><a href="{% url 'planner:detail' %}">My day plan</a></nav></div></footer>
-  <script defer src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+  {% if messages %}
+  <div class="container pt-3" aria-live="polite">
+    {% for message in messages %}<p class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'info' %}alert-info{% else %}alert-success{% endif %}">{{ message }}</p>{% endfor %}
+  </div>
+  {% endif %}
+  <main id="main" class="flex-grow-1">{% block content %}{% endblock %}</main>
+  <footer class="border-top bg-light py-4 mt-4">
+    <div class="container d-flex flex-wrap justify-content-between gap-3 small">
+      <p class="mb-0">BandaraGo · Discover Bandaragama</p>
+      <nav class="d-flex flex-wrap gap-3" aria-label="Footer navigation"><a href="{% url 'attractions:list' %}">Explore places</a><a href="{% url 'help' %}">Visitor help</a><a href="{% url 'planner:detail' %}">My day plan</a></nav>
+    </div>
+  </footer>
+  <script defer src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <script defer src="{% static 'js/site.js' %}"></script>
   {% block extra_js %}{% endblock %}
 </body>

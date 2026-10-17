@@ -1,5 +1,5 @@
 {{ map_places|json_script:'map-data' }}
-<div id="map" class="attraction-map" role="region" aria-label="Interactive attraction map"></div>
+<div id="map" class="attraction-map border rounded bg-light" role="region" aria-label="Interactive attraction map"></div>
 <p id="map-status" class="mt-2 small text-secondary" role="status">Loading map… If the map is unavailable, use the coordinates below.</p>
 <noscript><p class="mt-3">Enable JavaScript to use the interactive map.</p></noscript>
-<ul class="list-unstyled small text-secondary map-links">{% for point in map_places %}<li><span>{{ point.name }} ({{ point.latitude }}, {{ point.longitude }})</span><a class="fw-semibold" href="https://www.openstreetmap.org/?mlat={{ point.latitude }}&amp;mlon={{ point.longitude }}#map=16/{{ point.latitude }}/{{ point.longitude }}" target="_blank" rel="noopener">View on OpenStreetMap {% include 'icon.html' with name='box-arrow-up-right' %}</a></li>{% endfor %}</ul>
+<ul class="list-unstyled small text-secondary text-break">{% for point in map_places %}<li class="mb-2"><span>{{ point.name }} ({{ point.latitude }}, {{ point.longitude }})</span> <a class="fw-semibold" href="https://www.openstreetmap.org/?mlat={{ point.latitude }}&amp;mlon={{ point.longitude }}#map=16/{{ point.latitude }}/{{ point.longitude }}" target="_blank" rel="noopener">View on OpenStreetMap {% include 'icon.html' with name='box-arrow-up-right' %}</a></li>{% endfor %}</ul>
