@@ -74,3 +74,41 @@ class ModelTests(TestCase):
         make_place()
         with self.assertRaises(ValidationError):
             make_place()
+
+
+class DiscoveryTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.nature = Category.objects.create(name='Nature', slug='nature')
+        cls.heritage = Category.objects.create(name='Heritage', slug='heritage')
+        cls.place = make_place(is_published=True)
+        cls.place.categories.add(cls.nature)
+        PlaceImage.objects.create(place=cls.place, image='test.png')
+        make_place(name='Hidden draft', slug='draft')
+
+    def test_home_and_listing_only_show_published(self):
+        for url in ['/', '/attractions/']:
+            response = self.client.get(url)
+            self.assertContains(response, self.place.name)
+            self.assertNotContains(response, 'Hidden draft')
+            self.assertContains(response, '0.0 km from Bandaragama')
+
+    def test_filter_and_clear(self):
+        response = self.client.get('/attractions/', {'category': 'nature'})
+        self.assertContains(response, self.place.name)
+        self.assertContains(response, 'Clear filter')
+        self.assertNotContains(self.client.get('/attractions/', {'category': 'heritage'}), self.place.name)
+
+    def test_empty_and_invalid_category(self):
+        for value in ['heritage', 'missing', "' OR 1=1 --"]:
+            response = self.client.get('/attractions/', {'category': value})
+            self.assertContains(response, 'No attractions match this category')
+        Place.objects.all().delete()
+        self.assertContains(self.client.get('/'), 'No attractions are available yet')
+
+    def test_prefetched_relations_bound_queries(self):
+        with self.assertNumQueries(3):
+            places = list(Place.objects.published().with_details())
+            for place in places:
+                list(place.categories.all())
+                place.cover_image

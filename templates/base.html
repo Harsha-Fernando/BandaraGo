@@ -4,10 +4,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}BandaraGo{% endblock %}</title>
+  <meta name="description" content="Discover attractions near Bandaragama, Sri Lanka, and arrange your own one-day visit.">
+  <title>{% block title %}BandaraGo · A little closer to discovery{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-stone-50 text-stone-900">
-  <main class="mx-auto max-w-6xl px-6 py-12">{% block content %}<h1 class="text-4xl font-bold">BandaraGo</h1><p class="mt-4">Discover a day close to home.</p>{% endblock %}</main>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="page-width flex flex-wrap items-center justify-between gap-5 py-5">
+      <a href="{% url 'home' %}" class="brand" aria-label="BandaraGo home"><span class="brand-mark" aria-hidden="true">B<span>↗</span></span>Bandara<span class="text-emerald-700">Go</span></a>
+      <nav aria-label="Main navigation" class="flex flex-wrap items-center gap-6 text-sm font-semibold">
+        <a href="{% url 'attractions:list' %}">Explore places</a>
+        {% block planner_nav %}{% endblock %}
+      </nav>
+    </div>
+  </header>
+  {% if messages %}<div class="page-width pt-5" aria-live="polite">{% for message in messages %}<p class="notice">{{ message }}</p>{% endfor %}</div>{% endif %}
+  <main id="main">{% block content %}{% endblock %}</main>
+  <footer class="site-footer"><div class="page-width flex flex-wrap justify-between gap-5 py-8 text-sm"><p><strong>BandaraGo</strong> · Discover a day close to home.</p><p>Bandaragama, Sri Lanka <span aria-hidden="true">↗</span></p></div></footer>
+  {% block extra_js %}{% endblock %}
 </body>
 </html>
