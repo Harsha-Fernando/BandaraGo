@@ -1,0 +1,13 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}BandaraGo{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body class="bg-stone-50 text-stone-900">
+  <main class="mx-auto max-w-6xl px-6 py-12">{% block content %}<h1 class="text-4xl font-bold">BandaraGo</h1><p class="mt-4">Discover a day close to home.</p>{% endblock %}</main>
+</body>
+</html>
