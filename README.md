@@ -33,8 +33,8 @@ python manage.py makemigrations --check --dry-run
 python manage.py migrate --check
 ```
 
-Tests use PostgreSQL and require permission to create a test database. With Django running, serve the browser map checks using `python -m http.server 8001 --bind 127.0.0.1 --directory docs/testing`, then open http://127.0.0.1:8001/map-check.html. These simulate Leaflet; check actual maps separately.
+Tests use PostgreSQL and require permission to create a test database. With Django running, serve the browser map checks using `python -m http.server 8001 --bind 127.0.0.1 --directory docs/testing`, then open http://127.0.0.1:8001/map-check.html. These simulate Leaflet; check actual maps separately. Optional load check: `python scripts/check_performance.py --users 10 --iterations 5` (server running).
 
 `Bandarago/` contains configuration; `attractions/` and `planner/` are the two apps. Templates use the official Bootstrap [Album example](https://getbootstrap.com/docs/5.3/examples/album/) as a layout reference. Bootstrap 5.3.8 and Leaflet are precompiled local files in `static/vendor/`, with their licenses retained. SVG icons and their license are in `static/icons/`. Minimal CSS is in `static/css/style.css`. No npm, Node.js, or frontend build is required. OSM tiles require internet and the configured cross-origin referrer policy.
 
-[Attribution records](docs/data-sources.md) · [Visitor guide](docs/user-guide.pdf) · [Testing evidence](docs/testing/validation.md)
+[Attribution records](docs/data-sources.md) · [Visitor guide](docs/user-guide.pdf)

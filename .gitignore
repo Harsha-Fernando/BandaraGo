@@ -23,3 +23,8 @@ coverage.xml
 /docs/diagrams/design-notes.md
 *.tmp
 *.swp
+
+/docs/testing/browser-checklist.md
+/docs/testing/django-bootstrap-refactor.md
+/docs/testing/performance-2026-10-17.json
+/docs/testing/validation.md
