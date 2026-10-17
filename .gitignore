@@ -15,3 +15,11 @@ node_modules/
 .DS_Store
 coverage.xml
 .coverage
+
+# Local internal working documents
+/docs/testing/progress.md
+/docs/testing/bootstrap-migration.md
+/docs/testing/map-bootstrap-fix.md
+/docs/diagrams/design-notes.md
+*.tmp
+*.swp

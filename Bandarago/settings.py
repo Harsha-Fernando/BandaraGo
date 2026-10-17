@@ -25,7 +25,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'Bandarago.urls'
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'DIRS': [BASE_DIR / 'templates'], 'APP_DIRS': True,
@@ -36,7 +36,7 @@ TEMPLATES = [{
         'planner.context_processors.navigation',
     ]},
 }]
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'Bandarago.wsgi.application'
 DATABASES = {'default': {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': os.environ.get('POSTGRES_DB', 'bandarago'),
