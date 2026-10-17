@@ -1,2 +1,35 @@
 @import "tailwindcss";
 @source "../../templates";
+@theme { --font-sans: "Avenir Next", "Segoe UI", sans-serif; }
+@layer base {
+  body { @apply bg-stone-50 text-stone-900 antialiased; }
+  h1, h2 { font-family: Georgia, "Times New Roman", serif; letter-spacing: -.035em; }
+  a, button { @apply transition-colors; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 3px solid #b45309; outline-offset: 4px; }
+}
+@layer components {
+  .page-width { @apply mx-auto w-full max-w-6xl px-5 sm:px-8; }
+  .site-header { @apply border-b border-stone-200 bg-stone-50; }
+  .brand { @apply inline-flex items-center gap-2 text-xl font-bold tracking-tight; }
+  .brand-mark { @apply mr-1 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-900 text-xl text-white; }
+  .brand-mark span { @apply -mt-4 text-xs text-lime-200; }
+  .hero { @apply border-b border-emerald-900/10 bg-emerald-50; background-image: radial-gradient(ellipse at 100% 100%, #b6ceab80, transparent 65%); }
+  .hero em { @apply font-normal text-emerald-800; }
+  .eyebrow { @apply text-xs font-bold tracking-[.18em] text-emerald-800; }
+  .button { @apply inline-flex min-h-11 items-center justify-center gap-4 rounded-lg border border-transparent bg-emerald-900 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-800; }
+  .button-secondary { @apply border-stone-300 bg-white text-stone-800 hover:bg-stone-100; }
+  .button-danger { @apply bg-red-800 hover:bg-red-700; }
+  .chip { @apply inline-flex min-h-11 items-center rounded-full border border-stone-300 bg-white px-5 py-2 text-sm hover:border-emerald-700; }
+  .chip.active { @apply border-emerald-900 bg-emerald-900 text-white; }
+  .place-card { @apply overflow-hidden rounded-2xl border border-stone-200 bg-white; }
+  .card-photo { @apply h-56 w-full object-cover; }
+  .photo-empty { @apply flex h-56 items-center justify-center bg-stone-200 text-sm text-stone-600; }
+  .category-label { @apply text-[11px] font-bold uppercase tracking-wider text-emerald-800; }
+  .text-link { @apply font-semibold text-emerald-800 underline underline-offset-4; }
+  .empty-state { @apply rounded-2xl border border-dashed border-stone-300 bg-white px-6 py-16 text-center; }
+  .notice { @apply rounded-lg border border-emerald-200 bg-emerald-50 px-5 py-3; }
+  .site-footer { @apply mt-8 border-t border-stone-200 text-stone-600; }
+  .skip-link { @apply fixed -top-20 left-4 z-[2000] rounded bg-white p-3 focus:top-4; }
+  .panel { @apply rounded-2xl border border-stone-200 bg-white p-6; }
+}
