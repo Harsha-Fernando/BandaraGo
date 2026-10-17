@@ -96,7 +96,7 @@ class DiscoveryTests(TestCase):
         from django.contrib.staticfiles import finders
 
         assets = ['css/bootstrap/bootstrap.min.css', 'css/style.css',
-                  'js/bootstrap/bootstrap.bundle.min.js']
+                  'js/bootstrap/bootstrap.bundle.min.js', 'icons/bootstrap-icons.svg']
         for asset in assets:
             self.assertIsNotNone(finders.find(asset))
         for url in ['/', '/attractions/', self.place.get_absolute_url(), '/planner/',
@@ -150,6 +150,30 @@ class DetailTests(TestCase):
     def test_unpublished_and_missing_detail_are_404(self):
         self.assertEqual(self.client.get('/attractions/draft/').status_code, 404)
         self.assertEqual(self.client.get('/attractions/missing/').status_code, 404)
+
+    def test_gallery_uses_real_photos_with_cover_first(self):
+        cover = PlaceImage.objects.create(place=self.place, image='cover.png', is_cover=True, display_order=5)
+        response = self.client.get(self.place.get_absolute_url())
+        self.assertEqual(response.context['photos'][0], cover)
+        self.assertEqual(len(response.context['photos']), 2)
+        self.assertContains(response, 'photo-gallery-multiple')
+        cover.delete()
+        response = self.client.get(self.place.get_absolute_url())
+        self.assertEqual(len(response.context['photos']), 1)
+        self.assertNotContains(response, 'photo-gallery-multiple')
+
+    def test_more_places_excludes_current_place_and_drafts(self):
+        category = self.place.categories.first()
+        for index in range(6):
+            other = make_place(name=f'Other {index}', slug=f'other-{index}', is_published=True)
+            other.categories.add(category)
+            PlaceImage.objects.create(place=other, image='other.png')
+        response = self.client.get(self.place.get_absolute_url())
+        more = list(response.context['more_places'])
+        self.assertEqual(len(more), 4)
+        self.assertNotIn(self.place, more)
+        self.assertTrue(all(place.is_published for place in more))
+        self.assertNotContains(response, 'Hidden draft')
 
     def test_map_data_is_safe_for_script_injection(self):
         self.place.name = '</script><script>alert(1)</script>'

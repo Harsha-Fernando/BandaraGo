@@ -29,7 +29,7 @@ Open http://127.0.0.1:8000/ and use `/admin/` for staff management. Never share 
 
 ## Styles and checks
 
-Precompiled Bootstrap 5.3.8 CSS and JavaScript are served locally from `static/css/bootstrap/` and `static/js/bootstrap/`. The MIT license is in `static/css/bootstrap/LICENSE`. Necessary theme and layout overrides are in `static/css/style.css`. No npm, Node.js, CDN, or frontend build process is required:
+Precompiled Bootstrap 5.3.8 CSS and JavaScript are served locally from `static/css/bootstrap/` and `static/js/bootstrap/`. The MIT license is in `static/css/bootstrap/LICENSE`. A locally served Bootstrap Icons 1.13.1 SVG subset supplies interface icons (MIT license in `static/icons/LICENSE`). Necessary theme and layout overrides are in `static/css/style.css`. No npm, Node.js, CDN, or frontend build process is required:
 
 ```sh
 python manage.py check

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Discover attractions near Bandaragama, Sri Lanka, and arrange your own one-day visit.">
-  <title>{% block title %}BandaraGo · A little closer to discovery{% endblock %}</title>
+  <title>{% block title %}BandaraGo · Explore close to home{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% block extra_head %}{% endblock %}
@@ -13,18 +13,19 @@
 <body>
   <a class="visually-hidden-focusable skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-3 py-3">
-      <a href="{% url 'home' %}" class="brand" aria-label="BandaraGo home"><span class="brand-mark" aria-hidden="true">B↗</span><span>Bandara<span class="brand-accent">Go</span></span></a>
-      <nav aria-label="Main navigation" class="d-flex flex-wrap align-items-center gap-3 gap-sm-4 small fw-semibold">
+    <div class="container header-inner">
+      <a href="{% url 'home' %}" class="brand" aria-label="BandaraGo home"><span class="brand-mark">{% include 'icon.html' with name='bank' %}</span><span>BandaraGo</span></a>
+      <nav aria-label="Main navigation" class="header-nav">
         <a class="nav-link" href="{% url 'attractions:list' %}">Explore places</a>
-        <a class="nav-link d-none d-sm-block" href="{% url 'help' %}">Visitor help</a>
-        <a class="btn btn-primary" href="{% url 'planner:detail' %}">My day plan <span aria-hidden="true">↗</span></a>
+        <a class="nav-link" href="{% url 'help' %}">Visitor help</a>
+        <a class="nav-link plan-link" href="{% url 'planner:detail' %}">My day plan <span class="plan-count" aria-label="{{ plan_count }} selected places">{{ plan_count }}</span></a>
+        <a class="icon-link" href="{% url 'attractions:list' %}#explore-filter" aria-label="Find attractions by category">{% include 'icon.html' with name='search' %}</a>
       </nav>
     </div>
   </header>
-  {% if messages %}<div class="container pt-4" aria-live="polite">{% for message in messages %}<p class="alert alert-success">{{ message }}</p>{% endfor %}</div>{% endif %}
+  {% if messages %}<div class="container pt-3" aria-live="polite">{% for message in messages %}<p class="alert alert-success d-flex align-items-center gap-2">{% include 'icon.html' with name='check2' %}{{ message }}</p>{% endfor %}</div>{% endif %}
   <main id="main">{% block content %}{% endblock %}</main>
-  <footer class="site-footer"><div class="container d-flex flex-wrap justify-content-between gap-3 py-4 small"><p class="mb-0"><strong>BandaraGo</strong> · Discover a day close to home.</p><p class="mb-0"><a class="me-4" href="{% url 'help' %}">Visitor help</a>Bandaragama, Sri Lanka ↗</p></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><p class="mb-0"><a class="footer-brand" href="{% url 'home' %}">BandaraGo</a><span>A local tourism platform for Bandaragama</span></p><nav aria-label="Footer navigation"><a href="{% url 'attractions:list' %}">Explore places</a><a href="{% url 'help' %}">Visitor help</a><a href="{% url 'planner:detail' %}">My day plan</a></nav></div></footer>
   <script defer src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
   <script defer src="{% static 'js/site.js' %}"></script>
   {% block extra_js %}{% endblock %}

@@ -1,0 +1,9 @@
+<article class="card place-card h-100{% if compact %} place-card-compact{% endif %}">
+  <a class="card-photo-link" href="{{ place.get_absolute_url }}" tabindex="-1" aria-hidden="true">{% with cover=place.cover_image %}{% if cover %}<img class="card-img-top card-photo" src="{{ cover.image.url }}" alt="" width="600" height="400" loading="lazy">{% else %}<div class="photo-empty">{% include 'icon.html' with name='images' %}<span>Photograph unavailable</span></div>{% endif %}{% endwith %}</a>
+  <div class="card-body d-flex flex-column">
+    <div class="d-flex flex-wrap gap-1 mb-2">{% for category in place.categories.all %}<span class="badge category-badge" data-category="{{ category.slug }}">{{ category.name }}</span>{% endfor %}</div>
+    <h3 class="card-title"><a href="{{ place.get_absolute_url }}">{{ place.name }}</a></h3>
+    {% if not compact %}<p class="card-description">{{ place.short_description }}</p>{% endif %}
+    <div class="card-meta mt-auto"><span>{% include 'icon.html' with name='geo-alt' %}{{ place.distance_km|floatformat:1 }} km{% if not compact %} from Bandaragama{% endif %}</span><a class="icon-link" href="{{ place.get_absolute_url }}" aria-label="View {{ place.name }}">{% include 'icon.html' with name='chevron-right' %}</a></div>
+  </div>
+</article>
