@@ -1,0 +1,17 @@
+/AGENTS.md
+/ITE2953_SoftwareRequirementsSpecification*.pdf
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+media/
+staticfiles/
+node_modules/
+.local-checks/
+*.sqlite3
+*.log
+.DS_Store
+coverage.xml
+.coverage
