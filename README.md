@@ -37,3 +37,7 @@ python manage.py test
 Tests require a PostgreSQL role with permission to create a test database. Uploaded images live in ignored `media/`.
 
 For deployment, set `DJANGO_DEBUG=False`, configure allowed hosts, serve collected static files and uploaded media through your web server, and terminate HTTPS there. Use `python manage.py collectstatic` and `python manage.py check --deploy`. Do not use Django's development server for deployment.
+
+## Content management
+
+Run `python manage.py seed_categories` once (safe to repeat). In `/admin/`, save a draft while preparing content. Assign one or more categories and add photos through the image rows before publishing. Use JPG, PNG, or WebP files up to 5 MB each; select at most one cover. Unpublish or reassign affected places before deleting an attached category. A place's distance is calculated from its coordinates, not entered manually.
