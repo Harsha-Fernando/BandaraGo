@@ -77,3 +77,16 @@ class PlannerTests(TestCase):
         response = self.client.get(self.a.get_absolute_url())
         self.assertContains(response, 'Add to my day')
         self.assertContains(response, reverse('planner:add', args=[self.a.pk]))
+
+    def test_navigation_count_matches_valid_unique_session_places(self):
+        session = self.client.session
+        session[SESSION_KEY] = [self.a.pk, self.a.pk, self.b.pk, None, 'bad']
+        session.save()
+        self.b.is_published = False
+        self.b.save()
+        for url in ['/', self.c.get_absolute_url(), '/planner/', '/help/']:
+            response = self.client.get(url)
+            self.assertEqual(response.context['plan_count'], 1)
+            self.assertContains(response, 'aria-label="1 selected places"')
+        self.client.post('/planner/clear/', {'confirmed': 'yes'})
+        self.assertEqual(self.client.get('/').context['plan_count'], 0)

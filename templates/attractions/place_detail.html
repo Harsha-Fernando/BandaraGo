@@ -1,21 +1,36 @@
 {% extends 'base.html' %}{% load static %}
 {% block title %}{{ place.name }} · BandaraGo{% endblock %}
-{% block extra_head %}<link rel="stylesheet" href="{% static 'js/leaflet/leaflet.css' %}">{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'vendor/leaflet/leaflet.css' %}">{% endblock %}
 {% block content %}
-<div class="container section-space">
-  <a class="small fw-semibold" href="{% url 'attractions:list' %}">← Back to places</a>
-  <div class="d-flex flex-wrap align-items-end justify-content-between gap-4 mt-4 mb-4">
-    <div class="detail-heading"><div class="d-flex flex-wrap gap-2 mb-3">{% for category in place.categories.all %}<a class="badge category-badge text-decoration-none" href="{% url 'attractions:list' %}?category={{ category.slug }}">{{ category.name }}</a>{% endfor %}</div><h1 class="display-4">{{ place.name }}</h1><p class="lead text-secondary mb-0">{{ place.short_description }}</p></div>
-    <form method="post" action="{% url 'planner:add' place.pk %}">{% csrf_token %}<button class="btn btn-primary btn-lg">+ Add to my day</button></form>
+<div class="container py-4">
+  <a href="{% url 'attractions:list' %}">{% include 'icon.html' with name='arrow-left' %} Back to places</a>
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 my-4">
+    <div><h1>{{ place.name }}</h1><div class="d-flex flex-wrap gap-2">{% for category in place.categories.all %}<a class="badge text-bg-secondary text-decoration-none" href="{% url 'attractions:list' %}?category={{ category.slug }}">{{ category.name }}</a>{% endfor %}</div></div>
+    <form method="post" action="{% url 'planner:add' place.pk %}">{% csrf_token %}<button class="btn btn-primary">{% include 'icon.html' with name='plus-lg' %} Add to my day</button></form>
   </div>
-  <div class="row g-3 mb-5">
-    {% for photo in place.images.all %}<div class="{% if forloop.first %}col-12{% else %}col-md-6{% endif %}"><img class="detail-photo {% if forloop.first %}detail-cover{% endif %}" src="{{ photo.image.url }}" alt="{{ photo.alt_text|default:place.name }}" width="1200" height="800" {% if not forloop.first %}loading="lazy"{% endif %}></div>{% empty %}<div class="col-12"><div class="photo-empty rounded-4">Photographs are unavailable.</div></div>{% endfor %}
+  <div class="row g-3 mb-4">
+    {% for photo in photos %}
+    <div class="{% if forloop.first %}col-12{% else %}col-sm-6{% endif %}"><img class="img-fluid rounded w-100 place-photo" src="{{ photo.image.url }}" alt="{{ photo.alt_text|default:place.name }}" width="1200" height="800" {% if not forloop.first %}loading="lazy"{% endif %}></div>
+    {% empty %}<div class="col-12"><p class="alert alert-secondary">Photographs are unavailable.</p></div>{% endfor %}
   </div>
-  <div class="row g-4 g-lg-5 align-items-start">
-    <section class="col-lg-8 visitor-copy"><p class="eyebrow">TAKE A CLOSER LOOK</p><h2 class="h1 mb-4">About this place</h2><div class="text-secondary lh-lg">{{ place.description|linebreaks }}</div><h2 class="h3 mt-4">Good to know</h2><div class="text-secondary lh-lg mt-3">{{ place.visitor_information|default:'Confirm current access arrangements locally before your visit.'|urlize|linebreaks }}</div></section>
-    <aside class="col-lg-4"><div class="card visit-panel p-4"><h2 class="h3 mb-4">Plan your visit</h2><dl class="mb-0"><dt>From Bandaragama</dt><dd>{{ place.distance_km|floatformat:1 }} km · approximate straight-line distance</dd><dt>Opening hours</dt><dd>{% if place.opening_time and place.closing_time %}{{ place.opening_time|time:'g:i A' }} – {{ place.closing_time|time:'g:i A' }}{% elif place.opening_time %}Opens {{ place.opening_time|time:'g:i A' }}{% elif place.closing_time %}Closes {{ place.closing_time|time:'g:i A' }}{% else %}Hours not verified{% endif %}{% if place.opening_hours_note %}<p class="small text-secondary mt-2 mb-0">{{ place.opening_hours_note }}</p>{% endif %}</dd>{% if place.address %}<dt>Location</dt><dd class="mb-0">{{ place.address }}</dd>{% endif %}</dl></div></aside>
+  <div class="row g-4">
+    <section class="col-lg-8 text-break">
+      <h2 class="h3">About this place</h2><div>{{ place.description|linebreaks }}</div>
+      <h2 class="h3 mt-4">Visitor information</h2><div>{{ place.visitor_information|default:'Confirm current access arrangements locally before your visit.'|urlize|linebreaks }}</div>
+    </section>
+    <aside class="col-lg-4"><div class="card bg-light"><div class="card-body">
+      <h2 class="h4">Plan your visit</h2>
+      <p>{% include 'icon.html' with name='geo-alt-fill' %} {{ place.distance_km|floatformat:1 }} km from Bandaragama<br><span class="small text-secondary">Approximate straight-line distance</span></p>
+      {% if place.address %}<p>{{ place.address }}</p>{% endif %}
+      <h3 class="h6">Opening hours</h3>
+      <p>{% if place.opening_time and place.closing_time %}{{ place.opening_time|time:'g:i A' }} – {{ place.closing_time|time:'g:i A' }}{% elif place.opening_time %}Opens {{ place.opening_time|time:'g:i A' }}{% elif place.closing_time %}Closes {{ place.closing_time|time:'g:i A' }}{% else %}Hours not verified{% endif %}</p>
+      <p class="small text-secondary mb-0">{% if place.opening_hours_note %}{{ place.opening_hours_note }}{% else %}Check locally before travelling.{% endif %}</p>
+    </div></div></aside>
   </div>
-  <section class="mt-5"><p class="eyebrow">FIND YOUR WAY HERE</p><h2 class="h1">On the map</h2><p class="text-secondary">Zoom or pan to explore. The marker shows the approximate mapped location.</p>{% include 'attractions/map.html' %}</section>
+  <section class="border-top pt-4 mt-4"><h2 class="h3">Location</h2><p class="small text-secondary">Zoom or pan to explore the approximate mapped location.</p>{% include 'attractions/map.html' %}</section>
+  {% if more_places %}
+  <section class="border-top pt-4 mt-4"><h2 class="h3">More to explore</h2><p><a href="{% url 'attractions:list' %}">View all places</a></p><div class="row g-3">{% for place in more_places %}<div class="col-sm-6 col-lg-3">{% include 'attractions/place_card.html' with compact=True %}</div>{% endfor %}</div></section>
+  {% endif %}
 </div>
 {% endblock %}
-{% block extra_js %}<script defer src="{% static 'js/leaflet/leaflet.js' %}"></script><script defer src="{% static 'js/map.js' %}"></script>{% endblock %}
+{% block extra_js %}<script defer src="{% static 'vendor/leaflet/leaflet.js' %}"></script><script defer src="{% static 'js/map.js' %}"></script>{% endblock %}

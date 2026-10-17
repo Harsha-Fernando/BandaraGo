@@ -1,0 +1,12 @@
+<article class="card h-100">
+  <a class="d-block" href="{{ place.get_absolute_url }}" tabindex="-1" aria-hidden="true">
+    {% with cover=place.cover_image %}{% if cover %}<img class="card-img-top place-photo" src="{{ cover.image.url }}" alt="" width="600" height="400" loading="lazy">{% else %}<div class="bg-light p-4 text-secondary">Photograph unavailable</div>{% endif %}{% endwith %}
+  </a>
+  <div class="card-body d-flex flex-column">
+    <div class="d-flex flex-wrap gap-1 mb-2">{% for category in place.categories.all %}<span class="badge text-bg-secondary">{{ category.name }}</span>{% endfor %}</div>
+    <h3 class="h5 card-title"><a href="{{ place.get_absolute_url }}">{{ place.name }}</a></h3>
+    {% if not compact %}<p class="card-text">{{ place.short_description }}</p>{% endif %}
+    <p class="small text-secondary mt-auto">{% include 'icon.html' with name='geo-alt' %} {{ place.distance_km|floatformat:1 }} km from Bandaragama</p>
+    <a class="btn btn-outline-primary align-self-start" href="{{ place.get_absolute_url }}">View place</a>
+  </div>
+</article>

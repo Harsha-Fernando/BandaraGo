@@ -1,24 +1,23 @@
 {% extends 'base.html' %}
 {% block title %}Your one-day plan · BandaraGo{% endblock %}
 {% block content %}
-<div class="container section-space">
-  <p class="eyebrow">A DAY, YOUR WAY</p><h1 class="display-4">Your little getaway</h1>
+<div class="container py-4">
+  <p class="small text-secondary">A DAY, YOUR WAY</p><h1 class="display-4">Your little getaway</h1>
   <p class="lead text-secondary mt-3 mb-4">A few favourite places, in the order you choose. Move stops up or down to make this day your own.</p>
   {% if places %}
   <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 my-4"><p class="small mb-0">{{ places|length }} stop{{ places|length|pluralize }} in your day</p><a class="small fw-semibold" href="{% url 'planner:confirm_clear' %}">Clear entire plan</a></div>
-  <ol class="plan-list">
-    {% for place in places %}<li class="plan-stop"><div class="row g-3 align-items-center">
-      <div class="col-auto"><span class="stop-number">{{ forloop.counter }}</span></div>
-      <div class="col"><h2 class="h4"><a class="place-title" href="{{ place.get_absolute_url }}">{{ place.name }}</a></h2><div class="d-flex flex-wrap gap-2">{% for category in place.categories.all %}<span class="badge category-badge">{{ category.name }}</span>{% endfor %}</div><p class="small text-secondary mt-2 mb-0">{{ place.distance_km|floatformat:1 }} km from Bandaragama</p></div>
+  <ol class="list-group list-group-numbered">
+    {% for place in places %}<li class="list-group-item d-flex gap-3 py-3"><div class="row g-3 align-items-center flex-grow-1">
+      <div class="col"><h2 class="h4"><a href="{{ place.get_absolute_url }}">{{ place.name }}</a></h2><div class="d-flex flex-wrap gap-2">{% for category in place.categories.all %}<span class="badge text-bg-secondary">{{ category.name }}</span>{% endfor %}</div><p class="small text-secondary mt-2 mb-0">{{ place.distance_km|floatformat:1 }} km from Bandaragama</p></div>
       <div class="col-12 col-lg-auto d-flex flex-wrap align-items-center gap-2">
-        <form method="post" action="{% url 'planner:reorder' place.pk %}">{% csrf_token %}<input type="hidden" name="direction" value="up"><button class="btn btn-outline-secondary" {% if forloop.first %}disabled{% endif %} aria-label="Move {{ place.name }} up">↑</button></form>
-        <form method="post" action="{% url 'planner:reorder' place.pk %}">{% csrf_token %}<input type="hidden" name="direction" value="down"><button class="btn btn-outline-secondary" {% if forloop.last %}disabled{% endif %} aria-label="Move {{ place.name }} down">↓</button></form>
-        <a class="btn btn-outline-secondary" href="{% url 'planner:confirm_remove' place.pk %}">Remove<span class="visually-hidden"> {{ place.name }}</span></a>
+        <form method="post" action="{% url 'planner:reorder' place.pk %}">{% csrf_token %}<input type="hidden" name="direction" value="up"><button class="btn btn-outline-secondary" {% if forloop.first %}disabled{% endif %} aria-label="Move {{ place.name }} up">{% include 'icon.html' with name='arrow-up' %}</button></form>
+        <form method="post" action="{% url 'planner:reorder' place.pk %}">{% csrf_token %}<input type="hidden" name="direction" value="down"><button class="btn btn-outline-secondary" {% if forloop.last %}disabled{% endif %} aria-label="Move {{ place.name }} down">{% include 'icon.html' with name='arrow-down' %}</button></form>
+        <a class="btn btn-outline-secondary" href="{% url 'planner:confirm_remove' place.pk %}">{% include 'icon.html' with name='trash3' %} Remove<span class="visually-hidden"> {{ place.name }}</span></a>
       </div>
     </div></li>{% endfor %}
   </ol>
-  <div class="plan-note p-4 small lh-lg mt-4">Your order is saved in this browser session. Distances are measured from Bandaragama, not between stops. Check opening hours, journey times, and access before setting out.</div>
-  <a class="btn btn-primary mt-4" href="{% url 'attractions:list' %}">Explore more places ↗</a>
-  {% else %}<div class="empty-state mt-4"><span class="display-4" aria-hidden="true">↗</span><h2 class="h1 mt-3">Every good day starts somewhere</h2><p class="text-secondary mt-3">Explore a place and choose “Add to my day” to start your plan.</p><a class="btn btn-primary mt-3" href="{% url 'attractions:list' %}">Find your first stop</a></div>{% endif %}
+  <div class="alert alert-info mt-4">Your order is saved in this browser session. Distances are measured from Bandaragama, not between stops. Check opening hours, journey times, and access before setting out.</div>
+  <a class="btn btn-primary mt-4" href="{% url 'attractions:list' %}">Explore more places {% include 'icon.html' with name='arrow-right' %}</a>
+  {% else %}<div class="card card-body bg-light mt-4">{% include 'icon.html' with name='map' %}<h2 class="h1 mt-3">Every good day starts somewhere</h2><p class="text-secondary mt-3">Explore a place and choose “Add to my day” to start your plan.</p><a class="btn btn-primary mt-3" href="{% url 'attractions:list' %}">Find your first stop</a></div>{% endif %}
 </div>
 {% endblock %}
