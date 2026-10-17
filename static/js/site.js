@@ -1,7 +1,7 @@
 document.querySelectorAll('img').forEach((image) => {
   const showFallback = () => {
     const fallback = document.createElement('div');
-    fallback.className = 'photo-empty rounded-2xl';
+    fallback.className = 'photo-empty rounded-4';
     fallback.textContent = 'Photograph unavailable';
     image.replaceWith(fallback);
   };
