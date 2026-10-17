@@ -29,7 +29,7 @@ Open http://127.0.0.1:8000/ and use `/admin/` for staff management. Never share 
 
 ## Styles and checks
 
-Bootstrap 5.3.8 CSS is served locally from `static/css/bootstrap/`; edit `static/css/app.css` for the theme. No CSS build step or Node.js installation is required:
+Precompiled Bootstrap 5.3.8 CSS and JavaScript are served locally from `static/css/bootstrap/` and `static/js/bootstrap/`. The MIT license is in `static/css/bootstrap/LICENSE`. Necessary theme and layout overrides are in `static/css/style.css`. No npm, Node.js, CDN, or frontend build process is required:
 
 ```sh
 python manage.py check
@@ -46,6 +46,6 @@ Run `python manage.py seed_categories` once (safe to repeat). In `/admin/`, save
 
 Visitor instructions: [user guide](docs/user-guide.pdf) and `/help/`. Source attribution: [data sources](docs/data-sources.md). Test evidence and limitations: [validation](docs/testing/validation.md).
 
-Optional checks: `node scripts/check_map.cjs` checks map error handling without rendering a browser. With the server running, `python scripts/check_performance.py --users 10 --iterations 5` measures local HTTP responses and session writes (it does not measure browser or map rendering).
+With the server running, open http://127.0.0.1:8000/static/js/map-check.html for the browser map behavior checks (no Node.js). These simulate Leaflet and do not request map tiles; check a real attraction map separately. For optional local load evidence, `python scripts/check_performance.py --users 10 --iterations 5` measures local HTTP responses and session writes (it does not measure browser or map rendering).
 
 The user approved Bootstrap in place of the SRS Tailwind requirement. The SRS file is unchanged. Leaflet uses standard OSM tiles with visible attribution; `SECURE_REFERRER_POLICY` permits the cross-origin Referer required by the [OSM tile usage policy](https://operations.osmfoundation.org/policies/tiles/). Do not replace this with `same-origin` or `no-referrer` in Django or a reverse proxy.

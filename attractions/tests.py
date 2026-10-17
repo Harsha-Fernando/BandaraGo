@@ -92,6 +92,19 @@ class DiscoveryTests(TestCase):
             self.assertNotContains(response, 'Hidden draft')
             self.assertContains(response, '0.0 km from Bandaragama')
 
+    def test_public_pages_use_local_bootstrap_assets(self):
+        from django.contrib.staticfiles import finders
+
+        assets = ['css/bootstrap/bootstrap.min.css', 'css/style.css',
+                  'js/bootstrap/bootstrap.bundle.min.js']
+        for asset in assets:
+            self.assertIsNotNone(finders.find(asset))
+        for url in ['/', '/attractions/', self.place.get_absolute_url(), '/planner/',
+                    '/planner/clear/confirm/', '/help/']:
+            response = self.client.get(url)
+            for asset in assets:
+                self.assertContains(response, f'/static/{asset}')
+
     def test_filter_and_clear(self):
         response = self.client.get('/attractions/', {'category': 'nature'})
         self.assertContains(response, self.place.name)
