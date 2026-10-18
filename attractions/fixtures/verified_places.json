@@ -260,5 +260,55 @@
       "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
       "alt_text": "Fountain at Diyatha Uyana"
     }
+  },
+  {
+    "name": "Kalutara Beach",
+    "slug": "kalutara-beach",
+    "latitude": "6.566747",
+    "longitude": "79.960244",
+    "categories": [
+      "nature",
+      "leisure"
+    ],
+    "short_description": "A coastal stop in Kalutara.",
+    "description": "Kalutara Beach is a stretch of coast in the Kalutara area on Sri Lanka’s western seaboard. The marker uses the documented camera location of a photograph of the beach; it is an approximate reference point rather than a surveyed public entrance.",
+    "address": "Kalutara, Kalutara District",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Kalutara_Beach_-_Sri_Lanka_2023-11-11.jpg",
+    "coordinate_source": "https://commons.wikimedia.org/wiki/File:Kalutara_Beach_-_Sri_Lanka_2023-11-11.jpg",
+    "verified_on": "2026-10-18",
+    "visitor_information": "Use an established public access point and respect private property. Check local weather and posted guidance; this listing does not establish that swimming or bathing is safe.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Kalutara_Beach_-_Sri_Lanka_2023-11-11.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Kalutara_Beach_-_Sri_Lanka_2023-11-11.jpg",
+      "author": "Muunaa-Selva",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "alt_text": "Kalutara Beach coastline"
+    }
+  },
+  {
+    "name": "Wadduwa Beach",
+    "slug": "wadduwa-beach",
+    "latitude": "6.655741",
+    "longitude": "79.930686",
+    "categories": [
+      "nature",
+      "leisure"
+    ],
+    "short_description": "A coastal stop in Wadduwa.",
+    "description": "Wadduwa Beach is a coastal attraction in the Wadduwa area of Kalutara District. The marker uses the documented camera location of a photograph of the beach; it is an approximate reference point rather than a surveyed public entrance.",
+    "address": "Wadduwa, Kalutara District",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Wadduwa_Beach.jpg",
+    "coordinate_source": "https://commons.wikimedia.org/wiki/File:Wadduwa_Beach.jpg",
+    "verified_on": "2026-10-18",
+    "visitor_information": "Use an established public access point and respect private property. Check local weather and posted guidance; this listing does not establish that swimming or bathing is safe.",
+    "photo": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/85/Wadduwa_Beach.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Wadduwa_Beach.jpg",
+      "author": "Kesara Rathnayake",
+      "license": "CC BY-SA 2.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "alt_text": "Wadduwa Beach coastline"
+    }
   }
 ]

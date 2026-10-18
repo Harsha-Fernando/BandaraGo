@@ -367,8 +367,19 @@ class ContentImportTests(TestCase):
     def test_reference_dataset_import_is_draft_idempotent_and_within_radius(self):
         call_command('import_verified_places', stdout=StringIO())
         call_command('import_verified_places', stdout=StringIO())
-        self.assertEqual(Place.objects.count(), 10)
+        self.assertEqual(Place.objects.count(), 12)
         self.assertFalse(Place.objects.published().exists())
+        proposed = {'kalutara-bodhiya', 'richmond-castle', 'panadura-beach',
+                    'bolgoda-lake', 'kalutara-beach', 'wadduwa-beach'}
+        slugs = set(Place.objects.values_list('slug', flat=True))
+        self.assertTrue(proposed <= slugs)
+        self.assertFalse({'kande-vihara', 'beruwala-lighthouse'} & slugs)
+        beach = Place.objects.get(slug='wadduwa-beach')
+        beach.description = 'Staff-reviewed description.'
+        beach.save()
+        call_command('import_verified_places', stdout=StringIO())
+        beach.refresh_from_db()
+        self.assertEqual(beach.description, 'Staff-reviewed description.')
         for place in Place.objects.all():
             self.assertLessEqual(place.distance_km, 25)
             self.assertGreater(place.categories.count(), 0)

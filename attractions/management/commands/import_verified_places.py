@@ -13,7 +13,7 @@ from attractions.models import Category, Place, PlaceImage
 
 
 class Command(BaseCommand):
-    help = 'Import the reviewed ten-place reference dataset as drafts; never overwrite existing places.'
+    help = 'Import the reviewed reference dataset as drafts; never overwrite existing places.'
 
     def add_arguments(self, parser):
         parser.add_argument('--download-images', action='store_true', help='Download attributed Commons photos (internet required).')
