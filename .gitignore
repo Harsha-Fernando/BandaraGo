@@ -16,16 +16,9 @@ node_modules/
 coverage.xml
 .coverage
 
-# Local internal working documents
-/docs/testing/progress.md
-/docs/testing/bootstrap-migration.md
-/docs/testing/map-bootstrap-fix.md
-/docs/diagrams/design-notes.md
+# Local documentation and academic working files
+/docs/
 *.tmp
 *.swp
 
-/docs/testing/browser-checklist.md
-/docs/testing/django-bootstrap-refactor.md
-/docs/testing/performance-2026-10-17.json
-/docs/testing/validation.md
 /ITE2953_ProjectProposal_E2410614 (3).pdf
