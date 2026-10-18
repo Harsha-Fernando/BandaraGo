@@ -157,7 +157,7 @@ class DetailTests(TestCase):
         for image in ['marker-icon.png', 'marker-icon-2x.png', 'marker-shadow.png']:
             self.assertIsNotNone(finders.find(f'vendor/leaflet/images/{image}'))
 
-    def test_sources_are_collapsed_and_visitor_guidance_is_preserved(self):
+    def test_source_records_are_hidden_and_visitor_guidance_is_preserved(self):
         self.place.visitor_information = (
             'Wear suitable footwear.\n\n'
             'Information: https://example.invalid/source\nSource review: 2026-10-18\n\n'
@@ -166,9 +166,10 @@ class DetailTests(TestCase):
         self.place.save()
         response = self.client.get(self.place.get_absolute_url())
         self.assertEqual(response.context['visitor_guidance'], 'Wear suitable footwear.')
-        self.assertIn('Test author', response.context['source_information'])
-        self.assertContains(response, '<details id="sources"')
-        self.assertNotContains(response, '<details id="sources" open')
+        self.assertNotContains(response, 'Sources &amp; image credits')
+        self.assertNotContains(response, 'Test author')
+        self.assertNotContains(response, 'https://example.invalid/source')
+        self.assertNotContains(response, 'https://example.invalid/photo')
         self.place.refresh_from_db()
         self.assertIn('Test author', self.place.visitor_information)
 

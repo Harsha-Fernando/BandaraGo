@@ -38,12 +38,6 @@
     </div>
     {% include 'attractions/map.html' %}
   </section>
-  {% if source_information %}
-  <details id="sources" class="border-top pt-3 mt-4 small text-secondary text-break">
-    <summary>Sources &amp; image credits</summary>
-    <div class="pt-3">{{ source_information|urlize|linebreaks }}</div>
-  </details>
-  {% endif %}
   {% if more_places %}
   <section class="border-top pt-4 mt-5"><div class="d-flex justify-content-between gap-3 align-items-center mb-4"><h2 class="h4 mb-0">More to explore</h2><a href="{% url 'attractions:list' %}">All places</a></div><div class="row g-4">{% for place in more_places %}<div class="col-sm-6 col-lg-3">{% include 'attractions/place_card.html' with compact=True %}</div>{% endfor %}</div></section>
   {% endif %}
