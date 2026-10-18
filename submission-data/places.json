@@ -1,0 +1,475 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "name": "Cultural",
+      "slug": "cultural",
+      "description": "",
+      "created_at": "2026-10-17 16:39:43.557439+00:00"
+    },
+    {
+      "name": "Heritage",
+      "slug": "heritage",
+      "description": "",
+      "created_at": "2026-10-17 16:39:43.554905+00:00"
+    },
+    {
+      "name": "Leisure",
+      "slug": "leisure",
+      "description": "",
+      "created_at": "2026-10-17 16:39:43.558997+00:00"
+    },
+    {
+      "name": "Nature",
+      "slug": "nature",
+      "description": "",
+      "created_at": "2026-10-17 16:39:43.556230+00:00"
+    },
+    {
+      "name": "Religious",
+      "slug": "religious",
+      "description": "",
+      "created_at": "2026-10-17 16:39:43.549128+00:00"
+    }
+  ],
+  "places": [
+    {
+      "fields": {
+        "name": "Sri Lanka Air Force Museum",
+        "slug": "air-force-museum",
+        "short_description": "Aviation history and aircraft displays at Ratmalana.",
+        "description": "The Sri Lanka Air Force Museum is located at SLAF Ratmalana. It presents the history of the Sri Lanka Air Force and its predecessor, the Royal Ceylon Air Force. Confirm current public access requirements before visiting.",
+        "latitude": "6.824200",
+        "longitude": "79.891700",
+        "address": "SLAF Ratmalana",
+        "opening_hours_note": "Open daily except Mondays and Public Holidays.",
+        "opening_hours": "Tuesday - Sunday: 8:30 AM – 4:15 PM\r\nMonday: Closed",
+        "google_maps_query": "Sri Lanka Air Force Museum, Ratmalana, Sri Lanka",
+        "google_maps_place_id": "",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.5548863653444!2d79.8917824!3d6.8238620999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25ac61680bad9%3A0xb6dbdd061fb17aa8!2sSri%20Lanka%20Air%20Force%20Museum!5e0!3m2!1sen!2slk!4v1792311079516!5m2!1sen!2slk",
+        "visitor_information": "Ticket Prices (Local):\r\n\r\nAdults (18 years and over): LKR 200.00\r\n\r\nChildren (below 18 years): LKR 50.00\r\n\r\nSchool Children (6–18 years in uniform): LKR 20.00\r\n\r\nChildren below 6 years in Preschool uniform / Clergy / Differently abled people: Free\r\n\r\nTicket Prices (Foreign):\r\n\r\nForeign Adults: US$ 15.00\r\n\r\nForeign Children (6–18 years): US$ 10.00\r\n\r\nContact Information:\r\n\r\nAddress: SLAF Museum, Colombo Road, Ratmalana Air Force Base, Sri Lanka\r\n\r\nPhone: +94 772 444 445\r\n\r\nEmail: museum@airforce.lk\r\n\r\nTips for Visitors:\r\n\r\nVisitors are encouraged to allow 2–3 hours to fully explore the exhibits.\r\n\r\nImportant Security Notice: Because the museum is located within an active military base (Ratmalana Air Force Base), the compound is strictly demarcated. Visitors are strongly advised not to trespass into restricted areas and should check with the museum regarding authorization for photography and videography.",
+        "is_published": true,
+        "created_at": "2026-10-17 16:58:15.680481+00:00",
+        "updated_at": "2026-10-18 10:49:50.948149+00:00"
+      },
+      "categories": [
+        "cultural",
+        "heritage"
+      ],
+      "images": [
+        {
+          "file": "images/e058b0700708c8a7caa6916b50f0b3ac1693f1589f5fefd01466770e79bccfe3.jpg",
+          "sha256": "e058b0700708c8a7caa6916b50f0b3ac1693f1589f5fefd01466770e79bccfe3",
+          "alt_text": "The SLAF museum",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-17 16:58:15.688709+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Bellanwila Rajamaha Viharaya",
+        "slug": "bellanwila-viharaya",
+        "short_description": "A Buddhist temple known for its sacred Bodhi tree.",
+        "description": "Bellanwila Rajamaha Viharaya is a Buddhist temple at Bellanwila, near Boralesgamuwa. The temple is known for its Bodhi tree and its religious and cultural traditions. It remains an active place of worship.",
+        "latitude": "6.845556",
+        "longitude": "79.890000",
+        "address": "Bellanwila, Boralesgamuwa",
+        "opening_hours_note": "Listed visitor hours; religious events may affect access.",
+        "opening_hours": "Monday–Sunday: 6:00 AM–9:00 PM",
+        "google_maps_query": "Bellanwila Rajamaha Viharaya, Dehiwala Road, Boralesgamuwa, Sri Lanka",
+        "google_maps_place_id": "",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.3715771855873!2d79.8900585!3d6.845981500000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25aee1916e3ef%3A0xdb50ff12ef434d19!2sBellanwila%20Rajamaha%20Viharaya!5e0!3m2!1sen!2slk!4v1792310855796!5m2!1sen!2slk",
+        "visitor_information": "Wear modest clothing for this active place of worship. Follow instructions about footwear and photography in sacred areas, and avoid interrupting prayers or ceremonies.",
+        "is_published": true,
+        "created_at": "2026-10-17 16:56:07.342305+00:00",
+        "updated_at": "2026-10-18 09:59:27.786849+00:00"
+      },
+      "categories": [
+        "cultural",
+        "religious"
+      ],
+      "images": [
+        {
+          "file": "images/4d8377eab9b76b040212e06340382383959cfb4d4f5525a9719ef72ba955cfee.jpg",
+          "sha256": "4d8377eab9b76b040212e06340382383959cfb4d4f5525a9719ef72ba955cfee",
+          "alt_text": "Bellanwila Vihara is a famous Buddhist temple in Colombo, Sri Lanka.",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-17 16:56:07.353281+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Bolgoda Lake",
+        "slug": "bolgoda-lake",
+        "short_description": "A broad freshwater lake system across Colombo and Kalutara districts.",
+        "description": "Bolgoda comprises northern and southern lake areas connected by waterways. It forms part of an environmental protection area and drains towards the sea at Panadura. The marker represents a point on the lake, not a public entrance.",
+        "latitude": "6.771111",
+        "longitude": "79.907500",
+        "address": "Bolgoda Lake",
+        "opening_hours_note": "Access points and nearby businesses may have their own hours. Prefer daylight visits.",
+        "opening_hours": "No published fixed opening or closing times",
+        "google_maps_query": "Bolgoda Lake, Sri Lanka",
+        "google_maps_place_id": "",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31695.877129413828!2d79.90866574999998!3d6.771722899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae245852f5755db%3A0x556d7640c75b7c83!2sBolgoda%20Lake!5e0!3m2!1sen!2slk!4v1792311340092!5m2!1sen!2slk",
+        "visitor_information": "This is a lake-area marker, not an entrance. Confirm a lawful public access point locally and respect private property.",
+        "is_published": true,
+        "created_at": "2026-10-17 16:54:17.461897+00:00",
+        "updated_at": "2026-10-18 10:00:12.277220+00:00"
+      },
+      "categories": [
+        "nature"
+      ],
+      "images": [
+        {
+          "file": "images/54211e7de7e55b42a47db7a9bfd702c4420c4c5d3a99ca74383d63ebf050b78d.jpg",
+          "sha256": "54211e7de7e55b42a47db7a9bfd702c4420c4c5d3a99ca74383d63ebf050b78d",
+          "alt_text": "Bolgoda Lake in Sri Lanka.",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-17 16:54:17.468798+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Dehiwala Zoological Gardens",
+        "slug": "dehiwala-zoo",
+        "short_description": "A zoological garden with animal exhibits and educational displays.",
+        "description": "The National Zoological Gardens at Dehiwala is operated by the Department of National Zoological Gardens. Visitors can see a collection of mammals, birds, reptiles, and other animals. Check the official website for current visitor arrangements.",
+        "latitude": "6.856806",
+        "longitude": "79.872889",
+        "address": "120 Anagarika Dharmapala Mawatha, Dehiwala",
+        "opening_hours_note": "Open daily.",
+        "opening_hours": "Monday–Sunday: 8:30 AM–5:00 PM",
+        "google_maps_query": "Dehiwala Zoological Gardens, Anagarika Dharmapala Mawatha, Dehiwala, Sri Lanka",
+        "google_maps_place_id": "",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.2822360608807!2d79.8743673!3d6.8567363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25baace050325%3A0xfd90f5bffd93f59f!2sDehiwala%20Zoological%20Gardens!5e0!3m2!1sen!2slk!4v1792310886238!5m2!1sen!2slk",
+        "visitor_information": "Tips for Visitors:\r\n\r\nArrive early (right at 8:30 AM opening) to see the animals when they are most active and to beat the heat and crowds.\r\n\r\n\r\nTicket Prices:\r\n\r\n  Sri Lankan Adults: LKR 100\r\n\r\n  Sri Lankan Children (3–12 years): LKR 30 - LKR 100\r\n\r\n  Foreign Adults: LKR 2,500\r\n\r\n  Foreign Children: LKR 1,250\r\n\r\n  SAARC Adults: LKR 700\r\n\r\n  SAARC Children: LKR 350\r\n\r\n\r\nContact Information:\r\n\r\nAddress: 120 Anagarika Dharmapala Mawatha, Dehiwala-Mount Lavinia, Sri Lanka\r\n\r\nPhone: 011 2 712 752 / 011 2 712 751\r\n\r\nEmail: zoosl@slt.lk",
+        "is_published": true,
+        "created_at": "2026-10-17 16:56:09.466232+00:00",
+        "updated_at": "2026-10-18 10:37:51.926999+00:00"
+      },
+      "categories": [
+        "leisure"
+      ],
+      "images": [
+        {
+          "file": "images/8d9685ac4210581f6c778995213de3390a61b8444c7e78d96d6261b6294730e8.jpg",
+          "sha256": "8d9685ac4210581f6c778995213de3390a61b8444c7e78d96d6261b6294730e8",
+          "alt_text": "Giraffes in cross shot is a rare click to get eventually.",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-17 16:56:09.491021+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Diyatha Uyana",
+        "slug": "diyatha-uyana",
+        "short_description": "A waterside park at Polduwa junction in Battaramulla.",
+        "description": "Diyatha Uyana is a park beside the Diyawanna Oya at Polduwa junction, Battaramulla. The park is one of the public amenities managed by the Sri Lanka Land Development Corporation.",
+        "latitude": "6.904500",
+        "longitude": "79.909800",
+        "address": "Polduwa junction, Battaramulla",
+        "opening_hours_note": "Published visitor listing; operator hours not confirmed. Food court, aquarium and market hours can differ.",
+        "opening_hours": "Monday–Sunday: 8:00 AM–11:00 PM",
+        "google_maps_query": "Diyatha Uyana Park, B240, Sri Jayawardenepura Kotte, Sri Lanka",
+        "google_maps_place_id": "",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.8831443928293!2d79.9098313!3d6.9045749999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae259f98bd912ed%3A0xdcc9ab545593fc1b!2sDiyatha%20Uyana%20Park!5e0!3m2!1sen!2slk!4v1792310776311!5m2!1sen!2slk",
+        "visitor_information": "The lakeside park has walking areas, food outlets and an aquarium. Use the designated paths, keep children supervised near the water, and dispose of litter responsibly. Individual stalls and attractions may operate different hours.",
+        "is_published": true,
+        "created_at": "2026-10-17 16:58:17.642440+00:00",
+        "updated_at": "2026-10-18 10:40:46.145802+00:00"
+      },
+      "categories": [
+        "leisure",
+        "nature"
+      ],
+      "images": [
+        {
+          "file": "images/4ca5a85cbfee80168f8c240702636fddc97ce4aa5ffc0eefb81f148cb3b51788.jpg",
+          "sha256": "4ca5a85cbfee80168f8c240702636fddc97ce4aa5ffc0eefb81f148cb3b51788",
+          "alt_text": "Fountain at Diyatha Uyana",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-17 16:58:17.649041+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Kalutara Beach",
+        "slug": "kalutara-beach",
+        "short_description": "A coastal stop in Kalutara.",
+        "description": "Kalutara Beach is a stretch of coast in the Kalutara area on Sri Lanka’s western seaboard. The map identifies the named Google Maps beach listing; use an established public access point. The location is not a surveyed entrance.",
+        "latitude": "6.609847",
+        "longitude": "79.947418",
+        "address": "Kalutara, Kalutara District",
+        "opening_hours_note": "Access points and nearby businesses may have their own hours. Prefer daylight visits.",
+        "opening_hours": "No published fixed opening or closing times",
+        "google_maps_query": "Kalutara Beach, Kalutara North, Sri Lanka",
+        "google_maps_place_id": "",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17326.09952033967!2d79.94644037160042!3d6.609938577851093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae237a6aab4fa25%3A0xe685fc7dbe356e1a!2sKalutara%20Beach!5e0!3m2!1sen!2slk!4v1792311552180!5m2!1sen!2slk",
+        "visitor_information": "Use an established public access point and respect private property. Check local weather and posted guidance. this listing does not establish that swimming or bathing is safe.",
+        "is_published": true,
+        "created_at": "2026-10-18 07:42:35.568100+00:00",
+        "updated_at": "2026-10-18 10:41:17.402830+00:00"
+      },
+      "categories": [
+        "leisure",
+        "nature"
+      ],
+      "images": [
+        {
+          "file": "images/e126723ef3fe1e600f903df5359a918613c42377e315fb6dc05c6795932a4450.jpg",
+          "sha256": "e126723ef3fe1e600f903df5359a918613c42377e315fb6dc05c6795932a4450",
+          "alt_text": "Kalutara Beach coastline",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-18 07:42:35.586513+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Kalutara Bodhiya",
+        "slug": "kalutara-bodhiya",
+        "short_description": "A revered Bodhi tree and Buddhist temple beside the Kalu River.",
+        "description": "Kalutara Bodhiya is a Buddhist religious site on the Colombo–Galle road near the Kalu River. The sacred Bodhi tree, temple, and nearby white stupa form a prominent religious landmark in Kalutara.",
+        "latitude": "6.586944",
+        "longitude": "79.960278",
+        "address": "Kalutara",
+        "opening_hours_note": "Listed weekly hours; religious events and holidays may affect access.",
+        "opening_hours": "Monday–Saturday: 4:30 AM–10:00 PM\r\nSunday: 5:00 AM–10:00 PM",
+        "google_maps_query": "Kalutara Bodhiya, Galle Road, Kalutara, Sri Lanka",
+        "google_maps_place_id": "",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.4791077516343!2d79.95954689999999!3d6.587212500000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2371ee1516f4f%3A0x24ab647db3fdd49a!2sKalutara%20Bodhiya!5e0!3m2!1sen!2slk!4v1792310669185!5m2!1sen!2slk",
+        "visitor_information": "Dress modestly and respect worshippers. Follow the temple’s instructions about footwear and photography. Use the designated pedestrian crossing or subway when moving between areas beside the busy Galle Road.",
+        "is_published": true,
+        "created_at": "2026-10-17 16:54:16.262281+00:00",
+        "updated_at": "2026-10-18 10:41:46.977956+00:00"
+      },
+      "categories": [
+        "cultural",
+        "religious"
+      ],
+      "images": [
+        {
+          "file": "images/8adb471fff9e7bd4d5445bd0478c18ffdc125392d28b271943d830bed765e18a.jpg",
+          "sha256": "8adb471fff9e7bd4d5445bd0478c18ffdc125392d28b271943d830bed765e18a",
+          "alt_text": "Kalutara Bodhiya is an old Bodhi tree which is identified as one of the 32 saplings of Jaya Sri Maha Bodhi which was planted during the reign of king Devanampiyatissa in the 2nd century BC at Anuradhapura, Sri Lanka.",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-17 16:54:16.273500+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Mount Lavinia Beach",
+        "slug": "mount-lavinia-beach",
+        "short_description": "A coastal escape in the Mount Lavinia area.",
+        "description": "Mount Lavinia Beach is a western-coast beach in the Dehiwala–Mount Lavinia area. It is a popular coastal destination south of Colombo. The marker represents the beach area; use an established public access point.",
+        "latitude": "6.840060",
+        "longitude": "79.862620",
+        "address": "Mount Lavinia",
+        "opening_hours_note": "Beach-area listing; individual access points and businesses may have separate hours.",
+        "opening_hours": "Monday–Sunday: Listed as open 24 hours",
+        "google_maps_query": "Mount Lavinia Beach, Dehiwala-Mount Lavinia, Sri Lanka",
+        "google_maps_place_id": "ChIJodWylxBb4joRd_aoOLm_cm0",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15845.738501078133!2d79.84386958715821!3d6.838381700000015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25b1097b2d5a1%3A0x6d72bfb938a8f677!2sMount%20Lavinia%20Beach.!5e0!3m2!1sen!2slk!4v1792311432864!5m2!1sen!2slk",
+        "visitor_information": "Check local weather and access conditions. Follow posted guidance; this listing does not establish that swimming or bathing is safe.",
+        "is_published": true,
+        "created_at": "2026-10-17 16:57:08.752637+00:00",
+        "updated_at": "2026-10-18 10:41:59.299526+00:00"
+      },
+      "categories": [
+        "leisure",
+        "nature"
+      ],
+      "images": [
+        {
+          "file": "images/6c16a49c2bc6374ee650d736c1b8894078ae497c3c5fd060e6771420bfa8173a.jpg",
+          "sha256": "6c16a49c2bc6374ee650d736c1b8894078ae497c3c5fd060e6771420bfa8173a",
+          "alt_text": "Mount Lavinia Beach",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-17 16:57:08.772155+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Panadura Beach",
+        "slug": "panadura-beach",
+        "short_description": "A sandy stretch of coast close to Panadura town.",
+        "description": "Panadura Beach lies on Sri Lanka’s western coast, beside Panadura town. The mapped beach offers a coastal stop for a short visit; the marker shows the beach area rather than a surveyed entrance.",
+        "latitude": "6.711720",
+        "longitude": "79.901680",
+        "address": "Panadura",
+        "opening_hours_note": "Access points and nearby businesses may have their own hours. Prefer daylight visits.",
+        "opening_hours": "No published fixed opening or closing times",
+        "google_maps_query": "Panadura Beach, Panadura, Sri Lanka",
+        "google_maps_place_id": "",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.4770405688682!2d79.90202760000001!3d6.711487899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae24615d8f8355d%3A0x8d7c1ff79f079a4d!2sPanadura%20Beach!5e0!3m2!1sen!2slk!4v1792311378958!5m2!1sen!2slk",
+        "visitor_information": "Check local weather and access conditions. Follow posted guidance. this listing does not establish that swimming or bathing is safe.",
+        "is_published": true,
+        "created_at": "2026-10-17 16:57:06.534512+00:00",
+        "updated_at": "2026-10-18 10:42:15.206307+00:00"
+      },
+      "categories": [
+        "leisure",
+        "nature"
+      ],
+      "images": [
+        {
+          "file": "images/ee715ace58f2463c98bdfdf2edd95b3810c30869d4463ca7a608fc3d8dc4e812.jpg",
+          "sha256": "ee715ace58f2463c98bdfdf2edd95b3810c30869d4463ca7a608fc3d8dc4e812",
+          "alt_text": "Beach sunset in Panadura, Sri Lanka.",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-17 16:57:06.544130+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Pearl Bay",
+        "slug": "pearl-bay",
+        "short_description": "A premier water park and FIA-CIK certified karting circuit located in Bandaragama, Sri Lanka.",
+        "description": "Pearl Bay is Sri Lanka's first European-standard waterpark, featuring 16 water slides across four towers and three pools. The location also features SpeedBay, a 1.2 km FIA-CIK certified karting track, along with kids' areas, an air rifle shooting range, and dining options like The Titan restaurant and YumBay café.",
+        "latitude": "6.740000",
+        "longitude": "79.990000",
+        "address": "Maithree Mawatha, Bandaragama 12530, Sri Lanka",
+        "opening_hours_note": "Closed on Mondays unless it is a government-declared holiday.",
+        "opening_hours": "Tuesday - Friday: 11:00 AM – 6:00 PM\r\nSaturday - Sunday: 10:00 AM – 6:00 PM\r\nMonday: Closed",
+        "google_maps_query": "Pearl Bay, Bandaragama",
+        "google_maps_place_id": "",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.2686308929465!2d79.98277457524277!3d6.737047993259187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae249a8c42eb171%3A0x648cbf5c87168bf9!2sPearl%20Bay!5e0!3m2!1sen!2slk!4v1792316242290!5m2!1sen!2slk](https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.2686308929465!2d79.98277457524277!3d6.737047993259187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae249a8c42eb171%3A0x648cbf5c87168bf9!2sPearl%20Bay!5e0!3m2!1sen!2slk!4v1792316242290!5m2!1sen!2slk",
+        "visitor_information": "The park operates with a wristband credit system. Minimum height for major water slides is 1.2m, and 1.4m (age 8+) for the main karting circuit. \r\n\r\nHotline: 011 422 6000\r\n\r\nEmail: info@thepearlbay.com.\r\n\r\nWaterpark (SplashBay) Tickets:\r\n\r\n  1.2m and above in height: Rs. 5,500.00\r\n  Below 1.2m in height: Rs. 4,200.00\r\n\r\n\r\nKarting (SpeedBay) Tickets:\r\n\r\n  1.2m and above in height: Rs. 7,900.00\r\n  Below 1.2m in height: Rs. 3,900.00\r\n\r\n\r\nCombo Tickets (SplashBay + SpeedBay):\r\n\r\n  1.2m and above in height: Rs. 11,500.00",
+        "is_published": true,
+        "created_at": "2026-10-18 09:40:19.655142+00:00",
+        "updated_at": "2026-10-18 09:40:19.655157+00:00"
+      },
+      "categories": [
+        "leisure"
+      ],
+      "images": [
+        {
+          "file": "images/a50d766a5ce4129ea594406ff6acaa32ddeba62a23b6575adc8d1f083a5eeb6f.jpg",
+          "sha256": "a50d766a5ce4129ea594406ff6acaa32ddeba62a23b6575adc8d1f083a5eeb6f",
+          "alt_text": "",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-18 09:40:19.677159+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Richmond Castle",
+        "slug": "richmond-castle",
+        "short_description": "An Edwardian mansion beside the Kalu Ganga near Kalutara.",
+        "description": "Richmond Castle is a spectacular two-storey Edwardian mansion built between 1900 and 1910 by philanthropist Mudaliyar Arthur de Silva Wijesinghe Siriwardena.\r\n\r\nSet on a 42-acre estate, the mansion features 16 rooms, 99 ornately decorated doors, and 34 windows with delicate glass panes depicting grapevines. The materials were imported globally, including a grand staircase built from Burma teak.",
+        "latitude": "6.601500",
+        "longitude": "79.975300",
+        "address": "Palatota, Kalutara",
+        "opening_hours_note": "Open daily.",
+        "opening_hours": "Monday–Sunday: 8:00 AM–4:00 PM",
+        "google_maps_query": "Richmond Castle, Palatota, Kalutara, Sri Lanka",
+        "google_maps_place_id": "",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.3641933532695!2d79.975219!3d6.6015823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae236f7628a37e7%3A0x3a251b0edc31ed1b!2sRichmond%20Castle!5e0!3m2!1sen!2slk!4v1792310823966!5m2!1sen!2slk",
+        "visitor_information": "Ticket Prices:\r\n\r\nLocal Adults: LKR 50.00\r\n\r\nSchool Children (Local): LKR 10.00\r\n\r\nForeign Nationals: LKR 500.00\r\n\r\nNote: All ticket income goes toward the benefit of orphaned children cared for on the estate.\r\n\r\nContact & Location:\r\n\r\nAddress: Riverside, Palatota, Kalutara 12000, Sri Lanka\r\n\r\nLocated about 3 km inland from Kalutara town.",
+        "is_published": true,
+        "created_at": "2026-10-17 16:47:09.282158+00:00",
+        "updated_at": "2026-10-18 10:51:06.303774+00:00"
+      },
+      "categories": [
+        "cultural",
+        "heritage"
+      ],
+      "images": [
+        {
+          "file": "images/ad2d4855074018d93c12ae6eaedcc278547fefd550f909d4d0f36b92ffb82395.jpg",
+          "sha256": "ad2d4855074018d93c12ae6eaedcc278547fefd550f909d4d0f36b92ffb82395",
+          "alt_text": "Richmond Castle front — DevilHunter99, CC BY-SA 4.0",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-17 16:47:09.302471+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Thudugala Ella",
+        "slug": "thudugala-ella",
+        "short_description": "A waterfall in Thudugala village in the Kalutara district.",
+        "description": "Thudugala Ella is a waterfall in Thudugala village, within the Dodangoda Divisional Secretariat. The waterfall and its wooded surroundings offer a nature-focused stop in the Kalutara district.",
+        "latitude": "6.570700",
+        "longitude": "80.058430",
+        "address": "Thudugala, Dodangoda",
+        "opening_hours_note": "A map listing is not a guarantee of safe access. Plan a daylight visit and avoid slippery rocks or high water.",
+        "opening_hours": "Monday–Sunday: Listed as open 24 hours",
+        "google_maps_query": "Thudugala Ella, Wellatha Road, Sri Lanka",
+        "google_maps_place_id": "ChIJVVUFZoQ04joRoD2HuigRW_U",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.607539999104!2d80.06087529999999!3d6.5711153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2348466055555%3A0xf55b1128ba873da0!2sThudugala%20Ella!5e0!3m2!1sen!2slk!4v1792311284443!5m2!1sen!2slk",
+        "visitor_information": "Check local weather and access conditions. Follow posted guidance. this listing does not establish that swimming or bathing is safe.",
+        "is_published": true,
+        "created_at": "2026-10-17 16:54:18.257551+00:00",
+        "updated_at": "2026-10-18 10:50:24.480455+00:00"
+      },
+      "categories": [
+        "nature"
+      ],
+      "images": [
+        {
+          "file": "images/5f9ca980f165bb6350fe0d0288f01e3fdb3501c33573d23f7a41b5671cef0fad.jpg",
+          "sha256": "5f9ca980f165bb6350fe0d0288f01e3fdb3501c33573d23f7a41b5671cef0fad",
+          "alt_text": "A view of the Thudugala Ella waterfall in Thudugala, Dodangoda, Sri Lanka.",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-17 16:54:18.261559+00:00"
+        }
+      ]
+    },
+    {
+      "fields": {
+        "name": "Wadduwa Beach",
+        "slug": "wadduwa-beach",
+        "short_description": "A coastal stop in Wadduwa.",
+        "description": "Wadduwa Beach is a coastal attraction in the Wadduwa area of Kalutara District. The map identifies the named Google Maps beach listing; use an established public access point. The location is not a surveyed entrance.",
+        "latitude": "6.668802",
+        "longitude": "79.923109",
+        "address": "Wadduwa, Kalutara District",
+        "opening_hours_note": "Access points and nearby businesses may have their own hours. Prefer daylight visits.",
+        "opening_hours": "No published fixed opening or closing times",
+        "google_maps_query": "Wadduwa Beach, Wadduwa, Sri Lanka",
+        "google_maps_place_id": "",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.8233301975824!2d79.9231094!3d6.668802100000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae24988c4190bbf%3A0xad2fb7934d9532ac!2sWadduwa%20Beach!5e0!3m2!1sen!2slk!4v1792311601573!5m2!1sen!2slk",
+        "visitor_information": "Use an established public access point and respect private property. Check local weather and posted guidance. this listing does not establish that swimming or bathing is safe.",
+        "is_published": true,
+        "created_at": "2026-10-18 07:42:37.676263+00:00",
+        "updated_at": "2026-10-18 10:50:45.208533+00:00"
+      },
+      "categories": [
+        "leisure",
+        "nature"
+      ],
+      "images": [
+        {
+          "file": "images/4f41c01182299ac2fcd0b3a305be418c22be3712885c8a11e47caefe68d6f333.jpg",
+          "sha256": "4f41c01182299ac2fcd0b3a305be418c22be3712885c8a11e47caefe68d6f333",
+          "alt_text": "Wadduwa Beach coastline",
+          "display_order": 0,
+          "is_cover": true,
+          "created_at": "2026-10-18 07:42:37.689684+00:00"
+        }
+      ]
+    }
+  ]
+}

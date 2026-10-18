@@ -22,11 +22,11 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-The system submission must include the local `submission-data/` folder next to `manage.py`. The import restores the current 13 places, categories, staff-edited information, publication states and photographs without internet. It skips existing place slugs and never overwrites staff edits. A GitHub clone does not contain this ignored data folder; copy it from the provided submission package before importing.
+The repository includes `submission-data/` with 13 starter places, five categories and their photographs. The import restores their information, map fields and publication states without internet, so a fresh clone or GitHub ZIP includes the complete starter catalogue. It skips existing place slugs and never overwrites staff edits. Each installation has its own database; administrators can add and manage places independently.
 
 Open http://127.0.0.1:8000/; staff manage attractions and photographs at `/admin/`. Drafts need categories and an image before publishing. Uploaded photographs remain in local `media/`.
 
-To prepare the data package on the original installation, run `python manage.py export_submission_data` before assembling the submission ZIP. The destination must not already exist. To refresh it while retaining the previous export, use a new ignored path, for example `python manage.py export_submission_data .local-checks/submission-data-new`, then include that new export as `submission-data/` in the ZIP. The export contains attraction data and photos only, with no administrator accounts, passwords or sessions. Retain image-source/licence records with the submission.
+The bundled catalogue is a snapshot, not a connection to the original database. To prepare an updated snapshot, use `python manage.py export_submission_data .local-checks/submission-data-new` with a new destination, review it, then replace the approved contents of `submission-data/`. Exported packages contain attraction data and photos only, with no administrator accounts, passwords or sessions. Runtime uploads in `media/` and private exports in `.local-checks/` remain ignored.
 
 For a separate reference-only dataset, `python manage.py seed_categories` and `python manage.py import_verified_places --download-images` create twelve drafts for staff review; they do not restore the current catalogue. The optional `update_reference_hours` and `update_visitor_details` commands fill reviewed reference information while retaining existing staff schedules/map fields.
 

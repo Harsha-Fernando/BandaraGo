@@ -682,3 +682,36 @@ class SubmissionDataTests(TestCase):
         from django.core.management import CommandError
         with self.assertRaisesMessage(CommandError, 'Import failed'):
             call_command('import_submission_data', str(self.directory / 'missing'), stdout=StringIO())
+
+
+class BundledSubmissionDataTests(TestCase):
+    def test_default_package_restores_thirteen_places_and_photographs_offline(self):
+        import hashlib
+        import json
+        import tempfile
+        from pathlib import Path
+        from django.conf import settings
+        from django.contrib.auth import get_user_model
+        from django.contrib.sessions.models import Session
+        from django.test import override_settings
+        package = settings.BASE_DIR / 'submission-data'
+        manifest = json.loads((package / 'places.json').read_text())
+        with tempfile.TemporaryDirectory() as media, override_settings(MEDIA_ROOT=media):
+            call_command('import_submission_data', stdout=StringIO())
+            call_command('import_submission_data', stdout=StringIO())
+            self.assertEqual(Place.objects.published().count(), 13)
+            self.assertEqual(Category.objects.count(), 5)
+            self.assertEqual(PlaceImage.objects.count(), 13)
+            self.assertEqual(get_user_model().objects.count(), 0)
+            self.assertEqual(Session.objects.count(), 0)
+            for record in manifest['places']:
+                place = Place.objects.get(slug=record['fields']['slug'])
+                for field, expected in record['fields'].items():
+                    value = json.loads(json.dumps(place.serializable_value(field), default=str))
+                    self.assertEqual(value, expected, f'{place.slug}: {field}')
+                self.assertEqual(sorted(place.categories.values_list('slug', flat=True)), record['categories'])
+                self.assertContains(self.client.get(place.get_absolute_url()), place.name)
+                for photo, expected in zip(place.images.all(), record['images']):
+                    self.assertTrue(Path(photo.image.path).is_file())
+                    with photo.image.open('rb') as data:
+                        self.assertEqual(hashlib.sha256(data.read()).hexdigest(), expected['sha256'])

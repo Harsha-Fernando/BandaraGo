@@ -10,7 +10,6 @@ media/
 staticfiles/
 node_modules/
 .local-checks/
-/submission-data/
 *.sqlite3
 *.log
 .DS_Store
