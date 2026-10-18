@@ -22,7 +22,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Open http://127.0.0.1:8000/; staff manage attractions and photographs at `/admin/`. Drafts need categories and an image before publishing. Optional: `python manage.py import_verified_places --download-images` creates twelve attributed drafts without overwriting existing records. Review drafts in admin. For existing reference places with blank times, `python manage.py update_reference_hours` fills the source-reviewed hours without replacing staff-entered times. Uploaded photographs remain in local `media/`.
+Open http://127.0.0.1:8000/; staff manage attractions and photographs at `/admin/`. Drafts need categories and an image before publishing. Optional: `python manage.py import_verified_places --download-images` creates twelve attributed drafts without overwriting existing records. Review drafts in admin. For existing reference places with blank times, `python manage.py update_reference_hours` fills the source-reviewed hours without replacing staff-entered times. `python manage.py update_visitor_details` fills blank weekly schedules and map fields and appends reviewed practical guidance without removing existing text. Uploaded photographs remain in local `media/`.
 
 ## Checks
 
@@ -35,6 +35,6 @@ python manage.py migrate --check
 
 Tests use PostgreSQL and require permission to create a test database. With Django running, serve the browser map checks using `python -m http.server 8001 --bind 127.0.0.1 --directory docs/testing`, then open http://127.0.0.1:8001/map-check.html. These simulate Leaflet; check actual maps separately. Optional load check: `python scripts/check_performance.py --users 10 --iterations 5` (server running).
 
-`Bandarago/` contains configuration; `attractions/` and `planner/` are the two apps. Templates use the official Bootstrap [Album example](https://getbootstrap.com/docs/5.3/examples/album/) as a layout reference. Bootstrap 5.3.8 and Leaflet are precompiled local files in `static/vendor/`, with their licenses retained. SVG icons and their license are in `static/icons/`. Minimal CSS is in `static/css/style.css`. No npm, Node.js, or frontend build is required. OSM tiles require internet and the configured cross-origin referrer policy.
+`Bandarago/` contains configuration; `attractions/` and `planner/` are the two apps. Templates use the official Bootstrap [Album example](https://getbootstrap.com/docs/5.3/examples/album/) as a layout reference. Bootstrap 5.3.8 and Leaflet are precompiled local files in `static/vendor/`, with their licenses retained. SVG icons and their license are in `static/icons/`. Minimal CSS is in `static/css/style.css`. No npm, Node.js, or frontend build is required. Google Maps share embeds need internet but no application API key. Leaflet remains a fallback for places without an embed; OSM tiles need internet. Directions show driving distances in Google Maps; displayed radius distances are straight-line measurements.
 
 [Attribution records](docs/data-sources.md) · [Visitor guide](docs/user-guide.pdf)
