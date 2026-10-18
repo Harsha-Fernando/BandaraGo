@@ -53,7 +53,6 @@ class Command(BaseCommand):
                 place = Place.objects.create(**{key: record[key] for key in [
                     'name', 'slug', 'latitude', 'longitude', 'short_description', 'description', 'address',
                 ]}, visitor_information=information,
-                    opening_time=record.get('opening_time'), closing_time=record.get('closing_time'),
                     opening_hours=record.get('opening_hours', ''),
                     google_maps_query=record.get('google_maps_query', ''),
                     google_maps_place_id=record.get('google_maps_place_id', ''),

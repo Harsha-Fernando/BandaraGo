@@ -40,8 +40,6 @@ class Place(models.Model):
     latitude = models.DecimalField(max_digits=9, decimal_places=6, validators=[MinValueValidator(-90), MaxValueValidator(90)])
     longitude = models.DecimalField(max_digits=9, decimal_places=6, validators=[MinValueValidator(-180), MaxValueValidator(180)])
     address = models.CharField(max_length=300, blank=True)
-    opening_time = models.TimeField(null=True, blank=True)
-    closing_time = models.TimeField(null=True, blank=True)
     opening_hours_note = models.CharField(max_length=300, blank=True)
     opening_hours = models.TextField(blank=True, help_text='Weekly visitor schedule, one day or day range per line. Include closed days and 24-hour listings where verified.')
     google_maps_query = models.CharField(max_length=300, blank=True, help_text='Named attraction and locality for Google Maps location links. Do not use a generic lake or beach point as an entrance.')

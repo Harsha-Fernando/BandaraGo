@@ -21,7 +21,7 @@
       <div class="card bg-light"><div class="card-body p-4">
         <h2 class="h4 mb-4">Your visit</h2>
         <h3 class="h6">{% include 'icon.html' with name='clock' %} Opening hours</h3>
-        {% if place.opening_hours %}<div class="small mb-2">{{ place.opening_hours|linebreaksbr }}</div>{% else %}<p class="fw-semibold mb-1">{% if place.opening_time and place.closing_time %}{{ place.opening_time|time:'g:i A' }} – {{ place.closing_time|time:'g:i A' }}{% elif place.opening_time %}From {{ place.opening_time|time:'g:i A' }}{% elif place.closing_time %}Until {{ place.closing_time|time:'g:i A' }}{% else %}Hours not published{% endif %}</p>{% endif %}
+        {% if place.opening_hours %}<div class="small mb-2">{{ place.opening_hours|linebreaksbr }}</div>{% else %}<p class="fw-semibold mb-1">Hours not published</p>{% endif %}
         {% if hours_note %}<p class="small text-secondary">{{ hours_note }}</p>{% endif %}
         <hr class="my-4">
         <h3 class="h6">{% include 'icon.html' with name='geo-alt' %} Location</h3>

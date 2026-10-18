@@ -1,5 +1,4 @@
 import json
-from datetime import time
 from decimal import Decimal
 from pathlib import Path
 
@@ -39,15 +38,6 @@ class Command(BaseCommand):
                     if not getattr(place, field) and record.get(field):
                         setattr(place, field, record[field])
                         fields.append(field)
-                for field in ['opening_time', 'closing_time']:
-                    value = record.get(field)
-                    previous = record.get('previous_' + field)
-                    current = getattr(place, field)
-                    if value and (current is None or (previous and current == time.fromisoformat(previous))):
-                        new_time = time.fromisoformat(value)
-                        if current != new_time:
-                            setattr(place, field, new_time)
-                            fields.append(field)
                 for text in [record.get('practical_guidance'), record.get('visitor_review_source')]:
                     if text and text not in place.visitor_information:
                         place.visitor_information += '\n\n' + text

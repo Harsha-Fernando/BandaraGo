@@ -3,7 +3,7 @@ from io import StringIO
 from django.core.exceptions import ValidationError
 from django.core.management import call_command
 from django.db import IntegrityError, transaction
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 from django.urls import reverse
 
 from .distance import BANDARAGAMA_LATITUDE, BANDARAGAMA_LONGITUDE, distance_from_bandaragama
@@ -175,13 +175,11 @@ class DetailTests(TestCase):
         self.assertIn('Test author', self.place.visitor_information)
 
     def test_hours_and_map_links_use_database_values(self):
-        from datetime import time
-        self.place.opening_time = time(6)
-        self.place.closing_time = time(21)
+        self.place.opening_hours = 'Monday–Sunday: 6:00 AM–9:00 PM'
         self.place.opening_hours_note = 'Closed on public holidays.'
         self.place.save()
         response = self.client.get(self.place.get_absolute_url())
-        self.assertContains(response, '6:00 AM – 9:00 PM')
+        self.assertContains(response, 'Monday–Sunday: 6:00 AM–9:00 PM')
         self.assertContains(response, 'Closed on public holidays.')
         from urllib.parse import parse_qs, urlsplit
         parameters = parse_qs(urlsplit(self.place.map_url).query)
@@ -190,9 +188,9 @@ class DetailTests(TestCase):
         self.assertNotContains(response, '/maps/dir/')
         self.assertNotContains(response, 'View on OpenStreetMap')
         self.assertNotContains(response, 'use the coordinates')
-        self.place.closing_time = None
+        self.place.opening_hours = ''
         self.place.save()
-        self.assertContains(self.client.get(self.place.get_absolute_url()), 'From 6:00 AM')
+        self.assertContains(self.client.get(self.place.get_absolute_url()), 'Hours not published')
 
     def test_sources_after_guidance_need_no_blank_line(self):
         original = ('Wear suitable footwear.\n  Information: https://example.invalid/source\n'
@@ -339,6 +337,10 @@ class AdminTests(TestCase):
     def test_admin_map_fields_persist_and_feed_public_map_and_pdf(self):
         self.client.force_login(self.admin_user)
         response = self.client.get('/admin/attractions/place/add/')
+        self.assertNotContains(response, 'name="opening_time"')
+        self.assertNotContains(response, 'name="closing_time"')
+        self.assertContains(response, 'name="opening_hours"')
+        self.assertContains(response, 'name="opening_hours_note"')
         for field in ['google_maps_embed_url', 'google_maps_query', 'google_maps_place_id']:
             self.assertContains(response, f'name="{field}"')
         embed = 'https://www.google.com/maps/embed?pb=!1m18!staff-selected'
@@ -451,13 +453,11 @@ class ContentImportTests(TestCase):
 
 
     def test_visitor_update_preserves_custom_content_and_is_idempotent(self):
-        from datetime import time
         call_command('import_verified_places', stdout=StringIO())
         museum = Place.objects.get(slug='air-force-museum')
         museum.opening_hours = ''
         museum.google_maps_embed_url = ''
         museum.google_maps_query = ''
-        museum.closing_time = time(16, 30)
         museum.visitor_information = 'Staff visitor guidance.\n\nPhoto: Preserved credit.'
         museum.save()
         temple = Place.objects.get(slug='kalutara-bodhiya')
@@ -469,7 +469,6 @@ class ContentImportTests(TestCase):
         temple.refresh_from_db()
         self.assertIn('Monday: Closed', museum.opening_hours)
         self.assertIn('Public holidays: Closed', museum.opening_hours)
-        self.assertEqual(museum.closing_time, time(16, 15))
         self.assertTrue(museum.google_maps_embed_url.startswith('https://www.google.com/maps/embed?pb='))
         self.assertTrue(museum.visitor_information.startswith('Staff visitor guidance.\n\nPhoto: Preserved credit.'))
         self.assertEqual(temple.opening_hours, 'Staff schedule: Sunday appointments only.')
@@ -482,31 +481,59 @@ class ContentImportTests(TestCase):
         self.assertIn('0 attraction(s)', output.getvalue())
 
     def test_reviewed_hours_import_and_update_preserve_staff_edits(self):
-        from datetime import time
         call_command('import_verified_places', stdout=StringIO())
         temple = Place.objects.get(slug='bellanwila-viharaya')
-        self.assertEqual((temple.opening_time, temple.closing_time), (time(6), time(21)))
+        self.assertIn('6:00 AM–9:00 PM', temple.opening_hours)
         museum = Place.objects.get(slug='air-force-museum')
-        self.assertEqual((museum.opening_time, museum.closing_time), (time(8, 30), time(16, 15)))
+        self.assertIn('8:30 AM–4:15 PM', museum.opening_hours)
         self.assertIn('Monday: Closed', museum.opening_hours)
         zoo = Place.objects.get(slug='dehiwala-zoo')
-        self.assertEqual(zoo.opening_time, time(8, 30))
-        self.assertEqual(zoo.closing_time, time(17))
-        temple.opening_time = time(7)
+        self.assertIn('8:30 AM–5:00 PM', zoo.opening_hours)
+        temple.opening_hours = 'Staff schedule: 7 AM–8 PM'
         temple.save()
-        museum.opening_time = museum.closing_time = None
+        museum.opening_hours = ''
         museum.visitor_information = 'Staff guidance.'
         museum.save()
         call_command('update_reference_hours', stdout=StringIO())
         temple.refresh_from_db()
         museum.refresh_from_db()
-        self.assertEqual(temple.opening_time, time(7))
-        self.assertEqual(museum.opening_time, time(8, 30))
+        self.assertEqual(temple.opening_hours, 'Staff schedule: 7 AM–8 PM')
+        self.assertIn('8:30 AM–4:15 PM', museum.opening_hours)
         self.assertTrue(museum.visitor_information.startswith('Staff guidance.'))
         information = museum.visitor_information
         call_command('update_reference_hours', stdout=StringIO())
         museum.refresh_from_db()
         self.assertEqual(museum.visitor_information, information)
+
+
+class WeeklyHoursMigrationTests(TransactionTestCase):
+    def test_old_times_are_preserved_before_columns_are_removed(self):
+        from django.db import connection
+        from django.db.migrations.executor import MigrationExecutor
+        executor = MigrationExecutor(connection)
+        before = [('attractions', '0004_alter_place_google_maps_query')]
+        after = [('attractions', '0005_use_weekly_opening_hours')]
+        self.addCleanup(lambda: MigrationExecutor(connection).migrate(after))
+        executor.migrate(before)
+        OldPlace = executor.loader.project_state(before).apps.get_model('attractions', 'Place')
+        cases = [
+            ('06:00', '21:00', '', '06:00 - 21:00'),
+            ('00:00', None, '', 'From 00:00'),
+            (None, '17:00', '', 'Until 17:00'),
+            (None, None, '', ''),
+            ('06:00', '21:00', 'Monday: Closed', 'Monday: Closed'),
+        ]
+        for index, (opening, closing, weekly, expected) in enumerate(cases):
+            OldPlace.objects.create(name='Migration test', slug=f'migration-{index}',
+                                    latitude='6.714444', longitude='79.986667',
+                                    opening_time=opening, closing_time=closing,
+                                    opening_hours=weekly, opening_hours_note='Preserve note.')
+        executor = MigrationExecutor(connection)
+        executor.migrate(after)
+        for index, (_, _, _, expected) in enumerate(cases):
+            place = Place.objects.get(slug=f'migration-{index}')
+            self.assertEqual(place.opening_hours, expected)
+            self.assertEqual(place.opening_hours_note, 'Preserve note.')
 
 
 class ErrorPageTests(TestCase):

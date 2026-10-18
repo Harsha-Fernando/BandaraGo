@@ -22,7 +22,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Open http://127.0.0.1:8000/; staff manage attractions and photographs at `/admin/`. Drafts need categories and an image before publishing. Optional: `python manage.py import_verified_places --download-images` creates twelve attributed drafts without overwriting existing records. Review drafts in admin. For existing reference places with blank times, `python manage.py update_reference_hours` fills the source-reviewed hours without replacing staff-entered times. `python manage.py update_visitor_details` fills blank weekly schedules and map fields and appends reviewed practical guidance without removing existing text. Uploaded photographs remain in local `media/`.
+Open http://127.0.0.1:8000/; staff manage attractions and photographs at `/admin/`. Drafts need categories and an image before publishing. Optional: `python manage.py import_verified_places --download-images` creates twelve attributed drafts without overwriting existing records. Review drafts in admin. For existing reference places with blank schedules, `python manage.py update_reference_hours` fills the source-reviewed hours without replacing staff-entered schedules. `python manage.py update_visitor_details` fills blank weekly schedules and map fields and appends reviewed practical guidance without removing existing text. Uploaded photographs remain in local `media/`.
 
 ## Checks
 
