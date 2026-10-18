@@ -173,7 +173,7 @@ class DetailTests(TestCase):
         self.place.refresh_from_db()
         self.assertIn('Test author', self.place.visitor_information)
 
-    def test_hours_and_directions_use_database_values(self):
+    def test_hours_and_map_links_use_database_values(self):
         from datetime import time
         self.place.opening_time = time(6)
         self.place.closing_time = time(21)
@@ -183,11 +183,10 @@ class DetailTests(TestCase):
         self.assertContains(response, '6:00 AM – 9:00 PM')
         self.assertContains(response, 'Closed on public holidays.')
         from urllib.parse import parse_qs, urlsplit
-        parameters = parse_qs(urlsplit(self.place.directions_url).query)
-        self.assertIn(self.place.name, parameters['destination'][0])
-        self.assertEqual(parameters['origin'], ['Bandaragama, Sri Lanka'])
-        self.assertEqual(parameters['travelmode'], ['driving'])
-        self.assertContains(response, 'rel="noopener noreferrer"')
+        parameters = parse_qs(urlsplit(self.place.map_url).query)
+        self.assertIn(self.place.name, parameters['query'][0])
+        self.assertNotContains(response, 'Get Directions')
+        self.assertNotContains(response, '/maps/dir/')
         self.assertNotContains(response, 'View on OpenStreetMap')
         self.assertNotContains(response, 'use the coordinates')
         self.place.closing_time = None
@@ -207,7 +206,7 @@ class DetailTests(TestCase):
         self.assertContains(response, self.place.google_maps_embed_url)
         self.assertNotContains(response, 'vendor/leaflet/leaflet.js')
         self.assertNotContains(response, 'Hours not published')
-        self.assertIn('destination_place_id=verified-place-id', self.place.directions_url)
+        self.assertIn('query_place_id=verified-place-id', self.place.map_url)
         for invalid in ['https://evil.example/maps/embed?pb=x', 'javascript:alert(1)',
                         'https://www.google.com.evil.example/maps/embed?pb=x',
                         'https://www.google.com/maps/embed/v1/place?key=x']:

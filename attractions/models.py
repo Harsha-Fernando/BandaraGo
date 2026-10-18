@@ -44,7 +44,7 @@ class Place(models.Model):
     closing_time = models.TimeField(null=True, blank=True)
     opening_hours_note = models.CharField(max_length=300, blank=True)
     opening_hours = models.TextField(blank=True, help_text='Weekly visitor schedule, one day or day range per line. Include closed days and 24-hour listings where verified.')
-    google_maps_query = models.CharField(max_length=300, blank=True, help_text='Named attraction and locality for Google Maps directions. Do not use a generic lake or beach point as an entrance.')
+    google_maps_query = models.CharField(max_length=300, blank=True, help_text='Named attraction and locality for Google Maps location links. Do not use a generic lake or beach point as an entrance.')
     google_maps_place_id = models.CharField(max_length=255, blank=True, help_text='Optional verified Google place ID to identify an exact listing rather than a search result.')
     google_maps_embed_url = models.URLField(max_length=2000, blank=True, help_text='Paste only the https://www.google.com/maps/embed?pb= URL from Google Maps Share > Embed a map, not the iframe HTML.')
     visitor_information = models.TextField(blank=True)
@@ -89,15 +89,12 @@ class Place(models.Model):
             raise ValidationError('A published attraction needs at least one category and one image.')
 
     @property
-    def directions_url(self):
-        destination = self.google_maps_query or ', '.join(filter(None, [self.name, self.address, 'Sri Lanka']))
-        parameters = {
-            'api': 1, 'origin': 'Bandaragama, Sri Lanka',
-            'destination': destination, 'travelmode': 'driving',
-        }
+    def map_url(self):
+        query = self.google_maps_query or ', '.join(filter(None, [self.name, self.address, 'Sri Lanka']))
+        parameters = {'api': 1, 'query': query}
         if self.google_maps_place_id:
-            parameters['destination_place_id'] = self.google_maps_place_id
-        return 'https://www.google.com/maps/dir/?' + urlencode(parameters)
+            parameters['query_place_id'] = self.google_maps_place_id
+        return 'https://www.google.com/maps/search/?' + urlencode(parameters)
 
     @property
     def distance_km(self):

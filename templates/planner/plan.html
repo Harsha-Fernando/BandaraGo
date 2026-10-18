@@ -33,6 +33,7 @@
     <aside class="col-lg-3"><div class="card bg-light"><div class="card-body">
       <h2 class="h5">Your day at a glance</h2><p>{{ places|length }} stop{{ places|length|pluralize }} selected</p>
       <p class="small text-secondary">Use the up and down buttons to arrange your stops.</p>
+      <a class="btn btn-primary btn-sm d-block mb-3" href="{% url 'planner:download_pdf' %}">Download plan as PDF</a>
       <a class="btn btn-outline-danger btn-sm" href="{% url 'planner:confirm_clear' %}">Clear entire plan</a>
     </div></div></aside>
   </div>

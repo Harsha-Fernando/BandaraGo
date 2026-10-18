@@ -24,7 +24,7 @@
     let failed = false;
     tiles.on('tileerror', () => {
       failed = true;
-      status.textContent = 'Map tiles could not load. Use Get Directions to open the location in Google Maps.';
+      status.textContent = 'Map tiles could not load. Check your internet connection and reload the page.';
     });
     tiles.on('load', () => {
       if (!failed) status.textContent = 'Use the + and − buttons to zoom, or drag to pan.';
@@ -34,6 +34,6 @@
     container.dataset.markersReady = 'true';
     container.dataset.markersReadyMs = Math.round(performance.now());
   } catch (error) {
-    status.textContent = 'The interactive map is unavailable. Use Get Directions to open the location in Google Maps.';
+    status.textContent = 'The interactive map is unavailable. Check your internet connection and reload the page.';
   }
 })();
