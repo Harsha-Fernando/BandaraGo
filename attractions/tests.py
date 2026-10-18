@@ -553,3 +553,165 @@ class ErrorPageTests(TestCase):
         self.assertContains(response, 'We couldn’t load this page', status_code=500)
         self.assertContains(response, '/static/vendor/bootstrap/css/bootstrap.min.css', status_code=500)
         self.assertNotContains(response, 'Traceback', status_code=500)
+
+
+class SubmissionDataTests(TestCase):
+    def setUp(self):
+        import tempfile
+        from pathlib import Path
+        from django.test import override_settings
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.directory = Path(self.temporary.name)
+        self.settings_override = override_settings(MEDIA_ROOT=self.directory / 'media')
+        self.settings_override.enable()
+        self.addCleanup(self.settings_override.disable)
+        self.category = Category.objects.create(name='Nature', slug='nature', description='Staff category.')
+        self.place = make_place(is_published=True, opening_hours='Monday: Closed\nTuesday: 9 AM–5 PM',
+                                opening_hours_note='Staff exception.', visitor_information='Staff guidance and credit.',
+                                google_maps_query='Staff named location', google_maps_place_id='staff-id',
+                                google_maps_embed_url='https://www.google.com/maps/embed?pb=staff-map')
+        self.place.categories.add(self.category)
+        from io import BytesIO
+        from PIL import Image
+        from django.core.files.base import ContentFile
+        data = BytesIO()
+        Image.new('RGB', (10, 10), 'blue').save(data, format='PNG')
+        for order in [0, 1]:
+            photo = PlaceImage(place=self.place, alt_text=f'Staff photo {order}',
+                               display_order=order, is_cover=order == 0)
+            photo.image.save(f'photo-{order}.png', ContentFile(data.getvalue()), save=True)
+        self.package = self.directory / 'package'
+        call_command('export_submission_data', str(self.package), stdout=StringIO())
+
+    def test_offline_round_trip_preserves_fields_categories_photos_and_publication(self):
+        import hashlib
+        import json
+        manifest = json.loads((self.package / 'places.json').read_text())
+        self.assertEqual(set(manifest), {'version', 'categories', 'places'})
+        self.assertEqual(set(manifest['places'][0]), {'fields', 'categories', 'images'})
+        original = Place.objects.values().get(pk=self.place.pk)
+        self.place.delete()
+        self.category.delete()
+        call_command('import_submission_data', str(self.package), stdout=StringIO())
+        restored = Place.objects.get(slug=original['slug'])
+        for field, value in original.items():
+            if field != 'id':
+                self.assertEqual(getattr(restored, field), value, field)
+        self.assertEqual(restored.categories.get().description, 'Staff category.')
+        self.assertEqual(restored.images.count(), 2)
+        for photo, record in zip(restored.images.all(), manifest['places'][0]['images']):
+            self.assertEqual(photo.alt_text, record['alt_text'])
+            self.assertEqual(photo.is_cover, record['is_cover'])
+            with photo.image.open('rb') as content:
+                self.assertEqual(hashlib.sha256(content.read()).hexdigest(), record['sha256'])
+        self.assertContains(self.client.get('/attractions/'), restored.name)
+        detail = self.client.get(restored.get_absolute_url())
+        self.assertContains(detail, 'Tuesday: 9 AM–5 PM')
+        self.assertContains(detail, 'https://www.google.com/maps/embed?pb=staff-map')
+
+    def test_repeated_import_skips_existing_records_and_preserves_staff_edits(self):
+        self.place.description = 'New staff description.'
+        self.place.opening_hours = 'Staff replacement schedule.'
+        self.place.save()
+        photo_names = list(self.place.images.values_list('image', flat=True))
+        for _ in range(2):
+            output = StringIO()
+            call_command('import_submission_data', str(self.package), stdout=output)
+            self.assertIn('Imported 0 places; skipped 1', output.getvalue())
+        self.place.refresh_from_db()
+        self.assertEqual(self.place.description, 'New staff description.')
+        self.assertEqual(self.place.opening_hours, 'Staff replacement schedule.')
+        self.assertEqual(list(self.place.images.values_list('image', flat=True)), photo_names)
+        self.assertEqual(Place.objects.count(), 1)
+
+    def test_missing_corrupt_or_outside_image_is_rejected_before_import(self):
+        import json
+        from django.core.management import CommandError
+        manifest_path = self.package / 'places.json'
+        original = manifest_path.read_text()
+        self.place.delete()
+        self.category.delete()
+        for file in ['images/missing.png', '../outside.png']:
+            manifest = json.loads(original)
+            manifest['places'][0]['images'][0]['file'] = file
+            manifest_path.write_text(json.dumps(manifest))
+            with self.assertRaises(CommandError):
+                call_command('import_submission_data', str(self.package), stdout=StringIO())
+            self.assertFalse(Place.objects.exists())
+            self.assertFalse(Category.objects.exists())
+        manifest = json.loads(original)
+        manifest['places'][0]['images'][0]['sha256'] = 'wrong'
+        manifest_path.write_text(json.dumps(manifest))
+        with self.assertRaisesMessage(CommandError, 'checksum mismatch'):
+            call_command('import_submission_data', str(self.package), stdout=StringIO())
+        self.assertFalse(Place.objects.exists())
+
+    def test_invalid_final_image_set_rolls_back_database_and_copied_files(self):
+        import json
+        from pathlib import Path
+        from django.conf import settings
+        from django.core.management import CommandError
+        manifest_path = self.package / 'places.json'
+        manifest = json.loads(manifest_path.read_text())
+        manifest['places'][0]['images'][1]['is_cover'] = True
+        manifest_path.write_text(json.dumps(manifest))
+        self.place.delete()
+        self.category.delete()
+        before = set(Path(settings.MEDIA_ROOT).rglob('*.png'))
+        with self.assertRaises(CommandError):
+            call_command('import_submission_data', str(self.package), stdout=StringIO())
+        self.assertFalse(Place.objects.exists())
+        self.assertFalse(Category.objects.exists())
+        self.assertEqual(set(Path(settings.MEDIA_ROOT).rglob('*.png')), before)
+
+    def test_export_refuses_overwrite_and_missing_source_photograph(self):
+        from django.core.management import CommandError
+        original = (self.package / 'places.json').read_bytes()
+        with self.assertRaisesMessage(CommandError, 'Destination already exists'):
+            call_command('export_submission_data', str(self.package), stdout=StringIO())
+        self.assertEqual((self.package / 'places.json').read_bytes(), original)
+        image = self.place.images.first()
+        image.image.storage.delete(image.image.name)
+        destination = self.directory / 'incomplete'
+        with self.assertRaises(CommandError):
+            call_command('export_submission_data', str(destination), stdout=StringIO())
+        self.assertFalse(destination.exists())
+
+    def test_missing_package_reports_actionable_error(self):
+        from django.core.management import CommandError
+        with self.assertRaisesMessage(CommandError, 'Import failed'):
+            call_command('import_submission_data', str(self.directory / 'missing'), stdout=StringIO())
+
+
+class BundledSubmissionDataTests(TestCase):
+    def test_default_package_restores_thirteen_places_and_photographs_offline(self):
+        import hashlib
+        import json
+        import tempfile
+        from pathlib import Path
+        from django.conf import settings
+        from django.contrib.auth import get_user_model
+        from django.contrib.sessions.models import Session
+        from django.test import override_settings
+        package = settings.BASE_DIR / 'submission-data'
+        manifest = json.loads((package / 'places.json').read_text())
+        with tempfile.TemporaryDirectory() as media, override_settings(MEDIA_ROOT=media):
+            call_command('import_submission_data', stdout=StringIO())
+            call_command('import_submission_data', stdout=StringIO())
+            self.assertEqual(Place.objects.published().count(), 13)
+            self.assertEqual(Category.objects.count(), 5)
+            self.assertEqual(PlaceImage.objects.count(), 13)
+            self.assertEqual(get_user_model().objects.count(), 0)
+            self.assertEqual(Session.objects.count(), 0)
+            for record in manifest['places']:
+                place = Place.objects.get(slug=record['fields']['slug'])
+                for field, expected in record['fields'].items():
+                    value = json.loads(json.dumps(place.serializable_value(field), default=str))
+                    self.assertEqual(value, expected, f'{place.slug}: {field}')
+                self.assertEqual(sorted(place.categories.values_list('slug', flat=True)), record['categories'])
+                self.assertContains(self.client.get(place.get_absolute_url()), place.name)
+                for photo, expected in zip(place.images.all(), record['images']):
+                    self.assertTrue(Path(photo.image.path).is_file())
+                    with photo.image.open('rb') as data:
+                        self.assertEqual(hashlib.sha256(data.read()).hexdigest(), expected['sha256'])
