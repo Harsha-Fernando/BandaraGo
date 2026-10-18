@@ -1,6 +1,6 @@
-{% extends 'base.html' %}{% load static l10n %}
+{% extends 'base.html' %}{% load static %}
 {% block title %}{{ place.name }} · BandaraGo{% endblock %}
-{% block extra_head %}<link rel="stylesheet" href="{% static 'vendor/leaflet/leaflet.css' %}">{% endblock %}
+{% block extra_head %}{% if not place.google_maps_embed_url %}<link rel="stylesheet" href="{% static 'vendor/leaflet/leaflet.css' %}">{% endif %}{% endblock %}
 {% block content %}
 <div class="container py-4 py-lg-5">
   <nav aria-label="Breadcrumb"><ol class="breadcrumb small"><li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li><li class="breadcrumb-item"><a href="{% url 'attractions:list' %}">Explore places</a></li><li class="breadcrumb-item active" aria-current="page">{{ place.name }}</li></ol></nav>
@@ -21,7 +21,7 @@
       <div class="card bg-light"><div class="card-body p-4">
         <h2 class="h4 mb-4">Your visit</h2>
         <h3 class="h6">{% include 'icon.html' with name='clock' %} Opening hours</h3>
-        <p class="fw-semibold mb-1">{% if place.opening_time and place.closing_time %}{{ place.opening_time|time:'g:i A' }} – {{ place.closing_time|time:'g:i A' }}{% elif place.opening_time %}From {{ place.opening_time|time:'g:i A' }}{% elif place.closing_time %}Until {{ place.closing_time|time:'g:i A' }}{% else %}Schedule unavailable{% endif %}</p>
+        {% if place.opening_hours %}<div class="small mb-2">{{ place.opening_hours|linebreaksbr }}</div>{% else %}<p class="fw-semibold mb-1">{% if place.opening_time and place.closing_time %}{{ place.opening_time|time:'g:i A' }} – {{ place.closing_time|time:'g:i A' }}{% elif place.opening_time %}From {{ place.opening_time|time:'g:i A' }}{% elif place.closing_time %}Until {{ place.closing_time|time:'g:i A' }}{% else %}Hours not published{% endif %}</p>{% endif %}
         {% if hours_note %}<p class="small text-secondary">{{ hours_note }}</p>{% endif %}
         <hr class="my-4">
         <h3 class="h6">{% include 'icon.html' with name='geo-alt' %} Location</h3>
@@ -33,8 +33,8 @@
     </aside>
   </div>
   <section id="location" class="border-top pt-4 mt-5">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h4 mb-1">Find your way</h2><p class="small text-secondary mb-0">Explore the area, or open directions in Google Maps.</p></div>
-      <a class="btn btn-outline-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination={{ place.latitude|unlocalize }},{{ place.longitude|unlocalize }}" target="_blank" rel="noopener noreferrer">{% include 'icon.html' with name='box-arrow-up-right' %} Get Directions<span class="visually-hidden"> in Google Maps (opens in a new tab)</span></a>
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3"><div><h2 class="h4 mb-1">Find your way</h2><p class="small text-secondary mb-0">Google Maps shows the driving route, road distance and travel time from Bandaragama. You can change the starting point there.</p></div>
+      <a class="btn btn-outline-primary" href="{{ place.directions_url }}" target="_blank" rel="noopener noreferrer">{% include 'icon.html' with name='box-arrow-up-right' %} Get Directions<span class="visually-hidden"> in Google Maps (opens in a new tab)</span></a>
     </div>
     {% include 'attractions/map.html' %}
   </section>
@@ -43,4 +43,4 @@
   {% endif %}
 </div>
 {% endblock %}
-{% block extra_js %}<script defer src="{% static 'vendor/leaflet/leaflet.js' %}"></script><script defer src="{% static 'js/map.js' %}"></script>{% endblock %}
+{% block extra_js %}{% if not place.google_maps_embed_url %}<script defer src="{% static 'vendor/leaflet/leaflet.js' %}"></script><script defer src="{% static 'js/map.js' %}"></script>{% endif %}{% endblock %}

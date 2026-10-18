@@ -90,7 +90,7 @@ class DiscoveryTests(TestCase):
             response = self.client.get(url)
             self.assertContains(response, self.place.name)
             self.assertNotContains(response, 'Hidden draft')
-            self.assertContains(response, '0.0 km from Bandaragama')
+            self.assertContains(response, '0.0 km straight-line from Bandaragama')
 
     def test_public_pages_use_local_bootstrap_assets(self):
         from django.contrib.staticfiles import finders
@@ -149,7 +149,7 @@ class DetailTests(TestCase):
         self.assertContains(response, '6.714444')
         self.assertContains(response, '79.986667')
         self.assertContains(response, 'map-data')
-        self.assertContains(response, 'Schedule unavailable')
+        self.assertContains(response, 'Hours not published')
         from django.contrib.staticfiles import finders
         for asset in ['vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css']:
             self.assertContains(response, f'/static/{asset}')
@@ -182,13 +182,38 @@ class DetailTests(TestCase):
         response = self.client.get(self.place.get_absolute_url())
         self.assertContains(response, '6:00 AM – 9:00 PM')
         self.assertContains(response, 'Closed on public holidays.')
-        self.assertContains(response, 'https://www.google.com/maps/dir/?api=1&amp;destination=6.714444,79.986667')
+        from urllib.parse import parse_qs, urlsplit
+        parameters = parse_qs(urlsplit(self.place.directions_url).query)
+        self.assertIn(self.place.name, parameters['destination'][0])
+        self.assertEqual(parameters['origin'], ['Bandaragama, Sri Lanka'])
+        self.assertEqual(parameters['travelmode'], ['driving'])
         self.assertContains(response, 'rel="noopener noreferrer"')
         self.assertNotContains(response, 'View on OpenStreetMap')
         self.assertNotContains(response, 'use the coordinates')
         self.place.closing_time = None
         self.place.save()
         self.assertContains(self.client.get(self.place.get_absolute_url()), 'From 6:00 AM')
+
+    def test_weekly_hours_take_priority_and_google_embed_is_optional(self):
+        self.place.opening_hours = 'Monday: Closed\nTuesday–Sunday: 8:30 AM–4:15 PM'
+        self.place.google_maps_embed_url = 'https://www.google.com/maps/embed?pb=!1m18!verified'
+        self.place.google_maps_query = 'Specific museum, Ratmalana, Sri Lanka'
+        self.place.google_maps_place_id = 'verified-place-id'
+        self.place.save()
+        response = self.client.get(self.place.get_absolute_url())
+        self.assertContains(response, 'Monday: Closed')
+        self.assertContains(response, 'Tuesday–Sunday: 8:30 AM–4:15 PM')
+        self.assertContains(response, '<iframe')
+        self.assertContains(response, self.place.google_maps_embed_url)
+        self.assertNotContains(response, 'vendor/leaflet/leaflet.js')
+        self.assertNotContains(response, 'Hours not published')
+        self.assertIn('destination_place_id=verified-place-id', self.place.directions_url)
+        for invalid in ['https://evil.example/maps/embed?pb=x', 'javascript:alert(1)',
+                        'https://www.google.com.evil.example/maps/embed?pb=x',
+                        'https://www.google.com/maps/embed/v1/place?key=x']:
+            self.place.google_maps_embed_url = invalid
+            with self.assertRaises(ValidationError):
+                self.place.full_clean()
 
     def test_detail_sends_referrer_policy_required_for_osm_tiles(self):
         response = self.client.get(self.place.get_absolute_url())
@@ -387,17 +412,48 @@ class ContentImportTests(TestCase):
             self.assertIn('creativecommons.org', place.visitor_information)
 
 
+    def test_visitor_update_preserves_custom_content_and_is_idempotent(self):
+        from datetime import time
+        call_command('import_verified_places', stdout=StringIO())
+        museum = Place.objects.get(slug='air-force-museum')
+        museum.opening_hours = ''
+        museum.google_maps_embed_url = ''
+        museum.google_maps_query = ''
+        museum.closing_time = time(16, 30)
+        museum.visitor_information = 'Staff visitor guidance.\n\nPhoto: Preserved credit.'
+        museum.save()
+        temple = Place.objects.get(slug='kalutara-bodhiya')
+        temple.opening_hours = 'Staff schedule: Sunday appointments only.'
+        temple.google_maps_query = 'Staff selected destination'
+        temple.save()
+        call_command('update_visitor_details', stdout=StringIO())
+        museum.refresh_from_db()
+        temple.refresh_from_db()
+        self.assertIn('Monday: Closed', museum.opening_hours)
+        self.assertIn('Public holidays: Closed', museum.opening_hours)
+        self.assertEqual(museum.closing_time, time(16, 15))
+        self.assertTrue(museum.google_maps_embed_url.startswith('https://www.google.com/maps/embed?pb='))
+        self.assertTrue(museum.visitor_information.startswith('Staff visitor guidance.\n\nPhoto: Preserved credit.'))
+        self.assertEqual(temple.opening_hours, 'Staff schedule: Sunday appointments only.')
+        self.assertEqual(temple.google_maps_query, 'Staff selected destination')
+        information = museum.visitor_information
+        output = StringIO()
+        call_command('update_visitor_details', stdout=output)
+        museum.refresh_from_db()
+        self.assertEqual(information, museum.visitor_information)
+        self.assertIn('0 attraction(s)', output.getvalue())
+
     def test_reviewed_hours_import_and_update_preserve_staff_edits(self):
         from datetime import time
         call_command('import_verified_places', stdout=StringIO())
         temple = Place.objects.get(slug='bellanwila-viharaya')
         self.assertEqual((temple.opening_time, temple.closing_time), (time(6), time(21)))
         museum = Place.objects.get(slug='air-force-museum')
-        self.assertEqual((museum.opening_time, museum.closing_time), (time(8, 30), time(16, 30)))
-        self.assertIn('Mondays', museum.opening_hours_note)
+        self.assertEqual((museum.opening_time, museum.closing_time), (time(8, 30), time(16, 15)))
+        self.assertIn('Monday: Closed', museum.opening_hours)
         zoo = Place.objects.get(slug='dehiwala-zoo')
         self.assertEqual(zoo.opening_time, time(8, 30))
-        self.assertIsNone(zoo.closing_time)
+        self.assertEqual(zoo.closing_time, time(17))
         temple.opening_time = time(7)
         temple.save()
         museum.opening_time = museum.closing_time = None

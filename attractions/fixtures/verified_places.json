@@ -22,7 +22,14 @@
       "license": "CC BY-SA 4.0",
       "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
       "alt_text": "Richmond Castle front"
-    }
+    },
+    "opening_hours": "Monday–Sunday: 8:00 AM–4:00 PM",
+    "opening_time": "08:00",
+    "closing_time": "16:00",
+    "opening_hours_note": "Current Google listing; older travel guides publish different opening times.",
+    "visitor_review_source": "Information: Visitor schedule/guidance review: https://www.google.com/maps/search/?api=1&query=Richmond+Castle+Sri+Lanka\nReviewed: 2026-10-18",
+    "google_maps_query": "Richmond Castle, Palatota, Kalutara, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.3641933532695!2d79.975219!3d6.6015823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae236f7628a37e7%3A0x3a251b0edc31ed1b!2sRichmond%20Castle!5e0!3m2!1sen!2slk!4v1792310823966!5m2!1sen!2slk"
   },
   {
     "name": "Kalutara Bodhiya",
@@ -47,7 +54,13 @@
       "license": "CC BY-SA 4.0",
       "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
       "alt_text": "Kalutara Bodhiya is an old Bodhi tree which is identified as one of the 32 saplings of Jaya Sri Maha Bodhi which was planted during the reign of king Devanampiyatissa in the 2nd century BC at Anuradhapura, Sri Lanka."
-    }
+    },
+    "opening_hours": "Monday–Saturday: 4:30 AM–10:00 PM\nSunday: 5:00 AM–10:00 PM",
+    "opening_hours_note": "Listed weekly hours; religious events and holidays may affect access.",
+    "practical_guidance": "Dress modestly and respect worshippers. Follow the temple’s instructions about footwear and photography. Use the designated pedestrian crossing or subway when moving between areas beside the busy Galle Road.",
+    "visitor_review_source": "Information: Visitor schedule/guidance review: https://www.google.com/maps/search/?api=1&query=Kalutara+Bodhiya+Sri+Lanka\nReviewed: 2026-10-18\nGeneral visitor etiquette: https://srilanka.travel/best_of_srilanka/suggested-itineraries/best_of_srilanka/travel-tips",
+    "google_maps_query": "Kalutara Bodhiya, Galle Road, Kalutara, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.4791077516343!2d79.95954689999999!3d6.587212500000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2371ee1516f4f%3A0x24ab647db3fdd49a!2sKalutara%20Bodhiya!5e0!3m2!1sen!2slk!4v1792310669185!5m2!1sen!2slk"
   },
   {
     "name": "Bolgoda Lake",
@@ -71,7 +84,11 @@
       "license": "CC BY-SA 3.0",
       "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
       "alt_text": "Bolgoda Lake in Sri Lanka."
-    }
+    },
+    "opening_hours": "No published fixed opening or closing times",
+    "opening_hours_note": "Access points and nearby businesses may have their own hours. Prefer daylight visits.",
+    "google_maps_query": "Bolgoda Lake, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31695.877129413828!2d79.90866574999998!3d6.771722899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae245852f5755db%3A0x556d7640c75b7c83!2sBolgoda%20Lake!5e0!3m2!1sen!2slk!4v1792311340092!5m2!1sen!2slk"
   },
   {
     "name": "Thudugala Ella",
@@ -95,7 +112,13 @@
       "license": "CC BY-SA 3.0",
       "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
       "alt_text": "A view of the Thudugala Ella waterfall in Thudugala, Dodangoda, Sri Lanka."
-    }
+    },
+    "opening_hours": "Monday–Sunday: Listed as open 24 hours",
+    "opening_hours_note": "A map listing is not a guarantee of safe access. Plan a daylight visit and avoid slippery rocks or high water.",
+    "visitor_review_source": "Information: Visitor schedule/guidance review: https://www.google.com/maps/search/?api=1&query=Thudugala+Ella+Sri+Lanka\nReviewed: 2026-10-18",
+    "google_maps_query": "Thudugala Ella, Wellatha Road, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.607539999104!2d80.06087529999999!3d6.5711153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2348466055555%3A0xf55b1128ba873da0!2sThudugala%20Ella!5e0!3m2!1sen!2slk!4v1792311284443!5m2!1sen!2slk",
+    "google_maps_place_id": "ChIJVVUFZoQ04joRoD2HuigRW_U"
   },
   {
     "name": "Bellanwila Rajamaha Viharaya",
@@ -123,9 +146,14 @@
     },
     "opening_time": "06:00",
     "closing_time": "21:00",
-    "opening_hours_note": "Published visitor hours (Explore Sri Lanka, April 2026).",
+    "opening_hours_note": "Listed visitor hours; religious events may affect access.",
     "hours_source": "https://exploresrilanka.lk/wp-content/uploads/2026/04/Whats-On-April-2026.pdf",
-    "hours_reviewed_on": "2026-10-18"
+    "hours_reviewed_on": "2026-10-18",
+    "opening_hours": "Monday–Sunday: 6:00 AM–9:00 PM",
+    "practical_guidance": "Wear modest clothing for this active place of worship. Follow instructions about footwear and photography in sacred areas, and avoid interrupting prayers or ceremonies.",
+    "visitor_review_source": "Information: Visitor schedule/guidance review: https://www.google.com/maps/search/?api=1&query=Bellanwila+Rajamaha+Viharaya+Sri+Lanka\nReviewed: 2026-10-18\nGeneral visitor etiquette: https://srilanka.travel/best_of_srilanka/suggested-itineraries/best_of_srilanka/travel-tips",
+    "google_maps_query": "Bellanwila Rajamaha Viharaya, Dehiwala Road, Boralesgamuwa, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.3715771855873!2d79.8900585!3d6.845981500000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25aee1916e3ef%3A0xdb50ff12ef434d19!2sBellanwila%20Rajamaha%20Viharaya!5e0!3m2!1sen!2slk!4v1792310855796!5m2!1sen!2slk"
   },
   {
     "name": "Dehiwala Zoological Gardens",
@@ -150,11 +178,16 @@
       "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
       "alt_text": "Giraffes in cross shot is a rare click to get eventually."
     },
-    "opening_hours_note": "Daily. Official listings give different closing times: 5 PM and 6 PM.",
+    "opening_hours_note": "Google’s weekly listing and the official main hours show 5 PM; an official footer also lists 6 PM.",
     "opening_time": "08:30",
-    "closing_time": null,
+    "closing_time": "17:00",
     "hours_source": "https://nationalzoo.gov.lk/dehiwala-zoo/",
-    "hours_reviewed_on": "2026-10-18"
+    "hours_reviewed_on": "2026-10-18",
+    "opening_hours": "Monday–Sunday: 8:30 AM–5:00 PM",
+    "practical_guidance": "Admission is ticketed and payments are in Sri Lankan rupees. Pets, plastic and polythene, smoking and alcohol are prohibited. Stay behind barriers; feeding animals is allowed only through the zoo’s official interaction programme.",
+    "visitor_review_source": "Information: Visitor schedule/guidance review: https://www.google.com/maps/search/?api=1&query=Dehiwala+Zoological+Gardens+Sri+Lanka\nReviewed: 2026-10-18",
+    "google_maps_query": "Dehiwala Zoological Gardens, Anagarika Dharmapala Mawatha, Dehiwala, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.2822360608807!2d79.8743673!3d6.8567363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25baace050325%3A0xfd90f5bffd93f59f!2sDehiwala%20Zoological%20Gardens!5e0!3m2!1sen!2slk!4v1792310886238!5m2!1sen!2slk"
   },
   {
     "name": "Panadura Beach",
@@ -179,7 +212,11 @@
       "license": "CC BY-SA 4.0",
       "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
       "alt_text": "Beach sunset in Panadura, Sri Lanka."
-    }
+    },
+    "opening_hours": "No published fixed opening or closing times",
+    "opening_hours_note": "Access points and nearby businesses may have their own hours. Prefer daylight visits.",
+    "google_maps_query": "Panadura Beach, Panadura, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.4770405688682!2d79.90202760000001!3d6.711487899999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae24615d8f8355d%3A0x8d7c1ff79f079a4d!2sPanadura%20Beach!5e0!3m2!1sen!2slk!4v1792311378958!5m2!1sen!2slk"
   },
   {
     "name": "Mount Lavinia Beach",
@@ -204,7 +241,13 @@
       "license": "CC BY-SA 4.0",
       "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
       "alt_text": "Mount Lavinia Beach"
-    }
+    },
+    "opening_hours": "Monday–Sunday: Listed as open 24 hours",
+    "opening_hours_note": "Beach-area listing; individual access points and businesses may have separate hours.",
+    "visitor_review_source": "Information: Visitor schedule/guidance review: https://www.google.com/maps/search/?api=1&query=Mount+Lavinia+Beach+Sri+Lanka\nReviewed: 2026-10-18",
+    "google_maps_query": "Mount Lavinia Beach, Dehiwala-Mount Lavinia, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15845.738501078133!2d79.84386958715821!3d6.838381700000015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25b1097b2d5a1%3A0x6d72bfb938a8f677!2sMount%20Lavinia%20Beach.!5e0!3m2!1sen!2slk!4v1792311432864!5m2!1sen!2slk",
+    "google_maps_place_id": "ChIJodWylxBb4joRd_aoOLm_cm0"
   },
   {
     "name": "Sri Lanka Air Force Museum",
@@ -231,10 +274,16 @@
       "alt_text": "The SLAF museum"
     },
     "opening_time": "08:30",
-    "closing_time": "16:30",
-    "opening_hours_note": "Closed on Mondays and public holidays.",
-    "hours_source": "https://airforcemuseum.lk/visitor.php",
-    "hours_reviewed_on": "2026-10-18"
+    "closing_time": "16:15",
+    "opening_hours_note": "Official visitor/contact pages list 4:15 PM; Google Maps and the virtual-tour page still list 4:30 PM.",
+    "hours_source": "https://airforcemuseum.lk/book-your-seat.php",
+    "hours_reviewed_on": "2026-10-18",
+    "opening_hours": "Monday: Closed\nTuesday–Sunday: 8:30 AM–4:15 PM\nPublic holidays: Closed",
+    "previous_closing_time": "16:30",
+    "practical_guidance": "Allow 2–3 hours to explore the exhibits. The museum is within Ratmalana Air Force Base. Contact the museum in advance for school or group visits: +94 77 2 444 445; museum@airforce.lk.",
+    "visitor_review_source": "Information: Visitor schedule/guidance review: https://airforcemuseum.lk/book-your-seat.php\nReviewed: 2026-10-18",
+    "google_maps_query": "Sri Lanka Air Force Museum, Ratmalana, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.5548863653444!2d79.8917824!3d6.8238620999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25ac61680bad9%3A0xb6dbdd061fb17aa8!2sSri%20Lanka%20Air%20Force%20Museum!5e0!3m2!1sen!2slk!4v1792311079516!5m2!1sen!2slk"
   },
   {
     "name": "Diyatha Uyana",
@@ -259,22 +308,28 @@
       "license": "CC BY-SA 3.0",
       "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
       "alt_text": "Fountain at Diyatha Uyana"
-    }
+    },
+    "opening_hours": "Monday–Sunday: 8:00 AM–11:00 PM",
+    "opening_hours_note": "Published visitor listing; operator hours not confirmed. Food court, aquarium and market hours can differ.",
+    "practical_guidance": "The lakeside park has walking areas, food outlets and an aquarium. Use the designated paths, keep children supervised near the water, and dispose of litter responsibly. Individual stalls and attractions may operate different hours.",
+    "visitor_review_source": "Information: Visitor schedule/guidance review: https://evendo.com/locations/sri-lanka/colombo-district/attraction/diyatha-uyana\nReviewed: 2026-10-18",
+    "google_maps_query": "Diyatha Uyana Park, B240, Sri Jayawardenepura Kotte, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.8831443928293!2d79.9098313!3d6.9045749999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae259f98bd912ed%3A0xdcc9ab545593fc1b!2sDiyatha%20Uyana%20Park!5e0!3m2!1sen!2slk!4v1792310776311!5m2!1sen!2slk"
   },
   {
     "name": "Kalutara Beach",
     "slug": "kalutara-beach",
-    "latitude": "6.566747",
-    "longitude": "79.960244",
+    "latitude": "6.609847",
+    "longitude": "79.947418",
     "categories": [
       "nature",
       "leisure"
     ],
     "short_description": "A coastal stop in Kalutara.",
-    "description": "Kalutara Beach is a stretch of coast in the Kalutara area on Sri Lanka’s western seaboard. The marker uses the documented camera location of a photograph of the beach; it is an approximate reference point rather than a surveyed public entrance.",
+    "description": "Kalutara Beach is a stretch of coast in the Kalutara area on Sri Lanka’s western seaboard. The map identifies the named Google Maps beach listing; use an established public access point. The location is not a surveyed entrance.",
     "address": "Kalutara, Kalutara District",
     "source_url": "https://commons.wikimedia.org/wiki/File:Kalutara_Beach_-_Sri_Lanka_2023-11-11.jpg",
-    "coordinate_source": "https://commons.wikimedia.org/wiki/File:Kalutara_Beach_-_Sri_Lanka_2023-11-11.jpg",
+    "coordinate_source": "https://www.google.com/maps/search/?api=1&query=Kalutara+Beach,+Kalutara+North,+Sri+Lanka",
     "verified_on": "2026-10-18",
     "visitor_information": "Use an established public access point and respect private property. Check local weather and posted guidance; this listing does not establish that swimming or bathing is safe.",
     "photo": {
@@ -284,22 +339,28 @@
       "license": "CC BY 4.0",
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "alt_text": "Kalutara Beach coastline"
-    }
+    },
+    "opening_hours": "No published fixed opening or closing times",
+    "opening_hours_note": "Access points and nearby businesses may have their own hours. Prefer daylight visits.",
+    "google_maps_query": "Kalutara Beach, Kalutara North, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17326.09952033967!2d79.94644037160042!3d6.609938577851093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae237a6aab4fa25%3A0xe685fc7dbe356e1a!2sKalutara%20Beach!5e0!3m2!1sen!2slk!4v1792311552180!5m2!1sen!2slk",
+    "previous_latitude": "6.566747",
+    "previous_longitude": "79.960244"
   },
   {
     "name": "Wadduwa Beach",
     "slug": "wadduwa-beach",
-    "latitude": "6.655741",
-    "longitude": "79.930686",
+    "latitude": "6.668802",
+    "longitude": "79.923109",
     "categories": [
       "nature",
       "leisure"
     ],
     "short_description": "A coastal stop in Wadduwa.",
-    "description": "Wadduwa Beach is a coastal attraction in the Wadduwa area of Kalutara District. The marker uses the documented camera location of a photograph of the beach; it is an approximate reference point rather than a surveyed public entrance.",
+    "description": "Wadduwa Beach is a coastal attraction in the Wadduwa area of Kalutara District. The map identifies the named Google Maps beach listing; use an established public access point. The location is not a surveyed entrance.",
     "address": "Wadduwa, Kalutara District",
     "source_url": "https://commons.wikimedia.org/wiki/File:Wadduwa_Beach.jpg",
-    "coordinate_source": "https://commons.wikimedia.org/wiki/File:Wadduwa_Beach.jpg",
+    "coordinate_source": "https://www.google.com/maps/search/?api=1&query=Wadduwa+Beach,+Wadduwa,+Sri+Lanka",
     "verified_on": "2026-10-18",
     "visitor_information": "Use an established public access point and respect private property. Check local weather and posted guidance; this listing does not establish that swimming or bathing is safe.",
     "photo": {
@@ -309,6 +370,12 @@
       "license": "CC BY-SA 2.0",
       "license_url": "https://creativecommons.org/licenses/by-sa/2.0/",
       "alt_text": "Wadduwa Beach coastline"
-    }
+    },
+    "opening_hours": "No published fixed opening or closing times",
+    "opening_hours_note": "Access points and nearby businesses may have their own hours. Prefer daylight visits.",
+    "google_maps_query": "Wadduwa Beach, Wadduwa, Sri Lanka",
+    "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.8233301975824!2d79.9231094!3d6.668802100000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae24988c4190bbf%3A0xad2fb7934d9532ac!2sWadduwa%20Beach!5e0!3m2!1sen!2slk!4v1792311601573!5m2!1sen!2slk",
+    "previous_latitude": "6.655741",
+    "previous_longitude": "79.930686"
   }
 ]

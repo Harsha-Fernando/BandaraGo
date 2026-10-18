@@ -6,7 +6,7 @@
     <div class="d-flex flex-wrap gap-1 mb-3">{% for category in place.categories.all %}<span class="badge text-bg-light border fw-normal">{{ category.name }}</span>{% endfor %}</div>
     <h3 class="h5 card-title"><a class="text-body text-decoration-none" href="{{ place.get_absolute_url }}">{{ place.name }}</a></h3>
     {% if not compact %}<p class="card-text text-secondary small">{{ place.short_description }}</p>{% endif %}
-    <p class="small text-secondary mt-auto pt-2">{% include 'icon.html' with name='geo-alt' %} {{ place.distance_km|floatformat:1 }} km from Bandaragama</p>
+    <p class="small text-secondary mt-auto pt-2">{% include 'icon.html' with name='geo-alt' %} {{ place.distance_km|floatformat:1 }} km straight-line from Bandaragama</p>
     <div class="d-flex flex-wrap gap-2">
       <a class="btn btn-outline-secondary btn-sm" href="{{ place.get_absolute_url }}">View place</a>
       <form method="post" action="{% url 'planner:add' place.pk %}">{% csrf_token %}<button class="btn btn-primary btn-sm" aria-label="Add {{ place.name }} to plan">{% include 'icon.html' with name='plus-lg' %} Add to Plan</button></form>

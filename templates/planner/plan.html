@@ -17,7 +17,7 @@
               <div class="col-sm-8">
                 <h2 class="h5 mb-2"><a class="text-body text-decoration-none" href="{{ place.get_absolute_url }}">{{ place.name }}</a></h2>
                 <div class="d-flex flex-wrap gap-1">{% for category in place.categories.all %}<span class="badge text-bg-light border fw-normal">{{ category.name }}</span>{% endfor %}</div>
-                <p class="small text-secondary mt-2 mb-0">{{ place.distance_km|floatformat:1 }} km from Bandaragama</p>
+                <p class="small text-secondary mt-2 mb-0">{{ place.distance_km|floatformat:1 }} km straight-line from Bandaragama</p>
               </div>
               <div class="col-sm-4 d-flex flex-wrap justify-content-sm-end gap-2">
                 <form method="post" action="{% url 'planner:reorder' place.pk %}">{% csrf_token %}<input type="hidden" name="direction" value="up"><button class="btn btn-outline-secondary btn-sm" {% if forloop.first %}disabled{% endif %} aria-label="Move {{ place.name }} up">{% include 'icon.html' with name='arrow-up' %}</button></form>

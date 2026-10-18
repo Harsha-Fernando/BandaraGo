@@ -1,4 +1,9 @@
+{% if place.google_maps_embed_url %}
+<iframe class="attraction-map border rounded-3 w-100" src="{{ place.google_maps_embed_url }}" title="Google Maps location of {{ place.name }}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<p class="mt-2 mb-0 small text-secondary">Google Maps requires internet access. If the map does not load, use Get Directions.</p>
+{% else %}
 {{ map_places|json_script:'map-data' }}
 <div id="map" class="attraction-map border rounded-3 bg-light" role="region" aria-label="Interactive attraction map"></div>
 <p id="map-status" class="mt-2 mb-0 small text-secondary" role="status">Loading map… Directions are also available using Get Directions.</p>
 <noscript><p class="small mt-2">Enable JavaScript for the interactive map, or use Get Directions.</p></noscript>
+{% endif %}
