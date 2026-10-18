@@ -13,7 +13,7 @@ from attractions.models import Category, Place, PlaceImage
 
 
 class Command(BaseCommand):
-    help = 'Import the reviewed ten-place reference dataset as drafts; never overwrite existing places.'
+    help = 'Import the reviewed reference dataset as drafts; never overwrite existing places.'
 
     def add_arguments(self, parser):
         parser.add_argument('--download-images', action='store_true', help='Download attributed Commons photos (internet required).')
@@ -41,15 +41,23 @@ class Command(BaseCommand):
                 except Exception as error:
                     raise CommandError(f"Could not download {record['name']}: {error}") from error
             information = '\n\n'.join([
-                record['visitor_information'],
+                record['visitor_information'] + ('\n\n' + record['practical_guidance'] if record.get('practical_guidance') else ''),
                 f"Information: {record['source_url']}\nCoordinates: {record['coordinate_source']}\nSource review: {record['verified_on']}",
                 f"Photo: {photo['author']} · {photo['license']}\n{photo['source_url']}\n{photo['license_url']}\nCommons image; CSS crops display. No other changes.",
             ])
+            if record.get('hours_source'):
+                information += f"\n\nOpening hours source: {record['hours_source']}\nReviewed: {record['hours_reviewed_on']}"
+            if record.get('visitor_review_source'):
+                information += '\n\n' + record['visitor_review_source']
             with transaction.atomic():
                 place = Place.objects.create(**{key: record[key] for key in [
                     'name', 'slug', 'latitude', 'longitude', 'short_description', 'description', 'address',
                 ]}, visitor_information=information,
-                    opening_hours_note=record.get('opening_hours_note', 'Opening hours not verified; confirm locally before travelling.'))
+                    opening_hours=record.get('opening_hours', ''),
+                    google_maps_query=record.get('google_maps_query', ''),
+                    google_maps_place_id=record.get('google_maps_place_id', ''),
+                    google_maps_embed_url=record.get('google_maps_embed_url', ''),
+                    opening_hours_note=record.get('opening_hours_note', ''))
                 place.categories.set(Category.objects.filter(slug__in=record['categories']))
                 if image_bytes:
                     image = PlaceImage(place=place, alt_text=photo['alt_text'], is_cover=True)

@@ -1,4 +1,5 @@
 from decimal import Decimal, InvalidOperation
+from urllib.parse import urlencode, urlsplit
 
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator, MaxValueValidator, MinValueValidator
@@ -39,9 +40,11 @@ class Place(models.Model):
     latitude = models.DecimalField(max_digits=9, decimal_places=6, validators=[MinValueValidator(-90), MaxValueValidator(90)])
     longitude = models.DecimalField(max_digits=9, decimal_places=6, validators=[MinValueValidator(-180), MaxValueValidator(180)])
     address = models.CharField(max_length=300, blank=True)
-    opening_time = models.TimeField(null=True, blank=True)
-    closing_time = models.TimeField(null=True, blank=True)
     opening_hours_note = models.CharField(max_length=300, blank=True)
+    opening_hours = models.TextField(blank=True, help_text='Weekly visitor schedule, one day or day range per line. Include closed days and 24-hour listings where verified.')
+    google_maps_query = models.CharField(max_length=300, blank=True, help_text='Named attraction and locality for Google Maps location links. Do not use a generic lake or beach point as an entrance.')
+    google_maps_place_id = models.CharField(max_length=255, blank=True, help_text='Optional verified Google place ID to identify an exact listing rather than a search result.')
+    google_maps_embed_url = models.URLField(max_length=2000, blank=True, help_text='Paste only the https://www.google.com/maps/embed?pb= URL from Google Maps Share > Embed a map, not the iframe HTML.')
     visitor_information = models.TextField(blank=True)
     is_published = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -61,6 +64,10 @@ class Place(models.Model):
 
     def clean(self):
         super().clean()
+        if self.google_maps_embed_url:
+            url = urlsplit(self.google_maps_embed_url)
+            if url.scheme != 'https' or url.netloc != 'www.google.com' or url.path != '/maps/embed' or not url.query.startswith('pb='):
+                raise ValidationError({'google_maps_embed_url': 'Use the HTTPS embed URL copied from Google Maps Share > Embed a map.'})
         if self.latitude is not None and self.longitude is not None:
             try:
                 lat, lon = Decimal(self.latitude), Decimal(self.longitude)
@@ -78,6 +85,14 @@ class Place(models.Model):
         """Call after saving category and image relationships in a publishing workflow."""
         if self.is_published and (not self.pk or not self.categories.exists() or not self.images.exists()):
             raise ValidationError('A published attraction needs at least one category and one image.')
+
+    @property
+    def map_url(self):
+        query = self.google_maps_query or ', '.join(filter(None, [self.name, self.address, 'Sri Lanka']))
+        parameters = {'api': 1, 'query': query}
+        if self.google_maps_place_id:
+            parameters['query_place_id'] = self.google_maps_place_id
+        return 'https://www.google.com/maps/search/?' + urlencode(parameters)
 
     @property
     def distance_km(self):

@@ -1,9 +1,10 @@
 from django.contrib import messages
-from django.http import HttpResponseBadRequest
+from django.http import FileResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_GET, require_POST
 
 from attractions.models import Place
+from .pdf import build_plan_pdf
 
 SESSION_KEY = 'visit_plan'
 
@@ -20,6 +21,18 @@ def plan_places(request):
 @require_GET
 def plan_detail(request):
     return render(request, 'planner/plan.html', {'places': plan_places(request)})
+
+
+@require_GET
+def download_pdf(request):
+    places = plan_places(request)
+    if not places:
+        messages.info(request, 'Add a place to your plan before downloading it.')
+        return redirect('planner:detail')
+    response = FileResponse(build_plan_pdf(places), as_attachment=True,
+                            filename='bandarago-one-day-plan.pdf', content_type='application/pdf')
+    response['Cache-Control'] = 'private, no-store'
+    return response
 
 
 @require_POST

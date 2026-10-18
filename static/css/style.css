@@ -12,7 +12,7 @@
   object-fit: cover;
 }
 
-/* Leaflet requires an explicit container height. */
+/* Keep embedded maps and the Leaflet fallback at a usable height. */
 .attraction-map {
   height: 370px;
   width: 100%;

@@ -75,7 +75,7 @@ class PlannerTests(TestCase):
 
     def test_detail_has_add_form(self):
         response = self.client.get(self.a.get_absolute_url())
-        self.assertContains(response, 'Add to my day')
+        self.assertContains(response, 'Add to Plan')
         self.assertContains(response, reverse('planner:add', args=[self.a.pk]))
 
     def test_navigation_count_matches_valid_unique_session_places(self):
@@ -84,9 +84,69 @@ class PlannerTests(TestCase):
         session.save()
         self.b.is_published = False
         self.b.save()
-        for url in ['/', self.c.get_absolute_url(), '/planner/', '/help/']:
+        for url in ['/', self.c.get_absolute_url(), '/planner/']:
             response = self.client.get(url)
             self.assertEqual(response.context['plan_count'], 1)
             self.assertContains(response, 'aria-label="1 selected places"')
         self.client.post('/planner/clear/', {'confirmed': 'yes'})
         self.assertEqual(self.client.get('/').context['plan_count'], 0)
+
+    def test_only_routine_messages_auto_dismiss(self):
+        from django.contrib import messages
+        from django.contrib.messages.storage.fallback import FallbackStorage
+        from django.test import RequestFactory
+        from django.template.loader import render_to_string
+        request = RequestFactory().get('/')
+        request.session = {}
+        request._messages = FallbackStorage(request)
+        messages.success(request, 'Saved successfully.')
+        messages.info(request, 'Already selected.')
+        messages.error(request, 'Validation failed.')
+        html = render_to_string('base.html', request=request)
+        self.assertEqual(html.count('data-auto-dismiss'), 2)
+        self.assertEqual(html.count('aria-label="Dismiss notification"'), 3)
+        error_alert = html.split('alert-danger', 1)[1].split('</div>', 1)[0]
+        self.assertNotIn('data-auto-dismiss', error_alert)
+
+    def test_pdf_download_has_ordered_map_links_and_is_private(self):
+        self.add(self.c)
+        self.add(self.a)
+        response = self.client.get(reverse('planner:download_pdf'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/pdf')
+        self.assertIn('attachment;', response['Content-Disposition'])
+        self.assertIn('bandarago-one-day-plan.pdf', response['Content-Disposition'])
+        self.assertEqual(response['Cache-Control'], 'private, no-store')
+        pdf = b''.join(response.streaming_content)
+        self.assertTrue(pdf.startswith(b'%PDF-'))
+        self.assertLess(pdf.index(self.c.map_url.encode()), pdf.index(self.a.map_url.encode()))
+        self.assertNotIn(self.b.map_url.encode(), pdf)
+        self.assertEqual(self.client.session[SESSION_KEY], [self.c.pk, self.a.pk])
+
+    def test_pdf_empty_plan_and_session_isolation(self):
+        self.add(self.a)
+        response = Client().get(reverse('planner:download_pdf'))
+        self.assertRedirects(response, reverse('planner:detail'))
+        self.assertContains(self.client.get('/planner/'), 'Download plan as PDF')
+        self.assertNotContains(Client().get('/planner/'), 'Download plan as PDF')
+        self.assertEqual(self.client.post(reverse('planner:download_pdf')).status_code, 405)
+
+    def test_pdf_omits_unpublished_duplicates_and_invalid_session_values(self):
+        session = self.client.session
+        session[SESSION_KEY] = [self.b.pk, self.a.pk, self.b.pk, None, {}, True, 'bad', 2**100]
+        session.save()
+        self.a.is_published = False
+        self.a.save()
+        response = self.client.get(reverse('planner:download_pdf'))
+        pdf = b''.join(response.streaming_content)
+        self.assertNotIn(self.a.map_url.encode(), pdf)
+        self.assertEqual(pdf.count(self.b.map_url.encode()), 1)
+
+    def test_pdf_handles_long_names_and_special_characters(self):
+        self.a.name = 'Museum & Gardens <West> ' + 'Visitor centre ' * 8
+        self.a.address = 'Main road & Lake <West> ' * 10
+        self.a.save()
+        self.add(self.a)
+        response = self.client.get(reverse('planner:download_pdf'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(b''.join(response.streaming_content).startswith(b'%PDF-'))
