@@ -39,7 +39,7 @@
   <main id="main" class="flex-grow-1">{% block content %}{% endblock %}</main>
   <footer class="border-top bg-light py-4 mt-5">
     <div class="container d-flex flex-wrap justify-content-between gap-3 small">
-      <p class="mb-0"><strong>BandaraGo</strong><span class="text-secondary d-block mt-1">A day out, close to home.</span></p>
+      <p class="mb-0">&copy; {% now "Y" %} <strong>BandaraGo</strong></p>
       <nav class="d-flex flex-wrap align-items-start gap-3" aria-label="Footer navigation"><a href="{% url 'home' %}">Home</a><a href="{% url 'attractions:list' %}">Explore places</a><a href="{% url 'planner:detail' %}">My day plan</a></nav>
     </div>
   </footer>
