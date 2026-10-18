@@ -120,7 +120,12 @@
       "license": "CC BY-SA 3.0",
       "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
       "alt_text": "Bellanwila Vihara is a famous Buddhist temple in Colombo, Sri Lanka."
-    }
+    },
+    "opening_time": "06:00",
+    "closing_time": "21:00",
+    "opening_hours_note": "Published visitor hours (Explore Sri Lanka, April 2026).",
+    "hours_source": "https://exploresrilanka.lk/wp-content/uploads/2026/04/Whats-On-April-2026.pdf",
+    "hours_reviewed_on": "2026-10-18"
   },
   {
     "name": "Dehiwala Zoological Gardens",
@@ -145,7 +150,11 @@
       "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
       "alt_text": "Giraffes in cross shot is a rare click to get eventually."
     },
-    "opening_hours_note": "Official pages show differing closing times. Confirm directly before travelling."
+    "opening_hours_note": "Daily. Official listings give different closing times: 5 PM and 6 PM.",
+    "opening_time": "08:30",
+    "closing_time": null,
+    "hours_source": "https://nationalzoo.gov.lk/dehiwala-zoo/",
+    "hours_reviewed_on": "2026-10-18"
   },
   {
     "name": "Panadura Beach",
@@ -220,7 +229,12 @@
       "license": "CC BY 2.0",
       "license_url": "https://creativecommons.org/licenses/by/2.0",
       "alt_text": "The SLAF museum"
-    }
+    },
+    "opening_time": "08:30",
+    "closing_time": "16:30",
+    "opening_hours_note": "Closed on Mondays and public holidays.",
+    "hours_source": "https://airforcemuseum.lk/visitor.php",
+    "hours_reviewed_on": "2026-10-18"
   },
   {
     "name": "Diyatha Uyana",

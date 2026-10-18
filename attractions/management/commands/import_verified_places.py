@@ -45,11 +45,14 @@ class Command(BaseCommand):
                 f"Information: {record['source_url']}\nCoordinates: {record['coordinate_source']}\nSource review: {record['verified_on']}",
                 f"Photo: {photo['author']} · {photo['license']}\n{photo['source_url']}\n{photo['license_url']}\nCommons image; CSS crops display. No other changes.",
             ])
+            if record.get('hours_source'):
+                information += f"\n\nOpening hours source: {record['hours_source']}\nReviewed: {record['hours_reviewed_on']}"
             with transaction.atomic():
                 place = Place.objects.create(**{key: record[key] for key in [
                     'name', 'slug', 'latitude', 'longitude', 'short_description', 'description', 'address',
                 ]}, visitor_information=information,
-                    opening_hours_note=record.get('opening_hours_note', 'Opening hours not verified; confirm locally before travelling.'))
+                    opening_time=record.get('opening_time'), closing_time=record.get('closing_time'),
+                    opening_hours_note=record.get('opening_hours_note', ''))
                 place.categories.set(Category.objects.filter(slug__in=record['categories']))
                 if image_bytes:
                     image = PlaceImage(place=place, alt_text=photo['alt_text'], is_cover=True)

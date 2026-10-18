@@ -5,38 +5,42 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Discover attractions near Bandaragama, Sri Lanka, and arrange your own one-day visit.">
-  <title>{% block title %}BandaraGo · Explore close to home{% endblock %}</title>
+  <title>{% block title %}BandaraGo · A day out, close to home{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% block extra_head %}{% endblock %}
 </head>
 <body class="d-flex flex-column min-vh-100">
   <a class="visually-hidden-focusable bg-white p-3" href="#main">Skip to content</a>
-  <header class="border-bottom bg-light">
-    <nav class="navbar navbar-expand-md" aria-label="Main navigation">
+  <header class="border-bottom bg-white">
+    <nav class="navbar navbar-expand-md py-3" aria-label="Main navigation">
       <div class="container">
-        <a href="{% url 'home' %}" class="navbar-brand">{% include 'icon.html' with name='bank' %} BandaraGo</a>
+        <a href="{% url 'home' %}" class="navbar-brand fw-bold fs-4 text-primary">BandaraGo</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-navigation" aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="main-navigation">
-          <div class="navbar-nav ms-auto">
-            <a class="nav-link" href="{% url 'attractions:list' %}">Explore places</a>
-            <a class="nav-link" href="{% url 'help' %}">Visitor help</a>
-            <a class="nav-link" href="{% url 'planner:detail' %}">My day plan <span class="badge text-bg-primary" aria-label="{{ plan_count }} selected places">{{ plan_count }}</span></a>
-          </div>
+          <ul class="navbar-nav ms-auto align-items-md-center gap-md-3 pt-3 pt-md-0">
+            <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'home' %} active fw-semibold{% endif %}" {% if request.resolver_match.url_name == 'home' %}aria-current="page"{% endif %} href="{% url 'home' %}">Home</a></li>
+            <li class="nav-item"><a class="nav-link{% if request.resolver_match.app_name == 'attractions' %} active fw-semibold{% endif %}" {% if request.resolver_match.app_name == 'attractions' %}aria-current="page"{% endif %} href="{% url 'attractions:list' %}">Explore places</a></li>
+            <li class="nav-item"><a class="btn btn-outline-primary d-inline-flex align-items-center gap-2" {% if request.resolver_match.app_name == 'planner' %}aria-current="page"{% endif %} href="{% url 'planner:detail' %}">My day plan <span class="badge text-bg-primary" aria-label="{{ plan_count }} selected places">{{ plan_count|default:0 }}</span></a></li>
+          </ul>
         </div>
       </div>
     </nav>
   </header>
   {% if messages %}
   <div class="container pt-3" aria-live="polite">
-    {% for message in messages %}<p class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'info' %}alert-info{% else %}alert-success{% endif %}">{{ message }}</p>{% endfor %}
+    {% for message in messages %}
+    <div class="alert alert-dismissible {% if message.level == 40 %}alert-danger{% elif message.level == 30 %}alert-warning{% elif message.level == 20 %}alert-info{% else %}alert-success{% endif %}" role="status" {% if message.level == 20 or message.level == 25 %}data-auto-dismiss{% endif %}>
+      {{ message }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Dismiss notification"></button>
+    </div>
+    {% endfor %}
   </div>
   {% endif %}
   <main id="main" class="flex-grow-1">{% block content %}{% endblock %}</main>
-  <footer class="border-top bg-light py-4 mt-4">
+  <footer class="border-top bg-light py-4 mt-5">
     <div class="container d-flex flex-wrap justify-content-between gap-3 small">
-      <p class="mb-0">BandaraGo · Discover Bandaragama</p>
-      <nav class="d-flex flex-wrap gap-3" aria-label="Footer navigation"><a href="{% url 'attractions:list' %}">Explore places</a><a href="{% url 'help' %}">Visitor help</a><a href="{% url 'planner:detail' %}">My day plan</a></nav>
+      <p class="mb-0"><strong>BandaraGo</strong><span class="text-secondary d-block mt-1">A day out, close to home.</span></p>
+      <nav class="d-flex flex-wrap align-items-start gap-3" aria-label="Footer navigation"><a href="{% url 'home' %}">Home</a><a href="{% url 'attractions:list' %}">Explore places</a><a href="{% url 'planner:detail' %}">My day plan</a></nav>
     </div>
   </footer>
   <script defer src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

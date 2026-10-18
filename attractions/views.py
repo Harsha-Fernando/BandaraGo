@@ -19,8 +19,23 @@ def place_list(request):
 
 def place_detail(request, slug):
     place = get_object_or_404(Place.objects.published().with_details(), slug=slug)
+    guidance, sources = [], []
+    for paragraph in place.visitor_information.replace('\r\n', '\n').split('\n\n'):
+        if paragraph.startswith(('Information:', 'Photo:', 'Opening hours source:')):
+            sources.append(paragraph)
+        elif paragraph.strip() not in {
+            'Confirm current access, opening hours, and any admission charges before travelling.',
+            'Confirm current access and any temporary restrictions locally before travelling.',
+        }:
+            guidance.append(paragraph)
+    hours_note = place.opening_hours_note
+    if hours_note == 'Opening hours not verified; confirm locally before travelling.':
+        hours_note = ''
     return render(request, 'attractions/place_detail.html', {
         'place': place,
+        'visitor_guidance': '\n\n'.join(guidance),
+        'source_information': '\n\n'.join(sources),
+        'hours_note': hours_note,
         'photos': sorted(place.images.all(), key=lambda photo: not photo.is_cover),
         'more_places': Place.objects.published().with_details().exclude(pk=place.pk)[:4],
         'map_places': [{'name': place.name, 'latitude': float(place.latitude), 'longitude': float(place.longitude)}],

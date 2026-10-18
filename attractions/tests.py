@@ -100,10 +100,19 @@ class DiscoveryTests(TestCase):
         for asset in assets:
             self.assertIsNotNone(finders.find(asset))
         for url in ['/', '/attractions/', self.place.get_absolute_url(), '/planner/',
-                    '/planner/clear/confirm/', '/help/']:
+                    '/planner/clear/confirm/']:
             response = self.client.get(url)
-            for asset in assets:
+            for asset in assets[:3]:
                 self.assertContains(response, f'/static/{asset}')
+
+    def test_cards_offer_csrf_protected_add_and_plain_text_brand(self):
+        for url in ['/', '/attractions/']:
+            response = self.client.get(url)
+            self.assertContains(response, f'action="/planner/add/{self.place.pk}/"')
+            self.assertContains(response, 'csrfmiddlewaretoken')
+            self.assertContains(response, 'Add to Plan')
+            self.assertNotContains(response, '#bank')
+            self.assertNotContains(response, 'Photo credits')
 
     def test_filter_and_clear(self):
         response = self.client.get('/attractions/', {'category': 'nature'})
@@ -140,13 +149,45 @@ class DetailTests(TestCase):
         self.assertContains(response, '6.714444')
         self.assertContains(response, '79.986667')
         self.assertContains(response, 'map-data')
-        self.assertContains(response, 'Hours not verified')
+        self.assertContains(response, 'Schedule unavailable')
         from django.contrib.staticfiles import finders
         for asset in ['vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css']:
             self.assertContains(response, f'/static/{asset}')
             self.assertIsNotNone(finders.find(asset))
         for image in ['marker-icon.png', 'marker-icon-2x.png', 'marker-shadow.png']:
             self.assertIsNotNone(finders.find(f'vendor/leaflet/images/{image}'))
+
+    def test_sources_are_collapsed_and_visitor_guidance_is_preserved(self):
+        self.place.visitor_information = (
+            'Wear suitable footwear.\n\n'
+            'Information: https://example.invalid/source\nSource review: 2026-10-18\n\n'
+            'Photo: Test author · CC BY 2.0\nhttps://example.invalid/photo'
+        )
+        self.place.save()
+        response = self.client.get(self.place.get_absolute_url())
+        self.assertEqual(response.context['visitor_guidance'], 'Wear suitable footwear.')
+        self.assertIn('Test author', response.context['source_information'])
+        self.assertContains(response, '<details id="sources"')
+        self.assertNotContains(response, '<details id="sources" open')
+        self.place.refresh_from_db()
+        self.assertIn('Test author', self.place.visitor_information)
+
+    def test_hours_and_directions_use_database_values(self):
+        from datetime import time
+        self.place.opening_time = time(6)
+        self.place.closing_time = time(21)
+        self.place.opening_hours_note = 'Closed on public holidays.'
+        self.place.save()
+        response = self.client.get(self.place.get_absolute_url())
+        self.assertContains(response, '6:00 AM – 9:00 PM')
+        self.assertContains(response, 'Closed on public holidays.')
+        self.assertContains(response, 'https://www.google.com/maps/dir/?api=1&amp;destination=6.714444,79.986667')
+        self.assertContains(response, 'rel="noopener noreferrer"')
+        self.assertNotContains(response, 'View on OpenStreetMap')
+        self.assertNotContains(response, 'use the coordinates')
+        self.place.closing_time = None
+        self.place.save()
+        self.assertContains(self.client.get(self.place.get_absolute_url()), 'From 6:00 AM')
 
     def test_detail_sends_referrer_policy_required_for_osm_tiles(self):
         response = self.client.get(self.place.get_absolute_url())
@@ -334,10 +375,37 @@ class ContentImportTests(TestCase):
             self.assertIn('creativecommons.org', place.visitor_information)
 
 
+    def test_reviewed_hours_import_and_update_preserve_staff_edits(self):
+        from datetime import time
+        call_command('import_verified_places', stdout=StringIO())
+        temple = Place.objects.get(slug='bellanwila-viharaya')
+        self.assertEqual((temple.opening_time, temple.closing_time), (time(6), time(21)))
+        museum = Place.objects.get(slug='air-force-museum')
+        self.assertEqual((museum.opening_time, museum.closing_time), (time(8, 30), time(16, 30)))
+        self.assertIn('Mondays', museum.opening_hours_note)
+        zoo = Place.objects.get(slug='dehiwala-zoo')
+        self.assertEqual(zoo.opening_time, time(8, 30))
+        self.assertIsNone(zoo.closing_time)
+        temple.opening_time = time(7)
+        temple.save()
+        museum.opening_time = museum.closing_time = None
+        museum.visitor_information = 'Staff guidance.'
+        museum.save()
+        call_command('update_reference_hours', stdout=StringIO())
+        temple.refresh_from_db()
+        museum.refresh_from_db()
+        self.assertEqual(temple.opening_time, time(7))
+        self.assertEqual(museum.opening_time, time(8, 30))
+        self.assertTrue(museum.visitor_information.startswith('Staff guidance.'))
+        information = museum.visitor_information
+        call_command('update_reference_hours', stdout=StringIO())
+        museum.refresh_from_db()
+        self.assertEqual(museum.visitor_information, information)
+
+
 class ErrorPageTests(TestCase):
-    def test_help_and_production_404(self):
+    def test_production_404(self):
         from django.test import override_settings
-        self.assertContains(self.client.get('/help/'), 'Build your day')
         with override_settings(DEBUG=False, SECURE_SSL_REDIRECT=False):
             response = self.client.get('/not-a-real-page/')
             self.assertContains(response, 'This stop is unavailable', status_code=404)

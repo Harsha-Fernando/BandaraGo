@@ -1,39 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if is_home %}
-<section class="py-5 bg-light border-bottom">
+<section class="bg-light border-bottom py-5">
   <div class="container">
-    <div class="row g-4 align-items-center">
+    <div class="row g-4 g-lg-5 align-items-center">
       <div class="col-lg-6">
-        <h1>Explore Bandaragama</h1>
-        <p class="lead text-secondary">Discover temples, nature, heritage and more within 25 km of Bandaragama. Choose places for your own one-day visit.</p>
-        <form class="row g-2" method="get" action="{% url 'attractions:list' %}#places">
-          <div class="col-sm-8"><label class="visually-hidden" for="hero-category">Choose an attraction category</label><select class="form-select" id="hero-category" name="category"><option value="">Explore all categories</option>{% for category in categories %}<option value="{{ category.slug }}">{{ category.name }}</option>{% endfor %}</select></div>
-          <div class="col-sm-4"><button class="btn btn-primary w-100" type="submit">Explore</button></div>
+        <p class="text-primary fw-semibold mb-2">DISCOVER BANDARAGAMA</p>
+        <h1 class="display-5 fw-bold mb-3">A day out,<br>close to home.</h1>
+        <p class="lead text-secondary mb-4">Find temples, coastal escapes and local favourites within 25 km of Bandaragama. Choose your places. Plan your day.</p>
+        <form class="row g-2 mb-3" method="get" action="{% url 'attractions:list' %}#places">
+          <div class="col-sm-8"><label class="visually-hidden" for="hero-category">Choose an attraction category</label><select class="form-select form-select-lg" id="hero-category" name="category"><option value="">All categories</option>{% for category in categories %}<option value="{{ category.slug }}">{{ category.name }}</option>{% endfor %}</select></div>
+          <div class="col-sm-4"><button class="btn btn-primary btn-lg w-100" type="submit">Explore</button></div>
         </form>
+        <a href="{% url 'planner:detail' %}">Already have a few places in mind? Start your plan</a>
       </div>
       {% if hero_place %}{% with cover=hero_place.cover_image %}{% if cover %}
-      <div class="col-lg-6"><figure class="mb-0"><img class="img-fluid rounded w-100 place-photo" src="{{ cover.image.url }}" alt="{{ cover.alt_text|default:hero_place.name }}" width="600" height="400" fetchpriority="high"><figcaption class="small mt-2"><a href="{{ hero_place.get_absolute_url }}">{{ hero_place.name }} · Photo credits</a></figcaption></figure></div>
+      <div class="col-lg-6"><figure class="mb-0"><a href="{{ hero_place.get_absolute_url }}"><img class="img-fluid rounded-3 w-100 place-photo" src="{{ cover.image.url }}" alt="{{ cover.alt_text|default:hero_place.name }}" width="600" height="400" fetchpriority="high"></a><figcaption class="small mt-2"><a class="text-secondary" href="{{ hero_place.get_absolute_url }}">Discover {{ hero_place.name }}</a></figcaption></figure></div>
       {% endif %}{% endwith %}{% endif %}
     </div>
   </div>
 </section>
 {% endif %}
-<section id="places" class="container py-4">
-  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-    {% if is_home %}<h2>Places to explore</h2>{% else %}<h1>Explore nearby places</h1>{% endif %}
-    <p class="text-secondary mb-0">{{ places|length }} place{{ places|length|pluralize }} to discover</p>
+<section id="places" class="container py-5">
+  <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
+    <div>{% if is_home %}<h2 class="fw-bold">Find your next stop</h2>{% else %}<h1 class="fw-bold">Explore nearby places</h1>{% endif %}<p class="text-secondary mb-0">A little nature, a little history, or somewhere to unwind.</p></div>
+    <p class="small text-secondary mb-0">{{ places|length }} place{{ places|length|pluralize }} to discover</p>
   </div>
   <nav id="explore-filter" class="nav nav-pills flex-wrap gap-2 mb-4" aria-label="Filter attractions by category">
     <a class="nav-link {% if not selected_category %}active{% endif %}" href="{% url 'attractions:list' %}#places" {% if not selected_category %}aria-current="true"{% endif %}>All places</a>
-    {% for category in categories %}<a class="nav-link {% if selected_category == category.slug %}active{% endif %}" href="?category={{ category.slug }}#places" {% if selected_category == category.slug %}aria-current="true"{% endif %}>{{ category.name }}</a>{% endfor %}
+    {% for category in categories %}<a class="nav-link {% if selected_category == category.slug %}active{% endif %}" href="{% url 'attractions:list' %}?category={{ category.slug }}#places" {% if selected_category == category.slug %}aria-current="true"{% endif %}>{{ category.name }}</a>{% endfor %}
   </nav>
-  {% if selected_category %}<p><a href="{% url 'attractions:list' %}#places">Clear filter</a></p>{% endif %}
+  {% if selected_category %}<p class="small"><a href="{% url 'attractions:list' %}#places">Clear filter</a></p>{% endif %}
   <div class="row g-4">
     {% for place in places %}<div class="col-sm-6 col-lg-4">{% include 'attractions/place_card.html' %}</div>
-    {% empty %}<div class="col-12"><div class="alert alert-info"><h2 class="h4">No places found</h2><p class="mb-0">{% if selected_category %}No attractions match this category. Try another category or clear the filter.{% else %}No attractions are available yet. Please check back soon.{% endif %}</p></div></div>{% endfor %}
+    {% empty %}<div class="col-12"><div class="border rounded-3 p-4 bg-light"><h2 class="h4">No places found</h2><p class="mb-0">{% if selected_category %}No attractions match this category. Try another category or clear the filter.{% else %}No attractions are available yet. Please check back soon.{% endif %}</p></div></div>{% endfor %}
   </div>
-  <p class="small text-secondary mt-3">Distances are approximate straight-line distances. Check local access and opening hours before travelling.</p>
-  <aside class="card bg-light mt-4"><div class="card-body"><h2 class="h4">Plan your own day trip</h2><p>Add places to your plan and arrange them in your preferred order.</p><a class="btn btn-primary" href="{% url 'planner:detail' %}">Start planning {% include 'icon.html' with name='arrow-right' %}</a></div></aside>
+  <p class="small text-secondary mt-4 mb-0">Distances shown are approximate straight-line distances from Bandaragama.</p>
 </section>
 {% endblock %}

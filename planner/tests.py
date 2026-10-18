@@ -75,7 +75,7 @@ class PlannerTests(TestCase):
 
     def test_detail_has_add_form(self):
         response = self.client.get(self.a.get_absolute_url())
-        self.assertContains(response, 'Add to my day')
+        self.assertContains(response, 'Add to Plan')
         self.assertContains(response, reverse('planner:add', args=[self.a.pk]))
 
     def test_navigation_count_matches_valid_unique_session_places(self):
@@ -84,9 +84,26 @@ class PlannerTests(TestCase):
         session.save()
         self.b.is_published = False
         self.b.save()
-        for url in ['/', self.c.get_absolute_url(), '/planner/', '/help/']:
+        for url in ['/', self.c.get_absolute_url(), '/planner/']:
             response = self.client.get(url)
             self.assertEqual(response.context['plan_count'], 1)
             self.assertContains(response, 'aria-label="1 selected places"')
         self.client.post('/planner/clear/', {'confirmed': 'yes'})
         self.assertEqual(self.client.get('/').context['plan_count'], 0)
+
+    def test_only_routine_messages_auto_dismiss(self):
+        from django.contrib import messages
+        from django.contrib.messages.storage.fallback import FallbackStorage
+        from django.test import RequestFactory
+        from django.template.loader import render_to_string
+        request = RequestFactory().get('/')
+        request.session = {}
+        request._messages = FallbackStorage(request)
+        messages.success(request, 'Saved successfully.')
+        messages.info(request, 'Already selected.')
+        messages.error(request, 'Validation failed.')
+        html = render_to_string('base.html', request=request)
+        self.assertEqual(html.count('data-auto-dismiss'), 2)
+        self.assertEqual(html.count('aria-label="Dismiss notification"'), 3)
+        error_alert = html.split('alert-danger', 1)[1].split('</div>', 1)[0]
+        self.assertNotIn('data-auto-dismiss', error_alert)
