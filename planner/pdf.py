@@ -5,7 +5,7 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
+from reportlab.platypus import Paragraph, SimpleDocTemplate
 
 
 def build_plan_pdf(places):
@@ -30,17 +30,12 @@ def build_plan_pdf(places):
         categories = ', '.join(category.name for category in place.categories.all())
         story.append(Paragraph(f'{number}. {escape(place.name)}', styles['Stop']))
         for label, value in [('Categories', categories), ('Location', place.address),
-                             ('Coordinates', f'{place.latitude}, {place.longitude}'),
                              ('Distance from Bandaragama', f'{place.distance_km:.1f} km (straight-line)')]:
             if value:
                 story.append(Paragraph(f'<b>{label}:</b> {escape(value)}', styles['Details']))
         story.append(Paragraph(f'<link href={quoteattr(place.map_url)} '
                                'color="#0d6efd"><u>Open location in Google Maps</u></link>',
                                styles['Details']))
-    story.extend([Spacer(1, 12 * mm),
-                  Paragraph('Beaches and lakes can cover large areas; a map location may not identify '
-                            'a public entrance. Check access and opening hours before travelling.',
-                            styles['Details'])])
 
     def footer(canvas, doc):
         canvas.saveState()

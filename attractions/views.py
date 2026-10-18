@@ -21,13 +21,18 @@ def place_detail(request, slug):
     place = get_object_or_404(Place.objects.published().with_details(), slug=slug)
     guidance = []
     for paragraph in place.visitor_information.replace('\r\n', '\n').split('\n\n'):
-        if paragraph.startswith(('Information:', 'Photo:', 'Opening hours source:')):
-            continue
-        elif paragraph.strip() not in {
+        lines = []
+        for line in paragraph.splitlines():
+            if line.strip().startswith(('Information:', 'Photo:', 'Opening hours source:')):
+                break
+            lines.append(line)
+        practical_text = '\n'.join(lines).strip()
+        if practical_text and practical_text not in {
             'Confirm current access, opening hours, and any admission charges before travelling.',
             'Confirm current access and any temporary restrictions locally before travelling.',
+            'Confirm current admission and access arrangements before visiting.',
         }:
-            guidance.append(paragraph)
+            guidance.append(practical_text)
     hours_note = place.opening_hours_note
     if hours_note == 'Opening hours not verified; confirm locally before travelling.':
         hours_note = ''

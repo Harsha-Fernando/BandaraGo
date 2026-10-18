@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.core.management import call_command
 from django.db import IntegrityError, transaction
 from django.test import TestCase
+from django.urls import reverse
 
 from .distance import BANDARAGAMA_LATITUDE, BANDARAGAMA_LONGITUDE, distance_from_bandaragama
 from .models import Category, Place, PlaceImage
@@ -193,6 +194,23 @@ class DetailTests(TestCase):
         self.place.save()
         self.assertContains(self.client.get(self.place.get_absolute_url()), 'From 6:00 AM')
 
+    def test_sources_after_guidance_need_no_blank_line(self):
+        original = ('Wear suitable footwear.\n  Information: https://example.invalid/source\n'
+                    'Photo: Example author\nhttps://example.invalid/photo')
+        self.place.visitor_information = original
+        self.place.save()
+        response = self.client.get(self.place.get_absolute_url())
+        self.assertEqual(response.context['visitor_guidance'], 'Wear suitable footwear.')
+        self.assertNotContains(response, 'example.invalid')
+        self.place.visitor_information = original.replace('Wear suitable footwear.',
+            'Confirm current admission and access arrangements before visiting.')
+        self.place.save()
+        response = self.client.get(self.place.get_absolute_url())
+        self.assertNotContains(response, 'Good to know')
+        self.assertNotContains(response, 'example.invalid')
+        self.place.refresh_from_db()
+        self.assertIn('Example author', self.place.visitor_information)
+
     def test_weekly_hours_take_priority_and_google_embed_is_optional(self):
         self.place.opening_hours = 'Monday: Closed\nTuesday–Sunday: 8:30 AM–4:15 PM'
         self.place.google_maps_embed_url = 'https://www.google.com/maps/embed?pb=!1m18!verified'
@@ -317,6 +335,27 @@ class AdminTests(TestCase):
         response = self.client.post('/admin/attractions/place/add/', self.payload())
         self.assertContains(response, 'Keep at least one image')
         self.assertFalse(Place.objects.exists())
+
+    def test_admin_map_fields_persist_and_feed_public_map_and_pdf(self):
+        self.client.force_login(self.admin_user)
+        response = self.client.get('/admin/attractions/place/add/')
+        for field in ['google_maps_embed_url', 'google_maps_query', 'google_maps_place_id']:
+            self.assertContains(response, f'name="{field}"')
+        embed = 'https://www.google.com/maps/embed?pb=!1m18!staff-selected'
+        data = self.payload(google_maps_embed_url=embed,
+                            google_maps_query='Staff-selected museum, Sri Lanka',
+                            google_maps_place_id='staff-selected-place-id',
+                            **{'images-0-image': self.upload()})
+        self.assertEqual(self.client.post('/admin/attractions/place/add/', data).status_code, 302)
+        place = Place.objects.get(slug='admin-test')
+        self.assertEqual(place.google_maps_embed_url, embed)
+        self.assertEqual(place.google_maps_query, data['google_maps_query'])
+        self.assertEqual(place.google_maps_place_id, data['google_maps_place_id'])
+        self.assertContains(self.client.get(place.get_absolute_url()), embed)
+        self.client.post(reverse('planner:add', args=[place.pk]))
+        pdf = b''.join(self.client.get(reverse('planner:download_pdf')).streaming_content)
+        self.assertIn(b'query=Staff-selected+museum%2C+Sri+Lanka', pdf)
+        self.assertIn(b'query_place_id=staff-selected-place-id', pdf)
 
     def test_publish_upload_edit_and_delete(self):
         self.client.force_login(self.admin_user)

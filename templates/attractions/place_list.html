@@ -15,7 +15,7 @@
         <a href="{% url 'planner:detail' %}">Already have a few places in mind? Start your plan</a>
       </div>
       {% if hero_place %}{% with cover=hero_place.cover_image %}{% if cover %}
-      <div class="col-lg-6"><figure class="mb-0"><a href="{{ hero_place.get_absolute_url }}"><img class="img-fluid rounded-3 w-100 place-photo" src="{{ cover.image.url }}" alt="{{ cover.alt_text|default:hero_place.name }}" width="600" height="400" fetchpriority="high"></a><figcaption class="small mt-2"><a class="text-secondary" href="{{ hero_place.get_absolute_url }}">Discover {{ hero_place.name }}</a></figcaption></figure></div>
+      <div class="col-lg-6"><a href="{{ hero_place.get_absolute_url }}"><img class="img-fluid rounded-3 w-100 place-photo" src="{{ cover.image.url }}" alt="{{ cover.alt_text|default:hero_place.name }}" width="600" height="400" fetchpriority="high"></a></div>
       {% endif %}{% endwith %}{% endif %}
     </div>
   </div>
